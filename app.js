@@ -56,8 +56,6 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 
-app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
-
 // ADD SESSION SETTINGS HERE:
 
 const MongoStore = require("connect-mongo")(session);
@@ -82,8 +80,8 @@ app.locals.title = "Express React app";
 
 // ROUTES MIDDLEWARE STARTS HERE:
 
-const index = require('./routes/index')
-app.use("/",index);
+const index = require("./routes/index");
+app.use("/", index);
 
 const userRoutes = require("./routes/user");
 app.use("/api/user", userRoutes);

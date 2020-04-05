@@ -66,34 +66,34 @@ router.post("/login", (req, res) => {
 
 // Facebook Authentification Route
 
-router.get("/facebook", passport.authenticate("facebook"));
+// router.get("/facebook", passport.authenticate("facebook"));
 
-router.get(
-  "/facebook/callback",
-  passport.authenticate("facebook", {
-    successRedirect: "https://gem-box.herokuapp.com/profile", //check if dynamic possible
-    failureRedirect: "https://gem-box.herokuapp.com/login"
-  })
-);
+// router.get(
+//   "/facebook/callback",
+//   passport.authenticate("facebook", {
+//     successRedirect: "__path__", //check if dynamic possible
+//     failureRedirect: "__path__"
+//   })
+// );
 
 // Google Authentification Route
 
-router.get(
-  "/google",
-  passport.authenticate("google", {
-    scope: ["https://www.googleapis.com/auth/plus.login"]
-  })
-);
+// router.get(
+//   "/google",
+//   passport.authenticate("google", {
+//     scope: ["https://www.googleapis.com/auth/plus.login"]
+//   })
+// );
 
-router.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "https://gem-box.herokuapp.com/login"
-  }),
-  function(req, res) {
-    res.redirect("https://gem-box.herokuapp.com/profile");
-  }
-);
+// router.get(
+//   "/google/callback",
+//   passport.authenticate("google", {
+//     failureRedirect: "https://gem-box.herokuapp.com/login"
+//   }),
+//   function(req, res) {
+//     res.redirect("https://gem-box.herokuapp.com/profile");
+//   }
+// );
 
 // DELETE /api/auth/logout
 router.delete("/logout", (req, res) => {
