@@ -4,233 +4,121 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-const Wisdom = require("../models/Wisdom");
-const Gem = require("../models/Gem");
+const Song = require("../models/Song");
+const Instrument = require("../models/Instrument");
 const bcryptSalt = 10;
 mongoose
-  .connect("mongodb://localhost/gembox-database", { useNewUrlParser: true })
-  .then(x => {
+  .connect("mongodb://localhost/boum-tchak", { useNewUrlParser: true })
+  .then((x) => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Error connecting to mongo", err);
   });
+
 let users = [
   {
-    username: "alice",
-    travelInterests: "Biking",
-    password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt))
+    username: "jeanjacques",
+    password: bcrypt.hashSync("jeanjacques", bcrypt.genSaltSync(bcryptSalt)),
   },
   {
     username: "bob",
-    travelInterests: "Mountaining",
-    password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt))
-  }
+    password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
+  },
 ];
 
-let wisdoms = [
+let instruments = [
   {
-    author: "Samuel Johnson",
-    quote:
-      "All travel has its advantages. If the passenger visits better countries, he may learn to improve his own. And if fortune carries him to worse, he may learn to enjoy it"
+    label: "Clap",
+    colors: ["#ddd", "#7b7", "#7e7"],
+    sounds: ['', "sounds/clap1.wav", "sounds/poc.wav"],
   },
   {
-    author: "Frank Herbert",
-    quote:
-      "Without new experiences, something inside of us sleeps. The sleeper must awaken."
+    label: "Snares",
+    colors: ["#ddd", "#6f5", "#bfc"],
+    sounds: ['', "sounds/snare1.wav", "sounds/snare2.wav"],
   },
   {
-    author: "Samuel Johnson",
-    quote:
-      "he use of traveling is to regulate imagination by reality, and instead of thinking how things may be, to see them as they are."
+    label: "Kicks",
+    colors: ["#ddd", "#baa", "#ecb"],
+    sounds: ['', "sounds/kick1.wav", "sounds/kick2.wav"],
   },
   {
-    author: "Henry David Thoreau",
-    quote:
-      "The man who goes alone can start today, but he who travels with another must wait till that other is ready."
+    label: "Hi-Hats",
+    colors: ["#ddd", "#b75", "#da6", "#fb9"],
+    sounds: [
+      '',
+      "sounds/hiHat1.wav",
+      "sounds/hiHat2.wav",
+      "sounds/hiHat3.wav",
+    ],
   },
   {
-    author: "Lawrence Block",
-    quote:
-      "Our happiest moments as tourists always seem to come when we stumble upon one thing while in pursuit of something else."
+    label: "Vinyl",
+    colors: ["#ddd", "#44a", "#55d", "#67f"],
+    sounds: [
+      '',
+      "sounds/vinyl1.wav",
+      "sounds/vinyl2.wav",
+      "sounds/vinyl3.wav",
+    ],
   },
-  {
-    author: "Samuel Johnson",
-    quote:
-      "he use of traveling is to regulate imagination by reality, and instead of thinking how things may be, to see them as they are."
-  },
-  {
-    author: "Martin Buber",
-    quote:
-      "All journeys have secret destinations of which the traveler is unaware."
-  },
-  {
-    quote:
-      "I would have wound up a little ignorant white Southern female, which was not my idea of a good life.",
-    author: "Lauren Hutton"
-  },
-  {
-    author: "Milton Glaser",
-    quote: "Travel penetrates your consciousness, but not in a rational way."
-  },
-  {
-    author: "Helen Keller",
-    quote: "Life is either a daring adventure or nothing."
-  },
-  {
-    author: "René Descartes",
-    quote: "Traveling is almost like talking with men of other centuries."
-  },
-  {
-    author: "Henry Miller",
-    quote: "One's destination is never a place, but a new way of seeing things."
-  },
-  {
-    author: "Caskie Stinnett",
-    quote: "I travel a lot; I hate having my life disrupted by routine."
-  }
 ];
-let gems = [
-  // example 1
+
+const partitions =[
+  [
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0, 0, 0],
+    [1, 2, 3, 2, 0, 1, 2, 1]
+  ],
+  [
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 2, 0, 0, 1, 1]
+  ],
+  [
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 2, 0, 2, 0, 2, 0, 1],
+    [1, 0, 0, 0, 2, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0, 2, 0],
+    [0, 0, 0, 2, 0, 1, 0, 1]
+  ]
+]
+
+let songs = [
   {
-    title: "Niagara Waterfall",
-    description: "we captured this amazing picture of the world famous marvel",
-    goodToKnow: "water is cold",
-    imageUrl:
-      "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-    discovery: true,
-    category: "nature",
-    visitedDate: "",
-    latitude: 59.913868,
-    longitude: 10.752245,
-    locationName:
-      "7311 Porter Road, Niagara Falls, New York 14304, United States",
-    timestamps: {
-      createdAt: "created_at",
-      updatedAt: "updated_at"
-    }
+    title: "Bipappalouda",
+    partition: partitions[0],
+    instruments: musicLines,
+    tempo: 120
   },
-  // example 2
   {
-    title: "This super spot",
-    description: "That's a very cool spot, we just ca't believe that",
-    goodToKnow: "Spot spot spot",
-    imageUrl:
-      "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-    discovery: true,
-    category: "nature",
-    visitedDate: "",
-    latitude: 39.758602,
-    longitude: -104.997437,
-    locationName:
-      "Amante Coffee, 1612 17th St, Denver, Colorado 80202, United States",
-    timestamps: {
-      createdAt: "created_at",
-      updatedAt: "updated_at"
-    }
+    title: "Song 2",
+    partition: partitions[1],
+    instruments: musicLines,
+    tempo: 120
   },
-  // example 3
   {
-    title: "Hiking in the Mountains",
-    description: "That's a very cool spot, we just ca't believe that",
-    goodToKnow: "for advanced hickers only",
-    imageUrl:
-      "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-    discovery: true,
-    category: "hikes",
-    visitedDate: "",
-    latitude: 50.937531,
-    longitude: 6.960279,
-    locationName: "Unter Käster 1, 50667 Köln, Germany",
-    timestamps: {
-      createdAt: "created_at",
-      updatedAt: "updated_at"
-    }
-  },
-  // example 4
-  {
-    title: "Hiking in the Mountains",
-    description: "That's a very cool spot, we just ca't believe that",
-    goodToKnow: "for advanced hickers only",
-    imageUrl:
-      "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-    discovery: true,
-    category: "hikes",
-    visitedDate: "",
-    latitude: 39.08252,
-    longitude: -94.582306,
-    locationName:
-      "Grand Boulevard Lofts, 1006 Grand Blvd, Kansas City, Missouri 64106, United States",
-    timestamps: {
-      createdAt: "created_at",
-      updatedAt: "updated_at"
-    }
-  },
-  // example 5
-  {
-    title: "The History museum",
-    description:
-      "Discover the history and cultureof locals and ravel trough time",
-    goodToKnow: "20usd admission fee",
-    imageUrl:
-      "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
-    discovery: true,
-    category: "cultureArts",
-    visitedDate: "",
-    latitude: 55.755825,
-    longitude: 37.617298,
-    locationName:
-      "Russia, Московская область, Москва, поселение Московский, 108811, Дп Просвещенец 31",
-    timestamps: {
-      createdAt: "created_at",
-      updatedAt: "updated_at"
-    }
+    title: "A Ballad",
+    partition: partitions[2],
+    instruments: musicLines,
+    tempo: 120
   }
-];
+]
 
 User.deleteMany()
   .then(() => {
     return User.create(users);
   })
-  .then(usersCreated => {
+  .then((usersCreated) => {
     console.log(`${usersCreated.length} users created with the following id:`);
-    console.log(usersCreated.map(u => u._id));
-  })
-  .then(() => {
-    // Close properly the connection to Mongoose
-    mongoose.disconnect();
-  })
-  .catch(err => {
-    mongoose.disconnect();
-    throw err;
-  });
-
-Wisdom.deleteMany()
-  .then(() => {
-    return Wisdom.create(wisdoms);
-  })
-  .then(wisdoms => {
-    console.log(`${wisdoms.length} wisdoms created with the following id:`);
-    console.log(wisdoms.map(u => u._id));
-  })
-  .then(() => {
-    // Close properly the connection to Mongoose
-    mongoose.disconnect();
-  })
-  .catch(err => {
-    mongoose.disconnect();
-    throw err;
-  });
-/*
-Gem.deleteMany()
-  .then(() => {
-    return Gem.create(gems);
-  })
-  .then((gems) => {
-    console.log(`${gems.length} gems created with the following id:`);
-    console.log(gems.map((u) => u._id));
+    console.log(usersCreated.map((u) => u._id));
   })
   .then(() => {
     // Close properly the connection to Mongoose
@@ -239,4 +127,4 @@ Gem.deleteMany()
   .catch((err) => {
     mongoose.disconnect();
     throw err;
-  });  */
+  });

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Song = require("./Song");
+const Instrument = require("./Instrument")
 
 const UserSchema = new Schema(
   {
@@ -10,6 +12,8 @@ const UserSchema = new Schema(
     password: {
       type: String
     },
+    songs: [{ type: Schema.Types.ObjectId, ref: "Song" }],
+    customInstruments: songs: [{ type: Schema.Types.ObjectId, ref: "Instrument" }]
   },
 
   {

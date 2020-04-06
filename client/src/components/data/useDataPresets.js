@@ -24,10 +24,10 @@ export const useDataPresets = () => {
     ],
     [
       [0, 0, 1, 0, 0, 0, 1, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [1, 0, 0, 0, 1, 0, 0, 0],
-      [1, 2, 3, 2, 0, 1, 2, 1]
+      [0, 2, 0, 2, 0, 2, 0, 1],
+      [1, 0, 0, 0, 2, 0, 0, 0],
+      [1, 0, 0, 0, 1, 0, 2, 0],
+      [0, 0, 0, 2, 0, 1, 0, 1]
     ]
   ];
 
@@ -97,6 +97,12 @@ export const useDataPresets = () => {
     {
       title: "Song 2",
       partition: partitions[1],
+      instruments: musicLines,
+      tempo: 120
+    },
+    {
+      title: "A Ballad",
+      partition: partitions[2],
       instruments: musicLines,
       tempo: 120
     }
