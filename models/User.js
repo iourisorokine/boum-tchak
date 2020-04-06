@@ -12,8 +12,18 @@ const UserSchema = new Schema(
     password: {
       type: String
     },
-    songs: [{ type: Schema.Types.ObjectId, ref: "Song" }],
-    customInstruments: songs: [{ type: Schema.Types.ObjectId, ref: "Instrument" }]
+    songs: [
+      { 
+        type: Schema.Types.ObjectId, 
+        ref: "Song" 
+      }
+    ],
+    customInstruments: [
+      { 
+        type: Schema.Types.ObjectId, 
+        ref: "Instrument" 
+      }
+    ]
   },
 
   {
