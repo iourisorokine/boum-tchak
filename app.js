@@ -89,10 +89,11 @@ const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
 
 const instrumentRoutes = require("./routes/instrument");
-app.use("api/instument", instrumentRoutes);
+app.use("/api/instrument", instrumentRoutes);
 
+// If no routes match, react html is sent
 app.use((req, res) => {
-  res.sendFile(__dirname + "/client/build/index.html");
+  res.sendFile(__dirname + "/client/public/index.html");
 });
 
 module.exports = app;

@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, ControlsPad } from "../../ui-kit/styles";
 
-export const AdvControls = ({saveSong}) => {
+export const AdvControls = ({ saveSong }) => {
+
   return (
     <ControlsPad>
       <Button onClick={saveSong}>Save Song</Button>

@@ -1,27 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { CreateLine } from "./CreateLine";
 import { MusicGrid } from "../../ui-kit";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
-import { useDataPresets } from "../data/useDataPresets";
+import { preparePartition } from "../utils/instruments";
+import axios from "axios";
 
-const { startPartition, musicLines, songs } = useDataPresets();
+const START_PARTITION_LENGTH = 8;
 const DEFAULT_TEMPO = 120;
 const DEFAULT_TIMEOUT = 60000 / 120 / 4;
 
 export class CreateSong extends React.Component {
   state = {
-    partition: startPartition,
+    partition: [],
     isPlaying: false,
     musicPlaying: null,
     highlightedNote: -1,
+    musicLines: [],
     tempo: DEFAULT_TEMPO,
     timeoutTempo: DEFAULT_TIMEOUT,
-    isNotePlayedOnClick: true
+    isNotePlayedOnClick: true,
   };
 
   componentWillUnmount() {
     this.stopPlaying();
+  }
+
+  componentDidMount() {
+    axios
+      .get("/api/instrument/starter")
+      .then((instruments) => {
+        console.log(instruments.data);
+        const musicLines = instruments.data.map((line) => {
+          const lineSounds = [];
+          line.sounds.forEach((el) => {
+            if (el) {
+              lineSounds.push(new Audio(el));
+            } else {
+              lineSounds.push(null);
+            }
+          });
+          return {
+            label: line.name,
+            colors: line.colors,
+            sounds: lineSounds,
+          };
+        });
+        const newPartition = preparePartition(
+          musicLines,
+          START_PARTITION_LENGTH
+        );
+        this.setState({ musicLines, partition: newPartition });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   toggleActiveNote = (col, row, sounds) => {
@@ -59,7 +92,7 @@ export class CreateSong extends React.Component {
         if (counter >= partition[0].length) {
           counter = 0;
         }
-      }, tempo)
+      }, tempo),
     });
   };
 
@@ -73,12 +106,16 @@ export class CreateSong extends React.Component {
   };
 
   onPlayBtnPress = () => {
-    this.playMusic(musicLines, this.state.partition, this.state.timeoutTempo);
+    this.playMusic(
+      this.state.musicLines,
+      this.state.partition,
+      this.state.timeoutTempo
+    );
   };
 
   addOneBar = () => {
     const updatedPartition = [...this.state.partition];
-    updatedPartition.forEach(el => {
+    updatedPartition.forEach((el) => {
       el.push(0);
     });
     this.setState({ partition: updatedPartition });
@@ -87,54 +124,43 @@ export class CreateSong extends React.Component {
   removeOneBar = () => {
     const updatedPartition = [...this.state.partition];
     const last = updatedPartition[0].length - 1;
-    updatedPartition.forEach(el => {
+    updatedPartition.forEach((el) => {
       el.splice(last, 1);
     });
     this.setState({ partition: updatedPartition });
   };
 
-  saveSong = () => {
-    const newSongPartition = [...this.state.partition];
-    const newSong = {
-      title: "test song",
-      partition: newSongPartition,
-      instruments: musicLines,
-      tempo: this.state.tempo
-    };
-    songs.push(newSong);
-  };
-
-  setIsNotePlayedOnClick = value => {
+  setIsNotePlayedOnClick = (value) => {
     this.setState({ isNotePlayedOnClick: value });
   };
 
-  setTempo = value => {
+  setTempo = (value) => {
     this.setState({ tempo: value });
   };
 
-  setTimeoutTempo = value => {
+  setTimeoutTempo = (value) => {
     this.setState({ timeoutTempo: value });
   };
 
   render() {
-    console.log("state", this.state);
     return (
       <React.Fragment>
         <MusicGrid>
-          {musicLines.map((line, i) => {
-            return (
-              <CreateLine
-                key={i}
-                linePosition={i}
-                label={line.label}
-                notes={this.state.partition[i]}
-                noteColors={line.colors}
-                toggleActiveNote={this.toggleActiveNote}
-                sounds={line.sounds}
-                highlightedNote={this.state.highlightedNote}
-              />
-            );
-          })}
+          {this.state.musicLines &&
+            this.state.musicLines.map((line, i) => {
+              return (
+                <CreateLine
+                  key={i}
+                  linePosition={i}
+                  label={line.label}
+                  notes={this.state.partition[i]}
+                  noteColors={line.colors}
+                  toggleActiveNote={this.toggleActiveNote}
+                  sounds={line.sounds}
+                  highlightedNote={this.state.highlightedNote}
+                />
+              );
+            })}
         </MusicGrid>
         <PlayControls
           onPlayBtnPress={this.onPlayBtnPress}
@@ -148,7 +174,7 @@ export class CreateSong extends React.Component {
           isNotePlayedOnClick={this.state.isNotePlayedOnClick}
           setIsNotePlayedOnClick={this.setIsNotePlayedOnClick}
         />
-        <AdvControls saveSong={this.saveSong} />
+        <AdvControls saveSong={() => {}} />
       </React.Fragment>
     );
   }

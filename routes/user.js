@@ -32,11 +32,7 @@ router.get("/:id", (req, res) => {
 router.patch("/update", (req, res) => {
   const { username } = req.body;
   const userId = req.user._id;
-  User.findByIdAndUpdate(
-    userId,
-    { username },
-    { new: true }
-  )
+  User.findByIdAndUpdate(userId, { username }, { new: true })
     .then((user) => {
       res.json(user);
     })
