@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const InstrumentSchema = new Schema({
-  label: String,
+  name: String,
   colors: [String],
   sounds: [String],
 });

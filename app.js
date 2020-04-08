@@ -3,7 +3,6 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
-const favicon = require("serve-favicon");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
@@ -88,6 +87,9 @@ app.use("/api/user", userRoutes);
 
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
+
+const instrumentRoutes = require("./routes/instrument");
+app.use("api/instument", instrumentRoutes);
 
 app.use((req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");

@@ -31,94 +31,41 @@ let users = [
 
 let instruments = [
   {
-    label: "Clap",
+    name: "Clap",
     colors: ["#ddd", "#7b7", "#7e7"],
-    sounds: ['', "sounds/clap1.wav", "sounds/poc.wav"],
+    sounds: ["", "sounds/clap1.wav", "sounds/poc.wav"],
   },
   {
-    label: "Snares",
+    name: "Snares",
     colors: ["#ddd", "#6f5", "#bfc"],
-    sounds: ['', "sounds/snare1.wav", "sounds/snare2.wav"],
+    sounds: ["", "sounds/snare1.wav", "sounds/snare2.wav"],
   },
   {
-    label: "Kicks",
+    name: "Kicks",
     colors: ["#ddd", "#baa", "#ecb"],
-    sounds: ['', "sounds/kick1.wav", "sounds/kick2.wav"],
+    sounds: ["", "sounds/kick1.wav", "sounds/kick2.wav"],
   },
   {
-    label: "Hi-Hats",
+    name: "Hi-Hats",
     colors: ["#ddd", "#b75", "#da6", "#fb9"],
-    sounds: [
-      '',
-      "sounds/hiHat1.wav",
-      "sounds/hiHat2.wav",
-      "sounds/hiHat3.wav",
-    ],
+    sounds: ["", "sounds/hiHat1.wav", "sounds/hiHat2.wav", "sounds/hiHat3.wav"],
   },
   {
-    label: "Vinyl",
+    name: "Vinyl",
     colors: ["#ddd", "#44a", "#55d", "#67f"],
-    sounds: [
-      '',
-      "sounds/vinyl1.wav",
-      "sounds/vinyl2.wav",
-      "sounds/vinyl3.wav",
-    ],
+    sounds: ["", "sounds/vinyl1.wav", "sounds/vinyl2.wav", "sounds/vinyl3.wav"],
   },
 ];
 
-const partitions =[
-  [
-    [0, 0, 1, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 1, 0, 0, 0],
-    [1, 2, 3, 2, 0, 1, 2, 1]
-  ],
-  [
-    [0, 0, 1, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 1, 0],
-    [0, 0, 1, 2, 0, 0, 1, 1]
-  ],
-  [
-    [0, 0, 1, 0, 0, 0, 1, 0],
-    [0, 2, 0, 2, 0, 2, 0, 1],
-    [1, 0, 0, 0, 2, 0, 0, 0],
-    [1, 0, 0, 0, 1, 0, 2, 0],
-    [0, 0, 0, 2, 0, 1, 0, 1]
-  ]
-]
-
-let songs = [
-  {
-    title: "Bipappalouda",
-    partition: partitions[0],
-    instruments: musicLines,
-    tempo: 120
-  },
-  {
-    title: "Song 2",
-    partition: partitions[1],
-    instruments: musicLines,
-    tempo: 120
-  },
-  {
-    title: "A Ballad",
-    partition: partitions[2],
-    instruments: musicLines,
-    tempo: 120
-  }
-]
-
-User.deleteMany()
+Instrument.deleteMany()
   .then(() => {
-    return User.create(users);
+    return Instrument.create(instruments);
   })
-  .then((usersCreated) => {
-    console.log(`${usersCreated.length} users created with the following id:`);
-    console.log(usersCreated.map((u) => u._id));
+  .then((instrumentsCreated) => {
+    console.log(
+      `${instrumentsCreated.length} instruments created with the following id:`
+    );
+    console.log(instrumentsCreated.map((u) => u._id));
   })
   .then(() => {
     // Close properly the connection to Mongoose
@@ -128,3 +75,65 @@ User.deleteMany()
     mongoose.disconnect();
     throw err;
   });
+
+const partitions = [
+  [
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0, 0, 0],
+    [1, 2, 3, 2, 0, 1, 2, 1],
+  ],
+  [
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 2, 0, 0, 1, 1],
+  ],
+  [
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 2, 0, 2, 0, 2, 0, 1],
+    [1, 0, 0, 0, 2, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0, 2, 0],
+    [0, 0, 0, 2, 0, 1, 0, 1],
+  ],
+];
+
+let songs = [
+  {
+    title: "Bipappalouda",
+    partition: partitions[0],
+    instruments: [""],
+    tempo: 120,
+  },
+  {
+    title: "Song 2",
+    partition: partitions[1],
+    instruments: [""],
+    tempo: 120,
+  },
+  {
+    title: "A Ballad",
+    partition: partitions[2],
+    instruments: [""],
+    tempo: 120,
+  },
+];
+
+// User.deleteMany()
+//   .then(() => {
+//     return User.create(users);
+//   })
+//   .then((usersCreated) => {
+//     console.log(`${usersCreated.length} users created with the following id:`);
+//     console.log(usersCreated.map((u) => u._id));
+//   })
+//   .then(() => {
+//     // Close properly the connection to Mongoose
+//     mongoose.disconnect();
+//   })
+//   .catch((err) => {
+//     mongoose.disconnect();
+//     throw err;
+//   });
