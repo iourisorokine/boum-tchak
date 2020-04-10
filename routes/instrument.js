@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// buikds a basic drumkit at the start of the app
 router.get("/starter", (req, res) => {
   Instrument.find({ name: { $in: ["Kicks", "Snares", "Hi-Hats", "Clap"] } })
     .then((instruments) => {

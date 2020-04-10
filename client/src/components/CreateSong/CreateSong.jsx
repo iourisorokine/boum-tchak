@@ -3,7 +3,12 @@ import { CreateLine } from "./CreateLine";
 import { MusicGrid } from "../../ui-kit";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
-import { preparePartition } from "../utils/instruments";
+import { AddInstrument } from "./AddInstrument";
+import {
+  preparePartition,
+  prepareInstruments,
+  prepareOneInstrument,
+} from "../utils/instruments";
 import axios from "axios";
 
 const START_PARTITION_LENGTH = 8;
@@ -20,6 +25,7 @@ export class CreateSong extends React.Component {
     tempo: DEFAULT_TEMPO,
     timeoutTempo: DEFAULT_TIMEOUT,
     isNotePlayedOnClick: true,
+    isAddInstrumentVisible: false,
   };
 
   componentWillUnmount() {
@@ -27,35 +33,28 @@ export class CreateSong extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get("/api/instrument/starter")
-      .then((instruments) => {
-        console.log(instruments.data);
-        const musicLines = instruments.data.map((line) => {
-          const lineSounds = [];
-          line.sounds.forEach((el) => {
-            if (el) {
-              lineSounds.push(new Audio(el));
-            } else {
-              lineSounds.push(null);
-            }
-          });
-          return {
-            label: line.name,
-            colors: line.colors,
-            sounds: lineSounds,
-          };
-        });
-        const newPartition = preparePartition(
-          musicLines,
-          START_PARTITION_LENGTH
-        );
-        this.setState({ musicLines, partition: newPartition });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const prepareMusic = async () => {
+      const { data } = await axios.get("/api/instrument/starter");
+      const musicLines = prepareInstruments(data);
+      const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
+      this.setState({ musicLines, partition: newPartition });
+    };
+    prepareMusic();
   }
+
+  addInstrument = (instr) => {
+    const length = this.state.partition[0] ? this.state.partition[0].length : 8;
+    const newPartitionRow = [];
+    for (let i = 1; i <= length; i++) {
+      newPartitionRow.push(0);
+    }
+    const newPartition = [...this.state.partition];
+    const newMusicLines = [...this.state.musicLines];
+    const preparedNewInstrument = prepareOneInstrument(instr);
+    newMusicLines.push(preparedNewInstrument);
+    newPartition.push(newPartitionRow);
+    this.setState({ musicLines: newMusicLines, partition: newPartition });
+  };
 
   toggleActiveNote = (col, row, sounds) => {
     const updatedPartition = [...this.state.partition];
@@ -142,6 +141,12 @@ export class CreateSong extends React.Component {
     this.setState({ timeoutTempo: value });
   };
 
+  toggleIsAddInstrumentVisible = () => {
+    this.setState({
+      isAddInstrumentVisible: !this.state.isAddInstrumentVisible,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -174,7 +179,16 @@ export class CreateSong extends React.Component {
           isNotePlayedOnClick={this.state.isNotePlayedOnClick}
           setIsNotePlayedOnClick={this.setIsNotePlayedOnClick}
         />
-        <AdvControls saveSong={() => {}} />
+        <AdvControls
+          saveSong={() => {}}
+          toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
+        />
+        {this.state.isAddInstrumentVisible && (
+          <AddInstrument
+            addInstrument={this.addInstrument}
+            toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
+          />
+        )}
       </React.Fragment>
     );
   }

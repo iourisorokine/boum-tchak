@@ -60,7 +60,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
+  width: 900px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 `;
 
 export const Line = styled.div`
@@ -72,4 +74,18 @@ export const LineLabel = styled.p`
   font-size: 10px;
   line-height: 10px;
   width: 60px;
+`;
+
+export const InstrumentBtn = styled.button`
+  height: 30px;
+  min-width: 40px;
+  margin: 8px;
+  padding: 0px 10px;
+  border-radius: 15px;
+  border: solid 1px black;
+  background-color: #fff;
+  font-size: 16px;
+  &:hover {
+    background-color: #7799dd;
+  }
 `;

@@ -9,5 +9,6 @@ export {
   LineLabel,
   HeaderLayout,
   HeaderTitle,
-  ButtonMenu
+  ButtonMenu,
+  InstrumentBtn,
 } from "./styles";
