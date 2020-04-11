@@ -11,4 +11,5 @@ export {
   HeaderTitle,
   ButtonMenu,
   InstrumentBtn,
+  NewInstruments,
 } from "./styles";

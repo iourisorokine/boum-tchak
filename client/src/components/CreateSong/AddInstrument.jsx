@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { InstrumentBtn } from "../../ui-kit";
+import { InstrumentBtn, NewInstruments } from "../../ui-kit";
 import axios from "axios";
 
 export const AddInstrument = ({
@@ -22,16 +22,16 @@ export const AddInstrument = ({
 
   console.log(newInstruments);
   return (
-    <div>
+    <NewInstruments>
       {newInstruments.map((instrument) => {
         return (
           <InstrumentBtn
             key={instrument.name}
-            onClick={()=>handleClick(instrument)}>
+            onClick={() => handleClick(instrument)}>
             {instrument.name}
           </InstrumentBtn>
         );
       })}
-    </div>
+    </NewInstruments>
   );
 };

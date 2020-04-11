@@ -89,3 +89,10 @@ export const InstrumentBtn = styled.button`
     background-color: #7799dd;
   }
 `;
+
+export const NewInstruments = styled.div`
+  margin: 5px;
+  border: solid 1px black;
+  border-radius: 3px;
+  padding: 10px;
+`
