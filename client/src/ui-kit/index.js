@@ -14,4 +14,5 @@ export {
   ButtonMenu,
   InstrumentBtn,
   ExpandedMenuItem,
+  SelectableItem,
 } from "./styles";

@@ -113,3 +113,11 @@ export const ExpandedMenuItem = styled.div`
   border-radius: 3px;
   padding: 10px;
 `;
+
+export const SelectableItem = styled.div`
+  width: 200px;
+  height: 30px;
+  &:hover {
+    background-color: #7799dd;
+  }
+`

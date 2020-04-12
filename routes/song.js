@@ -2,6 +2,16 @@ const express = require("express");
 const router = express.Router();
 const Song = require("../models/Song");
 
+router.get("/", (req, res) => {
+  Song.find()
+    .then((songs) => {
+      res.json(songs);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 router.get("/:title", (req, res) => {
   Song.find({ title })
     .then((song) => {

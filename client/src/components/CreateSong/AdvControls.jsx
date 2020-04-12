@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, ControlsPad } from "../../ui-kit/styles";
+import { Link } from "react-router-dom";
 
 export const AdvControls = ({
   toggleIsAddInstrumentVisible,
@@ -8,7 +9,9 @@ export const AdvControls = ({
   return (
     <ControlsPad>
       <Button onClick={toggleIsSaveSongVisible}>Save Song</Button>
-      <Button onClick={() => {}}>Load Song</Button>
+      <Link to="/load-song">
+        <Button onClick={() => {}}>Load Song</Button>
+      </Link>
       <Button onClick={toggleIsAddInstrumentVisible}>Add Line</Button>
       <Button onClick={() => {}}>Remove Line</Button>
     </ControlsPad>

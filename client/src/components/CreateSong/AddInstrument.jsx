@@ -7,10 +7,13 @@ export const AddInstrument = ({
   toggleIsAddInstrumentVisible,
 }) => {
   const [newInstruments, setNewInstruments] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     const fetchInstrumentsData = async () => {
       const { data } = await axios.get("/api/instrument");
       setNewInstruments(data);
+      setLoading(false);
     };
     fetchInstrumentsData();
   }, []);
