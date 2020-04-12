@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { InstrumentBtn, NewInstruments } from "../../ui-kit";
+import { InstrumentBtn, ExpandedMenuItem } from "../../ui-kit";
 import axios from "axios";
 
 export const AddInstrument = ({
@@ -22,7 +22,7 @@ export const AddInstrument = ({
 
   console.log(newInstruments);
   return (
-    <NewInstruments>
+    <ExpandedMenuItem>
       {newInstruments.map((instrument) => {
         return (
           <InstrumentBtn
@@ -32,6 +32,6 @@ export const AddInstrument = ({
           </InstrumentBtn>
         );
       })}
-    </NewInstruments>
+    </ExpandedMenuItem>
   );
 };

@@ -5,7 +5,7 @@ const SongSchema = new Schema(
   {
     title: String,
     partition: [[Number]],
-    instruments: Array,
+    instruments: [String],
     tempo: Number
   },
 );

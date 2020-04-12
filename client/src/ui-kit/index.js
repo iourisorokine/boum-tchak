@@ -11,5 +11,5 @@ export {
   HeaderTitle,
   ButtonMenu,
   InstrumentBtn,
-  NewInstruments,
+  ExpandedMenuItem,
 } from "./styles";

@@ -90,7 +90,7 @@ export const InstrumentBtn = styled.button`
   }
 `;
 
-export const NewInstruments = styled.div`
+export const ExpandedMenuItem = styled.div`
   margin: 5px;
   border: solid 1px black;
   border-radius: 3px;

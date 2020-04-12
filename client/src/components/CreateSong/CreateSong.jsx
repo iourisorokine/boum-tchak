@@ -4,6 +4,7 @@ import { MusicGrid } from "../../ui-kit";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
+import { SaveSong } from "./SaveSong";
 import {
   preparePartition,
   prepareInstruments,
@@ -26,6 +27,7 @@ export class CreateSong extends React.Component {
     timeoutTempo: DEFAULT_TIMEOUT,
     isNotePlayedOnClick: true,
     isAddInstrumentVisible: false,
+    isSaveSongVisible: false,
   };
 
   componentWillUnmount() {
@@ -147,6 +149,12 @@ export class CreateSong extends React.Component {
     });
   };
 
+  toggleIsSaveSongVisible = () => {
+    this.setState({
+      isSaveSongVisible: !this.state.isSaveSongVisible,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -180,8 +188,8 @@ export class CreateSong extends React.Component {
           setIsNotePlayedOnClick={this.setIsNotePlayedOnClick}
         />
         <AdvControls
-          saveSong={() => {}}
           toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
+          toggleIsSaveSongVisible={this.toggleIsSaveSongVisible}
         />
         {this.state.isAddInstrumentVisible && (
           <AddInstrument
@@ -189,6 +197,7 @@ export class CreateSong extends React.Component {
             toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
           />
         )}
+        {this.state.isSaveSongVisible && <SaveSong />}
       </React.Fragment>
     );
   }
