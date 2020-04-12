@@ -1,5 +1,7 @@
 export {
   Button,
+  PlayButton,
+  StopButton,
   ControlsPad,
   Tempo,
   MusicGrid,

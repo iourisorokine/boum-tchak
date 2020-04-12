@@ -14,6 +14,22 @@ export const Button = styled.button`
   }
 `;
 
+export const PlayButton = styled(Button)`
+  width: 60px;
+  background-color: #0f0;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+export const StopButton = styled(Button)`
+  width: 60px;
+  background-color: #f00;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
 export const ControlsPad = styled.div`
   padding: 10px;
 `;
@@ -92,7 +108,8 @@ export const InstrumentBtn = styled.button`
 
 export const ExpandedMenuItem = styled.div`
   margin: 5px;
+  min-width: 300px;
   border: solid 1px black;
   border-radius: 3px;
   padding: 10px;
-`
+`;

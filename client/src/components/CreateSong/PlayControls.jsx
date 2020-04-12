@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ControlsPad, Tempo } from "../../ui-kit/styles";
+import { Button, PlayButton, StopButton, ControlsPad, Tempo } from "../../ui-kit/styles";
 
 export const PlayControls = ({
   onPlayBtnPress,
@@ -32,9 +32,9 @@ export const PlayControls = ({
   return (
     <ControlsPad>
       {isPlaying ? (
-        <Button onClick={onStopBtnPress}>stop</Button>
+        <StopButton onClick={onStopBtnPress}>[]</StopButton>
       ) : (
-        <Button onClick={onPlayBtnPress}>play</Button>
+        <PlayButton onClick={onPlayBtnPress}>></PlayButton>
       )}
       <Button onClick={addOneBar}>+1 bar</Button>
       <Button onClick={removeOneBar}>-1 bar</Button>
