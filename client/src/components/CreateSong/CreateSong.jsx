@@ -1,6 +1,6 @@
 import React from "react";
 import { CreateLine } from "./CreateLine";
-import { MusicGrid } from "../../ui-kit";
+import { MusicGrid, ExpandedMenuItem } from "../../ui-kit";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
@@ -28,6 +28,7 @@ export class CreateSong extends React.Component {
     isNotePlayedOnClick: true,
     isAddInstrumentVisible: false,
     isSaveSongVisible: false,
+    bottomMessage: "",
   };
 
   componentWillUnmount() {
@@ -114,6 +115,26 @@ export class CreateSong extends React.Component {
     );
   };
 
+  saveTheSong = async (title) => {
+    const songInstruments = this.state.musicLines.map((el) => {
+      return el.id;
+    });
+    const songData = {
+      title,
+      partition: this.state.partition,
+      tempo: this.state.tempo,
+      instruments: songInstruments,
+    };
+    await axios.post("api/song/", songData);
+    this.setState({
+      isSaveSongVisible: false,
+      bottomMessage: `New song "${title}" successfully saved!`,
+    });
+    setTimeout(() => {
+      this.setState({ bottomMessage: "" });
+    }, 1500);
+  };
+
   addOneBar = () => {
     const updatedPartition = [...this.state.partition];
     updatedPartition.forEach((el) => {
@@ -156,6 +177,7 @@ export class CreateSong extends React.Component {
   };
 
   render() {
+    console.log(this.state.isSaveSongVisible);
     return (
       <React.Fragment>
         <MusicGrid>
@@ -197,7 +219,14 @@ export class CreateSong extends React.Component {
             toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
           />
         )}
-        {this.state.isSaveSongVisible && <SaveSong />}
+        {this.state.isSaveSongVisible && (
+          <SaveSong saveTheSong={this.saveTheSong} />
+        )}
+        {this.state.bottomMessage && (
+          <ExpandedMenuItem>
+            <p>{this.state.bottomMessage}</p>
+          </ExpandedMenuItem>
+        )}
       </React.Fragment>
     );
   }

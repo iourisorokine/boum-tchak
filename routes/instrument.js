@@ -34,4 +34,15 @@ router.get("/:name", (req, res) => {
     });
 });
 
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+  Instrument.findById(id)
+    .then((instrument) => {
+      res.json(instrument);
+    })
+    .catch((e) => {
+      res.json(e);
+    });
+});
+
 module.exports = router;

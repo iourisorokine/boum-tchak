@@ -1,7 +1,10 @@
 import React from "react";
 import { Button, ControlsPad } from "../../ui-kit/styles";
 
-export const AdvControls = ({ toggleIsAddInstrumentVisible, toggleIsSaveSongVisible }) => {
+export const AdvControls = ({
+  toggleIsAddInstrumentVisible,
+  toggleIsSaveSongVisible,
+}) => {
   return (
     <ControlsPad>
       <Button onClick={toggleIsSaveSongVisible}>Save Song</Button>

@@ -7,14 +7,14 @@ export const Note = ({
   toggleActiveNote,
   linePosition,
   sounds,
-  highlighted
+  highlighted,
 }) => {
   const dynamicNoteStyle = {
     height: 30,
     width: 30,
     margin: 1,
     backgroundColor: colors[status],
-    opacity: highlighted ? 0.7 : 1
+    opacity: highlighted ? 0.5 : 1,
   };
 
   const onNoteClick = () => {

@@ -21,6 +21,7 @@ export const prepareInstruments = (instruments) => {
       }
     });
     return {
+      id: line._id,
       label: line.name,
       colors: line.colors,
       sounds: lineSounds,
@@ -39,6 +40,7 @@ export const prepareOneInstrument = (instrument) => {
     }
   });
   return {
+    id: instrument._id,
     label: instrument.name,
     colors: instrument.colors,
     sounds: lineSounds,
