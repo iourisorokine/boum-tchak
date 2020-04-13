@@ -5,7 +5,10 @@ const SongSchema = new Schema(
   {
     title: String,
     partition: [[Number]],
-    instruments: [String],
+    instruments: [{ 
+      type: Schema.Types.ObjectId, 
+      ref: "Instrument" 
+    }],
     tempo: Number
   },
 );

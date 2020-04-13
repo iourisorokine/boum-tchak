@@ -36,13 +36,35 @@ export class CreateSong extends React.Component {
   }
 
   componentDidMount() {
-    const prepareMusic = async () => {
+    const prepareNewMusic = async () => {
       const { data } = await axios.get("/api/instrument/starter");
       const musicLines = prepareInstruments(data);
       const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
       this.setState({ musicLines, partition: newPartition });
     };
-    prepareMusic();
+
+    const prepareLoadedSong = async () => {
+      const songId = this.props.match.params.id;
+      const { data: loadedSong } = await axios.get(`/api/song/${songId}`);
+      const newInstruments = [...loadedSong.instruments];
+      const musicLines = prepareInstruments(newInstruments);
+      this.setState({
+        musicLines,
+        partition: loadedSong.partition,
+        tempo: loadedSong.tempo,
+      });
+    };
+
+    if (
+      this.props &&
+      this.props.match &&
+      this.props.match.params &&
+      this.props.match.params.id
+    ) {
+      prepareLoadedSong();
+    } else {
+      prepareNewMusic();
+    }
   }
 
   addInstrument = (instr) => {
@@ -177,7 +199,7 @@ export class CreateSong extends React.Component {
   };
 
   render() {
-    console.log(this.state.isSaveSongVisible);
+    console.log("####STATE", this.state);
     return (
       <React.Fragment>
         <MusicGrid>

@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     });
 });
 
-// buikds a basic drumkit at the start of the app
+// builds a basic drumkit at the start of the app
 router.get("/starter", (req, res) => {
   Instrument.find({ name: { $in: ["Kicks", "Snares", "Hi-Hats", "Clap"] } })
     .then((instruments) => {
@@ -23,10 +23,11 @@ router.get("/starter", (req, res) => {
     });
 });
 
-router.get("/:name", (req, res) => {
-  const name = req.params.name;
-  Instrument.find({ name })
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  Instrument.findById(id)
     .then((instrument) => {
+      comsole.log("the response:", instrument);
       res.json(instrument);
     })
     .catch((e) => {
@@ -34,9 +35,9 @@ router.get("/:name", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  Instrument.findById(id)
+router.get("/:name", (req, res) => {
+  const name = req.params.name;
+  Instrument.find({ name })
     .then((instrument) => {
       res.json(instrument);
     })

@@ -14,7 +14,8 @@ class App extends React.Component {
         <Header />
         <Wrapper>
           <Switch>
-            <Route exact path="/" render={(props) => <CreateSong />} />
+            <Route exact path="/" component={CreateSong} />
+            <Route exact path="/song/:id" component={CreateSong} />
             <Route
               exact
               path="/listen"

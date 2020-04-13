@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ExpandedMenuItem, SelectableItem, Button } from "../../ui-kit";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export const LoadSong = () => {
@@ -9,11 +10,11 @@ export const LoadSong = () => {
 
   useEffect(() => {
     setLoading(true);
-    const fetchData = async () =>{
-        const {data} = await axios.get("/api/song")
-        setSongsList(data);
-        setLoading(false);
-    }
+    const fetchData = async () => {
+      const { data } = await axios.get("/api/song");
+      setSongsList(data);
+      setLoading(false);
+    };
     fetchData();
   }, []);
 
@@ -22,15 +23,30 @@ export const LoadSong = () => {
       <h3>Load Song</h3>
       {songsList.map((el) => {
         return (
-          <SelectableItem key={el._id} onClick={()=>{setSelectedSong(el._id)}}>
-            <p>{el.title}</p>
+          <SelectableItem
+            key={el._id}
+            onClick={() => {
+              setSelectedSong(`/song/${el._id}`);
+            }}>
+            <p>
+              <span>
+                {selectedSong && selectedSong === `/song/${el._id}` && "--> "}
+              </span>
+              {el.title}
+            </p>
           </SelectableItem>
         );
       })}
-      <div>
-        <Button>Load</Button>
-        <Button>Cancel</Button>
-      </div>
+      {selectedSong && (
+        <div>
+          <Link to={selectedSong}>
+            <Button>Load</Button>
+          </Link>
+          <Link to="/">
+            <Button>Cancel</Button>
+          </Link>
+        </div>
+      )}
     </ExpandedMenuItem>
   );
 };
