@@ -15,4 +15,5 @@ export {
   InstrumentBtn,
   ExpandedMenuItem,
   SelectableItem,
+  StyledNote,
 } from "./styles";

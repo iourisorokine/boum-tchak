@@ -1,17 +1,8 @@
 import React from "react";
+import { StyledNote } from "../../ui-kit";
 
-export const Note = ({
-  status,
-  colors,
-  highlighted
-}) => {
-  const noteStyle = {
-    height: 30,
-    width: 30,
-    margin: 1,
-    backgroundColor: colors[status],
-    opacity: highlighted ? 0.7 : 1
-  };
+export const Note = ({ status, colors, highlighted }) => {
+  const color = colors[status];
 
-  return <div style={noteStyle}></div>;
+  return <StyledNote color={color} highlighted={highlighted} />;
 };

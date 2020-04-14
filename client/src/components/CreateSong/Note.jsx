@@ -1,4 +1,5 @@
 import React from "react";
+import { StyledNote } from "../../ui-kit";
 
 export const Note = ({
   notePosition,
@@ -9,17 +10,12 @@ export const Note = ({
   sounds,
   highlighted,
 }) => {
-  const dynamicNoteStyle = {
-    height: 30,
-    width: 30,
-    margin: 1,
-    backgroundColor: colors[status],
-    opacity: highlighted ? 0.5 : 1,
-  };
 
   const onNoteClick = () => {
     toggleActiveNote(notePosition, linePosition, sounds);
   };
 
-  return <div style={dynamicNoteStyle} onClick={onNoteClick}></div>;
+  const color = colors[status];
+
+  return <StyledNote color={color} highlighted={highlighted} onClick={onNoteClick}/>;
 };
