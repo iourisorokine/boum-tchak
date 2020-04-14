@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { DisplaySong } from "./DisplaySong";
-import { useDataPresets } from "../data/useDataPresets";
-
-const { songs } = useDataPresets();
+import { prepareInstruments } from "../utils/instruments";
 
 export const SongsList = () => {
+  const [songs, setSongs] = useState([]);
+
+  useEffect(() => {
+    const prepareLoadedSongs = async () => {
+      const { data: loadedSongs } = await axios.get(`/api/song/`);
+      loadedSongs.forEach((song) => {
+        const preparedInstruments = prepareInstruments(song.instruments);
+        song.instruments = preparedInstruments;
+      });
+      setSongs(loadedSongs);
+    };
+    prepareLoadedSongs();
+  }, []);
+
   return (
     <React.Fragment>
-      {songs.map(song => {
+      {songs.map((song) => {
         return (
           <DisplaySong
             partition={song.partition}

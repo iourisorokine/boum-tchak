@@ -4,6 +4,7 @@ const Song = require("../models/Song");
 
 router.get("/", (req, res) => {
   Song.find()
+    .populate("instruments")
     .then((songs) => {
       res.json(songs);
     })
