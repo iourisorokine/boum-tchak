@@ -17,4 +17,6 @@ export {
   SelectableItem,
   StyledNote,
   DeleteButton,
+  SongPost,
+  SongTitle,
 } from "./styles";

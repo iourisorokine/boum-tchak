@@ -143,3 +143,18 @@ export const DeleteButton = styled.p`
     color: white;
   }
 `;
+
+export const SongPost = styled.div`
+  margin: 30px 10px;
+  border: solid 1px black;
+  border-radius: 10px;
+  padding-top: 10px;
+  width: 80%;
+`;
+
+export const SongTitle = styled.div`
+  margin-top: -20px;
+  padding: 0px 8px;
+  background-color: white;
+  max-width: 200px;
+`;

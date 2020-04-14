@@ -23,6 +23,7 @@ export const SongsList = () => {
       {songs.map((song) => {
         return (
           <DisplaySong
+            title={song.title}
             partition={song.partition}
             musicLines={song.instruments}
             tempo={song.tempo}
