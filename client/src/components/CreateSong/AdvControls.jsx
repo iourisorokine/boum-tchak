@@ -5,15 +5,16 @@ import { Link } from "react-router-dom";
 export const AdvControls = ({
   toggleIsAddInstrumentVisible,
   toggleIsSaveSongVisible,
+  toggleIsDeleteLineVisible,
 }) => {
   return (
     <ControlsPad>
       <Button onClick={toggleIsSaveSongVisible}>Save Song</Button>
       <Link to="/load-song">
-        <Button onClick={() => {}}>Load Song</Button>
+        <Button>Load Song</Button>
       </Link>
       <Button onClick={toggleIsAddInstrumentVisible}>Add Line</Button>
-      <Button onClick={() => {}}>Remove Line</Button>
+      <Button onClick={toggleIsDeleteLineVisible}>Remove Line</Button>
     </ControlsPad>
   );
 };

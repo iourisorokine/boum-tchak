@@ -29,6 +29,7 @@ export class CreateSong extends React.Component {
     isAddInstrumentVisible: false,
     isSaveSongVisible: false,
     bottomMessage: "",
+    isDeleteLineVisible: false,
   };
 
   componentWillUnmount() {
@@ -175,6 +176,18 @@ export class CreateSong extends React.Component {
     this.setState({ partition: updatedPartition });
   };
 
+  deleteLine = (lineNumber) => {
+    const updatedPartition = [...this.state.partition];
+    const updatedInstruments = [...this.state.musicLines];
+    updatedPartition.splice(lineNumber, 1);
+    updatedInstruments.splice(lineNumber, 1);
+    this.setState({
+      partition: updatedPartition,
+      musicLines: updatedInstruments,
+    });
+    this.toggleIsDeleteLineVisible();
+  };
+
   setIsNotePlayedOnClick = (value) => {
     this.setState({ isNotePlayedOnClick: value });
   };
@@ -199,8 +212,13 @@ export class CreateSong extends React.Component {
     });
   };
 
+  toggleIsDeleteLineVisible = () => {
+    this.setState({
+      isDeleteLineVisible: !this.state.isDeleteLineVisible,
+    });
+  };
+
   render() {
-    console.log("####STATE", this.state);
     return (
       <React.Fragment>
         <MusicGrid>
@@ -216,6 +234,8 @@ export class CreateSong extends React.Component {
                   toggleActiveNote={this.toggleActiveNote}
                   sounds={line.sounds}
                   highlightedNote={this.state.highlightedNote}
+                  isDeleteLineVisible={this.state.isDeleteLineVisible}
+                  deleteLine={this.deleteLine}
                 />
               );
             })}
@@ -235,6 +255,7 @@ export class CreateSong extends React.Component {
         <AdvControls
           toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
           toggleIsSaveSongVisible={this.toggleIsSaveSongVisible}
+          toggleIsDeleteLineVisible={this.toggleIsDeleteLineVisible}
         />
         {this.state.isAddInstrumentVisible && (
           <AddInstrument

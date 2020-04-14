@@ -16,4 +16,5 @@ export {
   ExpandedMenuItem,
   SelectableItem,
   StyledNote,
+  DeleteButton,
 } from "./styles";

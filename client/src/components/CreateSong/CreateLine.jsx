@@ -1,6 +1,6 @@
 import React from "react";
 import { Note } from "./Note";
-import { Line, LineLabel } from "../../ui-kit";
+import { Line, LineLabel, DeleteButton } from "../../ui-kit";
 
 export const CreateLine = ({
   linePosition,
@@ -9,7 +9,9 @@ export const CreateLine = ({
   toggleActiveNote,
   sounds,
   highlightedNote,
-  label
+  label,
+  isDeleteLineVisible,
+  deleteLine,
 }) => {
   const displayNotes = notes.map((n, i) => {
     return (
@@ -29,6 +31,9 @@ export const CreateLine = ({
   return (
     <Line>
       <LineLabel>{label && label}</LineLabel>
+      {isDeleteLineVisible && (
+        <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
+      )}
       {displayNotes}
     </Line>
   );

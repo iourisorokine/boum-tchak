@@ -130,3 +130,16 @@ export const StyledNote = styled.div`
   background-color: ${(props) => props.color};
   opacity: ${(props) => (props.highlighted ? 0.5 : 1)};
 `;
+
+export const DeleteButton = styled.p`
+  line-height: 10px;
+  padding: 3px;
+  margin: 5px;
+  font-size: 25px;
+  color: red;
+  font-weight: bold;
+  &:hover {
+    background-color: red;
+    color: white;
+  }
+`;
