@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const SoundSchema = new Schema({
   name: String,
-  link: String,
+  category: String,
+  subCategory: String,
+  url: String,
 });
 
 const Sound = mongoose.model("Name", SoundSchema);
