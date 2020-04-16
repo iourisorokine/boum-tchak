@@ -9,6 +9,11 @@ const InstrumentSchema = new Schema({
   category: String,
   colors: [String],
   sounds: [String],
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  private: Boolean,
 });
 
 const Instrument = mongoose.model("Instrument", InstrumentSchema);
