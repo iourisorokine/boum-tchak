@@ -48,4 +48,15 @@ router.post("/", (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  Song.findByIdAndDelete(id)
+    .then(() => {
+      res.json({ message: "The song was deleted with success" });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 module.exports = router;

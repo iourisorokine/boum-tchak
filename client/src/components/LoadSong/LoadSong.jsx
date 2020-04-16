@@ -7,16 +7,27 @@ export const LoadSong = () => {
   const [songsList, setSongsList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedSong, setSelectedSong] = useState(null);
+  const [message, setMessage] = useState("");
+
+  const fetchData = async () => {
+    const { data } = await axios.get("/api/song");
+    setSongsList(data);
+    setLoading(false);
+  };
 
   useEffect(() => {
     setLoading(true);
-    const fetchData = async () => {
-      const { data } = await axios.get("/api/song");
-      setSongsList(data);
-      setLoading(false);
-    };
     fetchData();
   }, []);
+
+  const deleteSong = async (songId) => {
+    const response = await axios.delete(`/api/song/${songId}`);
+    setMessage(response.message);
+    fetchData();
+    setTimeout(() => {
+      setMessage("");
+    }, 1500);
+  };
 
   return (
     <ExpandedMenuItem>
@@ -26,23 +37,23 @@ export const LoadSong = () => {
           <SelectableItem
             key={el._id}
             onClick={() => {
-              setSelectedSong(`/song/${el._id}`);
+              setSelectedSong(el._id);
             }}>
             <p>
-              <span>
-                {selectedSong && selectedSong === `/song/${el._id}` && "--> "}
-              </span>
+              <span>{selectedSong && selectedSong === el._id && "--> "}</span>
               {el.title}
             </p>
           </SelectableItem>
         );
       })}
+      <div>{message && <p>{message}</p>}</div>
       {selectedSong && (
         <div>
-          <Link to={selectedSong}>
+          <Link to={`song/${selectedSong}`}>
             <Button>Load</Button>
           </Link>
-          <Link to="/">
+          <Button onClick={() => deleteSong(selectedSong)}>Delete</Button>
+          <Link to={"/"}>
             <Button>Cancel</Button>
           </Link>
         </div>
