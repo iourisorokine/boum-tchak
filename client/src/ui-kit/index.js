@@ -1,22 +1,20 @@
 export {
+  ControlsPad,
+  Tempo,
+  MainScreen,
+  Wrapper,
+  HeaderLayout,
+  ExpandedMenuItem,
+  SelectableItem,
+  SongPost,
+} from "./elements";
+export {
   Button,
   PlayButton,
   StopButton,
-  ControlsPad,
-  Tempo,
-  MusicGrid,
-  MainScreen,
-  Wrapper,
-  Line,
-  LineLabel,
-  HeaderLayout,
-  HeaderTitle,
   ButtonMenu,
   InstrumentBtn,
-  ExpandedMenuItem,
-  SelectableItem,
-  StyledNote,
   DeleteButton,
-  SongPost,
-  SongTitle,
-} from "./styles";
+} from "./buttons";
+export { HeaderTitle, LineLabel, SongTitle } from "./typography";
+export { MusicGrid, StyledNote, Line } from "./musicGrid";

@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, PlayButton, StopButton, ControlsPad, Tempo } from "../../ui-kit/styles";
+import {
+  Button,
+  PlayButton,
+  StopButton,
+  ControlsPad,
+  Tempo,
+} from "../../ui-kit";
 
 export const PlayControls = ({
   onPlayBtnPress,
@@ -11,7 +17,7 @@ export const PlayControls = ({
   setIsNotePlayedOnClick,
   tempo,
   setTempo,
-  setTimeoutTempo
+  setTimeoutTempo,
 }) => {
   const togglePlayOnClick = () => {
     setIsNotePlayedOnClick(!isNotePlayedOnClick);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ControlsPad } from "../../ui-kit/styles";
+import { Button, ControlsPad } from "../../ui-kit";
 import { Link } from "react-router-dom";
 
 export const AdvControls = ({
