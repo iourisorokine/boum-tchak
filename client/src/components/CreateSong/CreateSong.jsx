@@ -54,7 +54,6 @@ export class CreateSong extends React.Component {
         partition: loadedSong.partition,
         tempo: loadedSong.tempo,
         timeoutTempo: 60000 / loadedSong.tempo / 4,
-        posted: true,
       });
     };
 
@@ -149,6 +148,7 @@ export class CreateSong extends React.Component {
       partition: this.state.partition,
       tempo: this.state.tempo,
       instruments: songInstruments,
+      posted: true,
     };
     await axios.post("api/song/", songData);
     this.setState({
