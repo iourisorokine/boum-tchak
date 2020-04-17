@@ -8,7 +8,7 @@ export const SongsList = () => {
 
   useEffect(() => {
     const prepareLoadedSongs = async () => {
-      const { data: loadedSongs } = await axios.get(`/api/song/`);
+      const { data: loadedSongs } = await axios.get(`/api/song/posted`);
       loadedSongs.forEach((song) => {
         const preparedInstruments = prepareInstruments(song.instruments);
         song.instruments = preparedInstruments;

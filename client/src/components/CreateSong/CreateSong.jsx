@@ -54,6 +54,7 @@ export class CreateSong extends React.Component {
         partition: loadedSong.partition,
         tempo: loadedSong.tempo,
         timeoutTempo: 60000 / loadedSong.tempo / 4,
+        posted: true,
       });
     };
 

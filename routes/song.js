@@ -13,6 +13,17 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/posted", (req, res) => {
+  Song.find({ posted: true })
+    .populate("instruments")
+    .then((songs) => {
+      res.json(songs);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   Song.findById(id)
@@ -38,8 +49,8 @@ router.get("/:title", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { title, partition, instruments, tempo } = req.body;
-  Song.create({ title, partition, instruments, tempo })
+  const { title, partition, instruments, tempo, creator, posted } = req.body;
+  Song.create({ title, partition, instruments, tempo, creator, posted })
     .then((song) => {
       res.json(song);
     })

@@ -9,6 +9,9 @@ router.post("/", (req, res) => {
 
   User.create({
     username: username,
+    admin: false,
+    songs: [],
+    customInstruments: [],
   })
     .then((user) => {
       req.json(user);
