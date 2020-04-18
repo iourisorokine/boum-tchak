@@ -1,20 +1,25 @@
 export {
   ControlsPad,
-  Tempo,
-  MainScreen,
-  Wrapper,
-  HeaderLayout,
   ExpandedMenuItem,
+  HeaderLayout,
+  Input,
+  MainScreen,
   SelectableItem,
   SongPost,
+  Tempo,
+  Wrapper,
+  Form,
+  Label,
+  Row,
+  Column,
 } from "./elements";
 export {
   Button,
+  ButtonMenu,
+  DeleteButton,
+  InstrumentBtn,
   PlayButton,
   StopButton,
-  ButtonMenu,
-  InstrumentBtn,
-  DeleteButton,
 } from "./buttons";
 export { HeaderTitle, LineLabel, SongTitle } from "./typography";
 export { MusicGrid, StyledNote, Line } from "./musicGrid";

@@ -52,3 +52,31 @@ export const SongPost = styled.div`
   padding-top: 10px;
   width: 80%;
 `;
+
+export const Input = styled.input`
+  height: 20px;
+  margin: 10px;
+`;
+
+export const Form = styled.form`
+  border: solid black 1px;
+  width: ${(props) => (props.width ? `${props.width}px` : "100%")};
+`;
+
+export const Label = styled.label`
+  margin: 0px 5px;
+`;
+
+export const Row = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: ${(props) =>
+    props.alignItems ? props.alignItems : "flex-start"};
+  flex: ${(props) => (props.flex ? props.flex : 1)};
+`;

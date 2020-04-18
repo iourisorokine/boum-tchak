@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ExpandedMenuItem, Button } from "../../ui-kit";
+import { ExpandedMenuItem, Button, Input } from "../../ui-kit";
 
 export const SaveSong = ({ saveTheSong }) => {
   const [title, setTitle] = useState("");
@@ -9,8 +9,8 @@ export const SaveSong = ({ saveTheSong }) => {
   };
   return (
     <ExpandedMenuItem>
-      <p>Name your song:</p>
-      <input
+      <p style={{ margin: 10 }}>Name your song:</p>
+      <Input
         type="text"
         placeholder="Padapoum"
         value={title}

@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 
 const START_PARTITION_LENGTH = 8;
+const MAX_PARTITION_LENGTH = 20;
 const DEFAULT_TEMPO = 120;
 const DEFAULT_TIMEOUT = 60000 / 120 / 4;
 
@@ -161,11 +162,16 @@ export class CreateSong extends React.Component {
   };
 
   addOneBar = () => {
-    const updatedPartition = [...this.state.partition];
-    updatedPartition.forEach((el) => {
-      el.push(0);
-    });
-    this.setState({ partition: updatedPartition });
+    if (
+      this.state.partition.length &&
+      this.state.partition[0].length < MAX_PARTITION_LENGTH
+    ) {
+      const updatedPartition = [...this.state.partition];
+      updatedPartition.forEach((el) => {
+        el.push(0);
+      });
+      this.setState({ partition: updatedPartition });
+    }
   };
 
   removeOneBar = () => {

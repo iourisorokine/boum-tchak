@@ -4,7 +4,7 @@ import { HeaderLayout, HeaderTitle, ButtonMenu } from "../../ui-kit";
 
 const linkStyle = {
   textDecoration: "none",
-  color: "black"
+  color: "black",
 };
 
 export const Header = () => {
@@ -21,7 +21,9 @@ export const Header = () => {
           Create
         </Link>
       </ButtonMenu>
-      <ButtonMenu>Login</ButtonMenu>
+      <Link style={linkStyle} to="/login">
+        <ButtonMenu>Login</ButtonMenu>
+      </Link>
     </HeaderLayout>
   );
 };
