@@ -76,6 +76,7 @@ export const Column = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-height: 20px;
   align-items: ${(props) =>
     props.alignItems ? props.alignItems : "flex-start"};
   flex: ${(props) => (props.flex ? props.flex : 1)};

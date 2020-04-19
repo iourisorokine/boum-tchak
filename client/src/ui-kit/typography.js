@@ -18,3 +18,7 @@ export const HeaderTitle = styled.h1`
   font-size: 56px;
   text-shadow: 4px 4px #7799dd;
 `;
+
+export const Alert = styled.p`
+  color: red;
+`;

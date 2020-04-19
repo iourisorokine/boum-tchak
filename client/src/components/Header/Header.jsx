@@ -11,18 +11,17 @@ export const Header = () => {
   return (
     <HeaderLayout>
       <HeaderTitle>Bum-Tchak!</HeaderTitle>
-      <ButtonMenu>
-        <Link style={linkStyle} to="/listen">
-          Listen
-        </Link>
-      </ButtonMenu>
-      <ButtonMenu>
-        <Link style={linkStyle} to="/">
-          Create
-        </Link>
-      </ButtonMenu>
+      <Link style={linkStyle} to="/listen">
+        <ButtonMenu>Listen</ButtonMenu>
+      </Link>
+      <Link style={linkStyle} to="/">
+        <ButtonMenu>Create</ButtonMenu>
+      </Link>
+      <Link style={linkStyle} to="/signup">
+        <ButtonMenu>Signup</ButtonMenu>
+      </Link>
       <Link style={linkStyle} to="/login">
-        <ButtonMenu>Login</ButtonMenu>
+        Login
       </Link>
     </HeaderLayout>
   );

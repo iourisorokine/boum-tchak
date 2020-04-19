@@ -21,5 +21,5 @@ export {
   PlayButton,
   StopButton,
 } from "./buttons";
-export { HeaderTitle, LineLabel, SongTitle } from "./typography";
+export { HeaderTitle, LineLabel, SongTitle, Alert } from "./typography";
 export { MusicGrid, StyledNote, Line } from "./musicGrid";
