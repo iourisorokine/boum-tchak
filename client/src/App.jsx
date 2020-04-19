@@ -25,7 +25,7 @@ class App extends React.Component {
     console.log("####### user:", this.state.user);
     return (
       <MainScreen>
-        <Header />
+        <Header user={this.state.user} />
         <Wrapper>
           <Switch>
             <Route
@@ -55,7 +55,13 @@ class App extends React.Component {
             <Route
               exact
               path="/account"
-              render={(props) => <Account user={this.state.user} {...props} />}
+              render={(props) => (
+                <Account
+                  user={this.state.user}
+                  setUser={this.setUser}
+                  {...props}
+                />
+              )}
             />
             <Route
               exact

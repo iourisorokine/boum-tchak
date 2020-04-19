@@ -7,16 +7,15 @@ export const Login = (props) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(userName, password).then((data) => {
-      if (data.message) {
-        setMessage(data.message);
-      } else {
-        props.setUser(data);
-        props.history.push("/");
-      }
-    });
+    const data = await login(userName, password);
+    if (data.message) {
+      setMessage(data.message);
+    } else {
+      props.setUser(data);
+      props.history.push("/");
+    }
   };
 
   const handleChange = (e) => {
@@ -35,7 +34,7 @@ export const Login = (props) => {
         flexDirection: "column",
         justifyContent: "flexStart",
       }}>
-      <h4>Login</h4>
+      <h2>Login</h2>
       <Form width={300} onSubmit={handleSubmit}>
         <Row>
           <Column flex={1}>

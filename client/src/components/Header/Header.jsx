@@ -7,7 +7,7 @@ const linkStyle = {
   color: "black",
 };
 
-export const Header = () => {
+export const Header = (props) => {
   return (
     <HeaderLayout>
       <HeaderTitle>Bum-Tchak!</HeaderTitle>
@@ -17,12 +17,20 @@ export const Header = () => {
       <Link style={linkStyle} to="/">
         <ButtonMenu>Create</ButtonMenu>
       </Link>
-      <Link style={linkStyle} to="/signup">
-        <ButtonMenu>Signup</ButtonMenu>
-      </Link>
-      <Link style={linkStyle} to="/login">
-        Login
-      </Link>
+      {props.user ? (
+        <Link style={linkStyle} to="/account">
+          <ButtonMenu>Account</ButtonMenu>
+        </Link>
+      ) : (
+        <React.Fragment>
+          <Link style={linkStyle} to="/signup">
+            <ButtonMenu>Signup</ButtonMenu>
+          </Link>
+          <Link style={linkStyle} to="/login">
+            Login
+          </Link>
+        </React.Fragment>
+      )}
     </HeaderLayout>
   );
 };

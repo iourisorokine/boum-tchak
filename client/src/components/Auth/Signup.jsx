@@ -7,16 +7,15 @@ export const Signup = (props) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signup(userName, password).then((data) => {
-      if (data.message) {
-        setMessage(data.message);
-      } else {
-        props.setUser(data);
-        props.history.push("/");
-      }
-    });
+    const data = signup(userName, password);
+    if (data.message) {
+      setMessage(data.message);
+    } else {
+      props.setUser(data);
+      props.history.push("/");
+    }
   };
 
   const handleChange = (e) => {
@@ -35,7 +34,7 @@ export const Signup = (props) => {
         flexDirection: "column",
         justifyContent: "flexStart",
       }}>
-      <h4>Signup</h4>
+      <h2>Signup</h2>
       <Form width={300} onsubmit={handleSubmit}>
         <Row>
           <Column flex={1}>
