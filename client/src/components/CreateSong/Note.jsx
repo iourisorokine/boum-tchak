@@ -10,12 +10,13 @@ export const Note = ({
   sounds,
   highlighted,
 }) => {
-
   const onNoteClick = () => {
     toggleActiveNote(notePosition, linePosition, sounds);
   };
 
   const color = colors[status];
 
-  return <StyledNote color={color} highlighted={highlighted} onClick={onNoteClick}/>;
+  return (
+    <StyledNote color={color} highlighted={highlighted} onClick={onNoteClick} clickable={true} />
+  );
 };
