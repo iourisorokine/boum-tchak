@@ -6,10 +6,11 @@ import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
 import { SaveSong } from "./SaveSong";
 import {
+  playBeat,
   preparePartition,
   prepareInstruments,
   prepareOneInstrument,
-} from "../utils/instruments";
+} from "../utils";
 import axios from "axios";
 
 const START_PARTITION_LENGTH = 8;
@@ -95,26 +96,13 @@ export class CreateSong extends React.Component {
     this.setState({ partition: updatedPartition });
   };
 
-  /* Plays one beat of the music, 
-  each note of the beat being the note on each line corresponding 
-  to the selected index */
-  playBeat = (lines, partition, beatNumber) => {
-    partition.forEach((line, i) => {
-      if (line[beatNumber]) {
-        const soundIndex = line[beatNumber];
-        lines[i].sounds[soundIndex].currentTime = 0;
-        lines[i].sounds[soundIndex].play();
-      }
-    });
-  };
-
   playMusic = (musicLines, partition, tempo) => {
     this.setState({ isPlaying: true });
     let counter = 0;
     this.setState({
       musicPlaying: setInterval(() => {
         this.setState({ highlightedNote: counter });
-        this.playBeat(musicLines, partition, counter);
+        playBeat(musicLines, partition, counter);
         counter++;
         if (counter >= partition[0].length) {
           counter = 0;
