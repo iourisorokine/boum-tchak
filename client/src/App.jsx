@@ -4,7 +4,7 @@ import { SongsList } from "./components/DisplaySong/SongsList";
 import { LoadSong } from "./components/LoadSong/LoadSong";
 import { Login } from "./components/Auth/Login";
 import { Signup } from "./components/Auth/Signup";
-import { Account } from "./components/Auth/Account";
+import { Profile } from "./components/Auth/Profile";
 import { Switch, Route } from "react-router-dom";
 import { MainScreen, Wrapper } from "./ui-kit";
 import { Header } from "./components/Header/Header";
@@ -22,7 +22,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log("####### user:", this.state.user);
     return (
       <MainScreen>
         <Header user={this.state.user} />
@@ -54,9 +53,9 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/account"
+              path="/profile"
               render={(props) => (
-                <Account
+                <Profile
                   user={this.state.user}
                   setUser={this.setUser}
                   {...props}

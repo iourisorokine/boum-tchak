@@ -17,6 +17,11 @@ export const Note = ({
   const color = colors[status];
 
   return (
-    <StyledNote color={color} highlighted={highlighted} onClick={onNoteClick} clickable={true} />
+    <StyledNote
+      color={color}
+      highlighted={highlighted}
+      onClick={onNoteClick}
+      clickable={true}
+    />
   );
 };

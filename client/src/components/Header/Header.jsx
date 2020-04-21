@@ -18,8 +18,8 @@ export const Header = (props) => {
         <ButtonMenu>Create</ButtonMenu>
       </Link>
       {props.user ? (
-        <Link style={linkStyle} to="/account">
-          <ButtonMenu>Account</ButtonMenu>
+        <Link style={linkStyle} to="/profile">
+          <ButtonMenu>Profile</ButtonMenu>
         </Link>
       ) : (
         <React.Fragment>

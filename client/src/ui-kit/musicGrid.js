@@ -11,10 +11,15 @@ export const Line = styled.div`
 `;
 
 export const StyledNote = styled.div`
-  height: 30px;
-  width: 30px;
-  margin: 3px;
+  height: ${(props) => (props.highlighted ? "26px" : "30px")};
+  width: ${(props) => (props.highlighted ? "26px" : "30px")};
+  margin: ${(props) => (props.highlighted ? "5px" : "3px")};
   box-shadow: 2px 2px 5px ${(props) => props.color};
   background-color: ${(props) => props.color};
-  opacity: ${(props) => (props.highlighted ? 0.5 : 1)};
+  opacity: ${(props) => (props.highlighted ? 0.8 : 1)};
+  &:hover {
+    height: ${(props) => (props.clickable ? "24px" : "30px")};
+    width: ${(props) => (props.clickable ? "24px" : "30px")};
+    margin: ${(props) => (props.clickable ? "6px" : "3px")};
+  }
 `;

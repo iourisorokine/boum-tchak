@@ -13,15 +13,20 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/posted", (req, res) => {
-  Song.find({ posted: true })
-    .populate("instruments")
-    .then((songs) => {
-      res.json(songs);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+router.get("/posted/:page", async (req, res) => {
+  const {page} = req.params;
+  const limit = 3;
+  try {
+    const songs = await Song.find({ posted: true }).populate("instruments");
+    if (songs) {
+      const firstIndex = (page - 1) * limit;
+      const lastIndex = page * limit;
+      const response = songs.slice(firstIndex, lastIndex);
+      res.json(response);
+    }
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 router.get("/:id", (req, res) => {
