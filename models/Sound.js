@@ -8,5 +8,5 @@ const SoundSchema = new Schema({
   url: String,
 });
 
-const Sound = mongoose.model("Name", SoundSchema);
+const Sound = mongoose.model("Sound", SoundSchema);
 module.exports = Sound;

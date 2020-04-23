@@ -26,18 +26,22 @@ router.post("/signup", (req, res) => {
       const salt = bcrypt.genSaltSync();
       const hash = bcrypt.hashSync(password, salt);
 
-      return User.create({ username: username, password: hash }).then(
-        (dbUser) => {
-          req.login(dbUser, (err) => {
-            if (err) {
-              return res
-                .status(500)
-                .json({ message: "error while creating user" });
-            }
-          });
-          res.json(dbUser);
-        }
-      );
+      return User.create({
+        username: username,
+        password: hash,
+        admin: false,
+        songs: [],
+        customInstruments: [],
+      }).then((dbUser) => {
+        req.login(dbUser, (err) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ message: "error while creating user" });
+          }
+        });
+        res.json(dbUser);
+      });
     })
     .catch((err) => {
       res.json(err);

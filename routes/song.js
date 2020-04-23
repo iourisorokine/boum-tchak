@@ -1,16 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const Song = require("../models/Song");
+const User = require("../models/User");
 
-router.get("/", (req, res) => {
-  Song.find()
-    .populate("instruments")
-    .then((songs) => {
-      res.json(songs);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+router.get("/", async (req, res) => {
+  try {
+    const allSongs = await Song.find().populate("instruments");
+    if (allSongs) {
+      res.json(allSongs);
+    }
+  } catch (error) {
+    res.json(err);
+  }
 });
 
 router.get("/posted/:page", async (req, res) => {
@@ -29,50 +30,72 @@ router.get("/posted/:page", async (req, res) => {
   }
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  Song.findById(id)
-    .populate("instruments")
-    .then((song) => {
+  try {
+    const song = await Song.findById(id).populate("instruments");
+    if (song) {
       res.json(song);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+    }
+  } catch (error) {
+    res.json(error);
+  }
 });
 
-router.get("/:title", (req, res) => {
+router.get("/:title", async (req, res) => {
   const { title } = req.body;
-  Song.find({ title })
-    .populate("instrument")
-    .then((song) => {
+  try {
+    const song = await Song.find({ title }).populate("instrument");
+    if (song) {
       res.json(song);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+    }
+  } catch (error) {
+    res.json(error);
+  }
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { title, partition, instruments, tempo, creator, posted } = req.body;
-  Song.create({ title, partition, instruments, tempo, creator, posted })
-    .then((song) => {
-      res.json(song);
-    })
-    .catch((err) => {
-      res.json(err);
+  try {
+    const newSong = await Song.create({
+      title,
+      partition,
+      instruments,
+      tempo,
+      creator,
+      posted,
     });
+    if (creator) {
+      await updateUserSongs(creator, newSong._id);
+    }
+    res.json(newSong);
+  } catch (error) {
+    res.json(error);
+  }
 });
 
-router.delete("/:id", (req, res) => {
+const updateUserSongs = async (userId, songId) => {
+  try {
+    const user = await User.findById(userId);
+    const updatedSongs = user.songs.concat([songId]);
+    await User.findByIdAndUpdate(
+      userId,
+      { songs: updatedSongs },
+      { new: true }
+    );
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  Song.findByIdAndDelete(id)
-    .then(() => {
-      res.json({ message: "The song was deleted with success" });
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+  try {
+    await Song.findByIdAndDelete(id);
+    res.json({ message: "The song was deleted with success" });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 module.exports = router;

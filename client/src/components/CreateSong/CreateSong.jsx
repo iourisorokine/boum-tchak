@@ -104,11 +104,7 @@ export class CreateSong extends React.Component {
       musicPlaying: setInterval(() => {
         this.setState({
           highlightedNote: counter,
-          animatedNotes: [
-            counter - 1,
-            counter,
-            counter + 1,
-          ],
+          animatedNotes: [counter - 1, counter, counter + 1],
         });
         playBeat(musicLines, partition, counter);
         counter++;
@@ -145,6 +141,7 @@ export class CreateSong extends React.Component {
       partition: this.state.partition,
       tempo: this.state.tempo,
       instruments: songInstruments,
+      creator: this.props.user._id,
       posted: true,
     };
     await axios.post("api/song/", songData);
