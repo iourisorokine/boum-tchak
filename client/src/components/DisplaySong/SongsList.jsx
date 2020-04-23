@@ -51,6 +51,7 @@ export const SongsList = () => {
             partition={song.partition}
             musicLines={song.instruments}
             tempo={song.tempo}
+            creatorName={song.creatorName}
           />
         );
       })}

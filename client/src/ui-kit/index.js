@@ -19,5 +19,5 @@ export {
   StopButton,
 } from "./buttons";
 export { HeaderLayout, BackHeader, MainScreen, Wrapper } from "./layout";
-export { HeaderTitle, LineLabel, SongTitle, Alert } from "./typography";
+export { HeaderTitle, LineLabel, SongHeader, SongTitle, Alert } from "./typography";
 export { MusicGrid, StyledNote, Line } from "./musicGrid";

@@ -18,6 +18,7 @@ export const PlayControls = ({
   tempo,
   setTempo,
   setTimeoutTempo,
+  numberOfBars,
 }) => {
   const togglePlayOnClick = () => {
     setIsNotePlayedOnClick(!isNotePlayedOnClick);
@@ -42,12 +43,12 @@ export const PlayControls = ({
       ) : (
         <PlayButton onClick={onPlayBtnPress}>></PlayButton>
       )}
-      <Button onClick={addOneBar}>+1 bar</Button>
-      <Button onClick={removeOneBar}>-1 bar</Button>
       <Button onClick={togglePlayOnClick}>
         Play on click: {isNotePlayedOnClick ? "yes" : "no"}
       </Button>
-
+      <Button onClick={removeOneBar}>-</Button>
+      <Tempo>Bars: {numberOfBars}</Tempo>
+      <Button onClick={addOneBar}>+</Button>
       <Button onClick={onMinusTempoPress}>-</Button>
       <Tempo>Tempo: {tempo}</Tempo>
       <Button onClick={onPlusTempoPress}>+</Button>

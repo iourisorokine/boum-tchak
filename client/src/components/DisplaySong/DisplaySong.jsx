@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { DisplayLine } from "./DisplayLine";
 import { playBeat } from "../utils";
-import { MusicGrid, SongPost, SongTitle } from "../../ui-kit";
+import { MusicGrid, SongPost, SongHeader } from "../../ui-kit";
 
-export const DisplaySong = ({ partition, musicLines, title, tempo }) => {
+export const DisplaySong = ({
+  partition,
+  musicLines,
+  title,
+  tempo,
+  creatorName,
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(null);
   const [highlightedNote, setHighlightedNote] = useState(-1);
@@ -41,7 +47,11 @@ export const DisplaySong = ({ partition, musicLines, title, tempo }) => {
 
   return (
     <SongPost>
-      <SongTitle>{title}</SongTitle>
+      <SongHeader>
+        <p>
+          {title} by {creatorName}
+        </p>
+      </SongHeader>
       <MusicGrid onClick={onSongClick}>
         {musicLines.map((line, i) => {
           return (

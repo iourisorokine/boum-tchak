@@ -55,7 +55,7 @@ router.get("/:title", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { title, partition, instruments, tempo, creator, posted } = req.body;
+  const { title, partition, instruments, tempo, creator, creatorName, posted } = req.body;
   try {
     const newSong = await Song.create({
       title,
@@ -63,6 +63,7 @@ router.post("/", async (req, res) => {
       instruments,
       tempo,
       creator,
+      creatorName,
       posted,
     });
     if (creator) {

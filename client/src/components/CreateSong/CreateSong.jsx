@@ -141,7 +141,8 @@ export class CreateSong extends React.Component {
       partition: this.state.partition,
       tempo: this.state.tempo,
       instruments: songInstruments,
-      creator: this.props.user._id,
+      creator: this.props.user._id || "anonymous",
+      creatorName: this.props.user.username || "anonymous",
       posted: true,
     };
     await axios.post("api/song/", songData);
@@ -250,6 +251,9 @@ export class CreateSong extends React.Component {
           tempo={this.state.tempo}
           setTempo={this.setTempo}
           setTimeoutTempo={this.setTimeoutTempo}
+          numberOfBars={
+            this.state.partition[0] ? this.state.partition[0].length : 0
+          }
           isNotePlayedOnClick={this.state.isNotePlayedOnClick}
           setIsNotePlayedOnClick={this.setIsNotePlayedOnClick}
         />
