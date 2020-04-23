@@ -11,6 +11,7 @@ export const CreateLine = ({
   highlightedNote,
   label,
   isDeleteLineVisible,
+  animatedNotes,
   deleteLine,
 }) => {
   const displayNotes = notes.map((n, i) => {
@@ -24,6 +25,7 @@ export const CreateLine = ({
         linePosition={linePosition}
         sounds={sounds}
         highlighted={highlightedNote === i}
+        animated={animatedNotes.includes(i)}
       />
     );
   });

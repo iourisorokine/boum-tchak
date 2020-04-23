@@ -23,7 +23,8 @@ export class CreateSong extends React.Component {
     partition: [],
     isPlaying: false,
     musicPlaying: null,
-    highlightedNote: -1,
+    highlightedNote: [-1],
+    animatedNotes: [],
     musicLines: [],
     tempo: DEFAULT_TEMPO,
     timeoutTempo: DEFAULT_TIMEOUT,
@@ -101,7 +102,14 @@ export class CreateSong extends React.Component {
     let counter = 0;
     this.setState({
       musicPlaying: setInterval(() => {
-        this.setState({ highlightedNote: counter });
+        this.setState({
+          highlightedNote: counter,
+          animatedNotes: [
+            counter - 1,
+            counter,
+            counter + 1,
+          ],
+        });
         playBeat(musicLines, partition, counter);
         counter++;
         if (counter >= partition[0].length) {
@@ -229,6 +237,7 @@ export class CreateSong extends React.Component {
                   toggleActiveNote={this.toggleActiveNote}
                   sounds={line.sounds}
                   highlightedNote={this.state.highlightedNote}
+                  animatedNotes={this.state.animatedNotes}
                   isDeleteLineVisible={this.state.isDeleteLineVisible}
                   deleteLine={this.deleteLine}
                 />

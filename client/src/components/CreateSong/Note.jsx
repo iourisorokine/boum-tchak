@@ -9,6 +9,7 @@ export const Note = ({
   linePosition,
   sounds,
   highlighted,
+  animated,
 }) => {
   const onNoteClick = () => {
     toggleActiveNote(notePosition, linePosition, sounds);
@@ -22,6 +23,7 @@ export const Note = ({
       highlighted={highlighted}
       onClick={onNoteClick}
       clickable={true}
+      animated={animated}
     />
   );
 };
