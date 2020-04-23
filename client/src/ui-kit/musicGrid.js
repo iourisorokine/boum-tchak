@@ -37,7 +37,7 @@ export const StyledNote = styled.div`
   height: 30px;
   width: 30px;
   margin: 3px;
-  box-shadow: 2px 2px 5px ${(props) => props.color};
+  box-shadow: 3px 3px 5px ${(props) => props.color};
   background-color: ${(props) => props.color};
   opacity: ${(props) => (props.highlighted ? 0.7 : 1)};
   &:hover {

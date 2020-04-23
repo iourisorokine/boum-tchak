@@ -8,27 +8,6 @@ export const Tempo = styled.span`
   font-size: 16px;
 `;
 
-export const HeaderLayout = styled.div`
-  height: 120px;
-  display: flex;
-  align-items: center;
-`;
-
-export const MainScreen = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 900px;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-`;
-
 export const ExpandedMenuItem = styled.div`
   margin: 5px;
   min-width: 300px;

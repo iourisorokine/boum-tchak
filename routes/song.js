@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/posted/:page", async (req, res) => {
-  const {page} = req.params;
+  const { page } = req.params;
   const limit = 3;
   try {
     const songs = await Song.find({ posted: true }).populate("instruments");

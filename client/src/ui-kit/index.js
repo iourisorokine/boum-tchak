@@ -1,13 +1,10 @@
 export {
   ControlsPad,
   ExpandedMenuItem,
-  HeaderLayout,
   Input,
-  MainScreen,
   SelectableItem,
   SongPost,
   Tempo,
-  Wrapper,
   Form,
   Label,
   Row,
@@ -21,5 +18,6 @@ export {
   PlayButton,
   StopButton,
 } from "./buttons";
+export { HeaderLayout, BackHeader, MainScreen, Wrapper } from "./layout";
 export { HeaderTitle, LineLabel, SongTitle, Alert } from "./typography";
 export { MusicGrid, StyledNote, Line } from "./musicGrid";

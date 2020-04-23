@@ -10,6 +10,7 @@ const UserSchema = new Schema(
     password: {
       type: String,
     },
+    profilePic: { type: String, default: "" },
     songs: [
       {
         type: Schema.Types.ObjectId,

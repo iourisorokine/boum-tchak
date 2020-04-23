@@ -6,7 +6,7 @@ import { Login } from "./components/Auth/Login";
 import { Signup } from "./components/Auth/Signup";
 import { Profile } from "./components/Auth/Profile";
 import { Switch, Route } from "react-router-dom";
-import { MainScreen, Wrapper } from "./ui-kit";
+import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
 import { Header } from "./components/Header/Header";
 import "./App.css";
 
@@ -26,6 +26,7 @@ class App extends React.Component {
       <MainScreen>
         <Header user={this.state.user} />
         <Wrapper>
+          <BackHeader/>
           <Switch>
             <Route
               exact

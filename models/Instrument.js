@@ -7,6 +7,7 @@ const InstrumentSchema = new Schema({
     unique: true,
   },
   category: String,
+  subCategory: String,
   colors: [String],
   sounds: [String],
   creator: {
