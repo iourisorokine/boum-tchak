@@ -12,7 +12,8 @@ export const Header = (props) => {
     <HeaderLayout>
       <Wrapper flexDirection="row" justifyContent="space-between">
         <HeaderTitle>Bum-Tchak!</HeaderTitle>
-        <div style={{ display: "flex", paddingRight: 20 }}>
+        <div
+          style={{ display: "flex", paddingRight: 20, alignItems: "center" }}>
           <Link style={linkStyle} to="/listen">
             <ButtonMenu>Listen</ButtonMenu>
           </Link>

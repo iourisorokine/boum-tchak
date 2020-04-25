@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "./utils";
 import { Row, Column, Button, PageLayout, ProfilePic, H2 } from "../../ui-kit";
 
 export const Profile = (props) => {
+  const [message, setMessage] = useState("");
+
   const onLogoutBtnClick = async () => {
     await logout();
     props.setUser(null);
     props.history.push("/");
+  };
+
+  const onCreateInstrumentBtnClick = () => {
+    setMessage("Coming soon, stay tuned...");
+    setInterval(() => {
+      setMessage("");
+    }, 2000);
   };
 
   if (!props.user) {
@@ -40,14 +49,16 @@ export const Profile = (props) => {
           <h3>Hello, {props.user.username}</h3>
           <p>Are you ready to create some funky beats today?</p>
           <Row>
-            <Column>
-              <Link to="/load-song">
-                <Button>Load Song</Button>
-              </Link>
-            </Column>
-            <Column>
-              <Button onClick={onLogoutBtnClick}>Logout</Button>
-            </Column>
+            <Link to="/load-song">
+              <Button>Load Song</Button>
+            </Link>
+            <Button onClick={onCreateInstrumentBtnClick}>
+              Create Instrument
+            </Button>
+            <Button onClick={onLogoutBtnClick}>Logout</Button>
+          </Row>
+          <Row>
+            <Column>{message && <p>{message}</p>}</Column>
           </Row>
         </Column>
       </Row>

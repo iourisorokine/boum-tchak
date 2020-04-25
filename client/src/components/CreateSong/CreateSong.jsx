@@ -222,6 +222,20 @@ export class CreateSong extends React.Component {
   render() {
     return (
       <React.Fragment>
+        {this.state.isAddInstrumentVisible && (
+          <AddInstrument
+            addInstrument={this.addInstrument}
+            toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
+          />
+        )}
+        {this.state.isSaveSongVisible && (
+          <SaveSong saveTheSong={this.saveTheSong} user={this.props.user} />
+        )}
+        {this.state.bottomMessage && (
+          <ExpandedMenuItem>
+            <p>{this.state.bottomMessage}</p>
+          </ExpandedMenuItem>
+        )}
         <MusicGrid>
           {this.state.musicLines &&
             this.state.musicLines.map((line, i) => {
@@ -261,21 +275,8 @@ export class CreateSong extends React.Component {
           toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
           toggleIsSaveSongVisible={this.toggleIsSaveSongVisible}
           toggleIsDeleteLineVisible={this.toggleIsDeleteLineVisible}
+          user={this.props.user}
         />
-        {this.state.isAddInstrumentVisible && (
-          <AddInstrument
-            addInstrument={this.addInstrument}
-            toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
-          />
-        )}
-        {this.state.isSaveSongVisible && (
-          <SaveSong saveTheSong={this.saveTheSong} />
-        )}
-        {this.state.bottomMessage && (
-          <ExpandedMenuItem>
-            <p>{this.state.bottomMessage}</p>
-          </ExpandedMenuItem>
-        )}
       </React.Fragment>
     );
   }

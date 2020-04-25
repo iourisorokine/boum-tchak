@@ -14,6 +14,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/creator/:creatorId", async (req, res) => {
+  const { creatorId } = req.params;
+  try {
+    const songs = await Song.find({ creator: creatorId }).populate(
+      "instruments"
+    );
+    if (songs) {
+      res.json(songs);
+    }
+  } catch (error) {
+    res.json(err);
+  }
+});
+
 router.get("/posted/:page", async (req, res) => {
   const { page } = req.params;
   const limit = 3;
@@ -55,7 +69,15 @@ router.get("/:title", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { title, partition, instruments, tempo, creator, creatorName, posted } = req.body;
+  const {
+    title,
+    partition,
+    instruments,
+    tempo,
+    creator,
+    creatorName,
+    posted,
+  } = req.body;
   try {
     const newSong = await Song.create({
       title,

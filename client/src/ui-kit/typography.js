@@ -6,13 +6,18 @@ export const H2 = styled.h2`
 `;
 
 export const SongHeader = styled.div`
-  margin-top: -20px;
-  padding: 0px 8px;
+  margin-top: -32px;
+  padding: 0px 12px;
   display: flex;
-  background-color: white;
+  justify-content: space-between;
 `;
 
-export const SongTitle = styled.p``;
+export const SongTitle = styled.p`
+  padding: 0px 10px;
+  background-color: white;
+  font-weight: ${(props) => (props.b ? "bold" : "regular")};
+  font-size: 12px;
+`;
 
 export const LineLabel = styled.p`
   font-size: 10px;

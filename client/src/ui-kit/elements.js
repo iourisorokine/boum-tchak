@@ -11,6 +11,11 @@ export const Tempo = styled.span`
 export const ExpandedMenuItem = styled.div`
   margin: 5px;
   min-width: 300px;
+  max-width: 700px;
+  position: absolute;
+  top: 150px;
+  left: 20%;
+  background-color: white;
   border: solid 1px black;
   border-radius: 3px;
   padding: 10px;
@@ -18,7 +23,8 @@ export const ExpandedMenuItem = styled.div`
 
 export const SelectableItem = styled.div`
   width: 200px;
-  height: 30px;
+  height: 40px;
+  padding-left: 10px;
   &:hover {
     background-color: #7799dd;
   }
@@ -34,6 +40,7 @@ export const SongPost = styled.div`
 
 export const Input = styled.input`
   height: 20px;
+  min-width: 100px;
   margin: 10px;
 `;
 

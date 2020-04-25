@@ -57,3 +57,7 @@ export const PageLayout = styled.div`
   flex-direction: column;
   justify-content: flexStart;
 `;
+
+export const BlankSpace = styled.div`
+  height: ${(props) => props.height || "20px"};
+`;

@@ -5,7 +5,7 @@ import { LoadSong } from "./components/LoadSong/LoadSong";
 import { Login } from "./components/Auth/Login";
 import { Signup } from "./components/Auth/Signup";
 import { Profile } from "./components/Auth/Profile";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
 import { Header } from "./components/Header/Header";
 import "./App.css";
@@ -26,7 +26,7 @@ class App extends React.Component {
       <MainScreen>
         <Header user={this.state.user} />
         <Wrapper border="yes">
-          <BackHeader/>
+          <BackHeader />
           <Switch>
             <Route
               exact
@@ -45,23 +45,41 @@ class App extends React.Component {
             <Route
               exact
               path="/login"
-              render={(props) => <Login setUser={this.setUser} {...props} />}
+              render={(props) => {
+                if (!this.state.user) {
+                  return <Login setUser={this.setUser} {...props} />;
+                } else {
+                  return <Redirect to="/" />;
+                }
+              }}
             />
             <Route
               exact
               path="/signup"
-              render={(props) => <Signup setUser={this.setUser} {...props} />}
+              render={(props) => {
+                if (!this.state.user) {
+                  return <Signup setUser={this.setUser} {...props} />;
+                } else {
+                  return <Redirect to="/" />;
+                }
+              }}
             />
             <Route
               exact
               path="/profile"
-              render={(props) => (
-                <Profile
-                  user={this.state.user}
-                  setUser={this.setUser}
-                  {...props}
-                />
-              )}
+              render={(props) => {
+                if (this.state.user) {
+                  return (
+                    <Profile
+                      user={this.state.user}
+                      setUser={this.setUser}
+                      {...props}
+                    />
+                  );
+                } else {
+                  return <Redirect to="/" />;
+                }
+              }}
             />
             <Route
               exact
@@ -71,7 +89,13 @@ class App extends React.Component {
             <Route
               exact
               path="/load-song"
-              render={(props) => <LoadSong {...props} />}
+              render={(props) => {
+                if (this.state.user) {
+                  return <LoadSong user={this.state.user} {...props} />;
+                } else {
+                  return <Redirect to="/" />;
+                }
+              }}
             />
           </Switch>
         </Wrapper>

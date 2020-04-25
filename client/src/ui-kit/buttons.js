@@ -10,6 +10,7 @@ export const Button = styled.button`
   background-color: white;
   font-size: 16px;
   box-shadow: 3px 3px 5px #bbb;
+  cursor: pointer;
   &:hover {
     background-color: black;
     color: white;
@@ -39,6 +40,7 @@ export const ButtonMenu = styled.div`
   padding: 10px 20px;
   color: #000;
   text-decoration: none;
+  cursor: pointer;
   &:hover {
     background-color: black;
     color: white;
@@ -55,7 +57,8 @@ export const InstrumentBtn = styled.button`
   background-color: #fff;
   font-size: 16px;
   &:hover {
-    background-color: #7799dd;
+    background-color: black;
+    color: white;
   }
 `;
 
@@ -66,6 +69,7 @@ export const DeleteButton = styled.p`
   font-size: 25px;
   color: red;
   font-weight: bold;
+  cursor: pointer;
   &:hover {
     background-color: red;
     color: white;

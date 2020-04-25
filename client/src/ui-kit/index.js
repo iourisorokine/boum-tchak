@@ -25,6 +25,7 @@ export {
   MainScreen,
   Wrapper,
   PageLayout,
+  BlankSpace,
 } from "./layout";
 export {
   H2,

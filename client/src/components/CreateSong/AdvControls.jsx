@@ -6,13 +6,16 @@ export const AdvControls = ({
   toggleIsAddInstrumentVisible,
   toggleIsSaveSongVisible,
   toggleIsDeleteLineVisible,
+  user,
 }) => {
   return (
     <ControlsPad>
       <Button onClick={toggleIsSaveSongVisible}>Save Song</Button>
-      <Link to="/load-song">
-        <Button>Load Song</Button>
-      </Link>
+      {user && (
+        <Link to="/load-song">
+          <Button>Load Song</Button>
+        </Link>
+      )}
       <Button onClick={toggleIsAddInstrumentVisible}>Add Line</Button>
       <Button onClick={toggleIsDeleteLineVisible}>Remove Line</Button>
     </ControlsPad>

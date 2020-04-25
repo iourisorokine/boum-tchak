@@ -40,6 +40,7 @@ export const StyledNote = styled.div`
   box-shadow: 3px 3px 5px ${(props) => props.color};
   background-color: ${(props) => props.color};
   opacity: ${(props) => (props.highlighted ? 0.7 : 1)};
+  cursor: pointer;
   &:hover {
     height: ${(props) => (props.clickable ? "24px" : "30px")};
     width: ${(props) => (props.clickable ? "24px" : "30px")};

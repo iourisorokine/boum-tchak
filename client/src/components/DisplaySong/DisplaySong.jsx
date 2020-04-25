@@ -1,72 +1,79 @@
-import React, { useState } from "react";
+import React from "react";
 import { DisplayLine } from "./DisplayLine";
 import { playBeat } from "../utils";
-import { MusicGrid, SongPost, SongHeader } from "../../ui-kit";
+import { MusicGrid, SongPost, SongHeader, SongTitle } from "../../ui-kit";
 
-export const DisplaySong = ({
-  partition,
-  musicLines,
-  title,
-  tempo,
-  creatorName,
-}) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [musicPlaying, setMusicPlaying] = useState(null);
-  const [highlightedNote, setHighlightedNote] = useState(-1);
-  const [animatedNotes, setAnimatedNotes] = useState([-1, -1, -1]);
-  const timeoutTempo = 60000 / tempo / 4;
+export class DisplaySong extends React.Component {
+  state = {
+    isPlaying: false,
+    musicPlaying: null,
+    highlightedNote: -1,
+    animatedNotes: [-1, -1, -1],
+    timeoutTempo: 60000 / this.props.tempo / 4,
+  };
 
-  const playMusic = (musicLines, partition, tempo) => {
-    setIsPlaying(true);
+  componentWillUnmount() {
+    this.stopPlaying();
+  }
+
+  playMusic = (musicLines, partition, tempo) => {
+    this.setState({ isPlaying: true });
     let counter = 0;
-    setMusicPlaying(
-      setInterval(() => {
-        setHighlightedNote(counter);
-        setAnimatedNotes([counter - 1, counter, counter + 1]);
+    this.setState({
+      musicPlaying: setInterval(() => {
+        this.setState({
+          highlightedNote: counter,
+          animatedNotes: [counter - 1, counter, counter + 1],
+        });
         playBeat(musicLines, partition, counter);
         counter++;
         if (counter >= partition[0].length) {
           counter = 0;
         }
-      }, tempo)
-    );
+      }, tempo),
+    });
   };
 
-  const stopPlaying = () => {
-    setIsPlaying(false);
-    clearInterval(musicPlaying);
+  stopPlaying = () => {
+    this.setState({ isPlaying: false });
+    clearInterval(this.state.musicPlaying);
   };
 
-  const onSongClick = () => {
-    if (isPlaying) {
-      stopPlaying();
+  onSongClick = () => {
+    if (this.state.isPlaying) {
+      this.stopPlaying();
     } else {
-      playMusic(musicLines, partition, timeoutTempo);
+      this.playMusic(
+        this.props.musicLines,
+        this.props.partition,
+        this.state.timeoutTempo
+      );
     }
   };
 
-  return (
-    <SongPost>
-      <SongHeader>
-        <p>
-          {title} by {creatorName}
-        </p>
-      </SongHeader>
-      <MusicGrid onClick={onSongClick}>
-        {musicLines.map((line, i) => {
-          return (
-            <DisplayLine
-              key={i}
-              linePosition={i}
-              notes={partition[i]}
-              noteColors={line.colors}
-              sounds={line.sounds}
-              highlightedNote={highlightedNote}
-              animatedNotes={animatedNotes}
-            />
-          );
-        })}
-      </MusicGrid>
-    </SongPost>
-  );
-};
+  render() {
+    return (
+      <SongPost>
+        <SongHeader>
+          <SongTitle b={true}>{this.props.title}</SongTitle>
+          <SongTitle>by {this.props.creatorName}</SongTitle>
+        </SongHeader>
+        <MusicGrid onClick={this.onSongClick}>
+          {this.props.musicLines.map((line, i) => {
+            return (
+              <DisplayLine
+                key={i}
+                linePosition={i}
+                notes={this.props.partition[i]}
+                noteColors={line.colors}
+                sounds={line.sounds}
+                highlightedNote={this.state.highlightedNote}
+                animatedNotes={this.state.animatedNotes}
+              />
+            );
+          })}
+        </MusicGrid>
+      </SongPost>
+    );
+  }
+}
