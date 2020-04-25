@@ -25,7 +25,7 @@ class App extends React.Component {
     return (
       <MainScreen>
         <Header user={this.state.user} />
-        <Wrapper>
+        <Wrapper border="yes">
           <BackHeader/>
           <Switch>
             <Route

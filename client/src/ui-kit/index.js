@@ -7,8 +7,7 @@ export {
   Tempo,
   Form,
   Label,
-  Row,
-  Column,
+  ProfilePic,
 } from "./elements";
 export {
   Button,
@@ -18,6 +17,21 @@ export {
   PlayButton,
   StopButton,
 } from "./buttons";
-export { HeaderLayout, BackHeader, MainScreen, Wrapper } from "./layout";
-export { HeaderTitle, LineLabel, SongHeader, SongTitle, Alert } from "./typography";
+export {
+  Row,
+  Column,
+  HeaderLayout,
+  BackHeader,
+  MainScreen,
+  Wrapper,
+  PageLayout,
+} from "./layout";
+export {
+  H2,
+  HeaderTitle,
+  LineLabel,
+  SongHeader,
+  SongTitle,
+  Alert,
+} from "./typography";
 export { MusicGrid, StyledNote, Line } from "./musicGrid";

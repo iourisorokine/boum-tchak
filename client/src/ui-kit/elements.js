@@ -46,17 +46,10 @@ export const Label = styled.label`
   margin: 0px 5px;
 `;
 
-export const Row = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 20px;
-  align-items: ${(props) =>
-    props.alignItems ? props.alignItems : "flex-start"};
-  flex: ${(props) => (props.flex ? props.flex : 1)};
+export const ProfilePic = styled.img`
+  src: ${(props) => props.src}
+  height: 260px;
+  width: 260px;
+  object-fit: cover;
+  padding: 10px;
 `;

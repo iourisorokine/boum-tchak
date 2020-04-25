@@ -1,43 +1,47 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-height: 36px;
-min-width: 40px;
-margin: 8px;
-padding: 0px 10px;
-border-radius: 3px;
-border: solid 1px black;
-background-color: #fff;
-font-size: 16px;
-&:hover {
-  background-color: #7799dd;
-}
+  height: 36px;
+  min-width: 36px;
+  margin: 8px;
+  padding: 0px 10px;
+  border-radius: 18px;
+  border: solid 1px black;
+  background-color: white;
+  font-size: 16px;
+  box-shadow: 3px 3px 5px #bbb;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 
 export const PlayButton = styled(Button)`
-width: 60px;
-background-color: #0f0;
-color: #fff;
-font-size: 20px;
-font-weight: bold;
+  width: 60px;
+  background-color: #0f0;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
 `;
 
 export const StopButton = styled(Button)`
-width: 60px;
-background-color: #f00;
-color: #fff;
-font-size: 20px;
-font-weight: bold;
+  width: 60px;
+  background-color: #f00;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
 `;
 
 export const ButtonMenu = styled.div`
   margin: 10px;
   border: solid 2px black;
+  border-radius: 5px;
   padding: 10px 20px;
   color: #000;
   text-decoration: none;
   &:hover {
-    background-color: #7799dd;
+    background-color: black;
+    color: white;
   }
 `;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { HeaderLayout, HeaderTitle, ButtonMenu } from "../../ui-kit";
+import { HeaderLayout, HeaderTitle, ButtonMenu, Wrapper } from "../../ui-kit";
 
 const linkStyle = {
   textDecoration: "none",
@@ -10,27 +10,31 @@ const linkStyle = {
 export const Header = (props) => {
   return (
     <HeaderLayout>
-      <HeaderTitle>Bum-Tchak!</HeaderTitle>
-      <Link style={linkStyle} to="/listen">
-        <ButtonMenu>Listen</ButtonMenu>
-      </Link>
-      <Link style={linkStyle} to="/">
-        <ButtonMenu>Create</ButtonMenu>
-      </Link>
-      {props.user ? (
-        <Link style={linkStyle} to="/profile">
-          <ButtonMenu>Profile</ButtonMenu>
-        </Link>
-      ) : (
-        <React.Fragment>
-          <Link style={linkStyle} to="/signup">
-            <ButtonMenu>Signup</ButtonMenu>
+      <Wrapper flexDirection="row" justifyContent="space-between">
+        <HeaderTitle>Bum-Tchak!</HeaderTitle>
+        <div style={{ display: "flex", paddingRight: 20 }}>
+          <Link style={linkStyle} to="/listen">
+            <ButtonMenu>Listen</ButtonMenu>
           </Link>
-          <Link style={linkStyle} to="/login">
-            Login
+          <Link style={linkStyle} to="/">
+            <ButtonMenu>Create</ButtonMenu>
           </Link>
-        </React.Fragment>
-      )}
+          {props.user ? (
+            <Link style={linkStyle} to="/profile">
+              <ButtonMenu>Profile</ButtonMenu>
+            </Link>
+          ) : (
+            <React.Fragment>
+              <Link style={linkStyle} to="/signup">
+                <ButtonMenu>Signup</ButtonMenu>
+              </Link>
+              <Link style={linkStyle} to="/login">
+                Login
+              </Link>
+            </React.Fragment>
+          )}
+        </div>
+      </Wrapper>
     </HeaderLayout>
   );
 };
