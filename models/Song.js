@@ -12,6 +12,7 @@ const SongSchema = new Schema({
   ],
   tempo: Number,
   creator: { type: Schema.Types.ObjectId, ref: "User" },
+  notes:[String],
   creatorName: String,
   posted: Boolean,
 });

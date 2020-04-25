@@ -24,6 +24,7 @@ const UserSchema = new Schema(
       },
     ],
     admin: Boolean,
+    musicKarma: Number,
   },
 
   {

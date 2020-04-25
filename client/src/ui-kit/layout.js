@@ -16,7 +16,7 @@ export const Column = styled.div`
 `;
 
 export const HeaderLayout = styled.div`
-  height: 120px;
+  height: 90px;
   width: 100vw;
   z-index: 10;
   background-color: white;
@@ -28,7 +28,7 @@ export const HeaderLayout = styled.div`
 `;
 
 export const BackHeader = styled.div`
-  height: 150px;
+  height: 110px;
 `;
 
 export const MainScreen = styled.div`

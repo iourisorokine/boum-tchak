@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ExpandedMenuItem, Button, Input } from "../../ui-kit";
 
-export const SaveSong = ({ saveTheSong, user }) => {
+export const SaveSong = ({ saveTheSong, user, toggleIsSaveSongVisible }) => {
   const [title, setTitle] = useState("");
 
   const handleChange = (e) => {
@@ -12,7 +12,10 @@ export const SaveSong = ({ saveTheSong, user }) => {
     <ExpandedMenuItem>
       {user ? (
         <React.Fragment>
-          <p style={{ margin: 10 }}>Name your song:</p>
+          <p style={{ margin: 10 }}>
+            Name your song (if you modified an existing song, <br />
+            it will still be saved under as new one):
+          </p>
           <Input
             type="text"
             placeholder="Padapoum"
@@ -21,6 +24,7 @@ export const SaveSong = ({ saveTheSong, user }) => {
           />
           <div>
             <Button onClick={() => saveTheSong(title)}>Save</Button>
+            <Button onClick={() => toggleIsSaveSongVisible()}>Cancel</Button>
           </div>
         </React.Fragment>
       ) : (

@@ -229,7 +229,11 @@ export class CreateSong extends React.Component {
           />
         )}
         {this.state.isSaveSongVisible && (
-          <SaveSong saveTheSong={this.saveTheSong} user={this.props.user} />
+          <SaveSong
+            saveTheSong={this.saveTheSong}
+            toggleIsSaveSongVisible={this.toggleIsSaveSongVisible}
+            user={this.props.user}
+          />
         )}
         {this.state.bottomMessage && (
           <ExpandedMenuItem>

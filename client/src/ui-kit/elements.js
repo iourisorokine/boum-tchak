@@ -13,6 +13,7 @@ export const ExpandedMenuItem = styled.div`
   min-width: 300px;
   max-width: 700px;
   position: absolute;
+  z-index: 10;
   top: 150px;
   left: 20%;
   background-color: white;
