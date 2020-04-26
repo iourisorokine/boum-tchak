@@ -5,6 +5,8 @@ import { LoadSong } from "./components/LoadSong/LoadSong";
 import { Login } from "./components/Auth/Login";
 import { Signup } from "./components/Auth/Signup";
 import { Profile } from "./components/Auth/Profile";
+import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
+import { CreateInstrument } from "./components/CreateInstrument/CreateInstrument";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
 import { Header } from "./components/Header/Header";
@@ -64,22 +66,19 @@ class App extends React.Component {
                 }
               }}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/profile"
-              render={(props) => {
-                if (this.state.user) {
-                  return (
-                    <Profile
-                      user={this.state.user}
-                      setUser={this.setUser}
-                      {...props}
-                    />
-                  );
-                } else {
-                  return <Redirect to="/" />;
-                }
-              }}
+              user={this.state.user}
+              setUser={this.setUser}
+              component={Profile}
+            />
+            <ProtectedRoute
+              exact
+              path="/create-instrument"
+              user={this.state.user}
+              setUser={this.setUser}
+              component={CreateInstrument}
             />
             <Route
               exact
