@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const Row = styled.div`
   display: flex;
   width: 100%;
+
 `;
 
 export const Column = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => props.flexDirection || "column"};
   justify-content: center;
   min-height: 20px;
   align-items: ${(props) => props.alignItems || "flex-start"};

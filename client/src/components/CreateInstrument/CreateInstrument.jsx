@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { Characteristics } from "./Characteristics";
 import { SoundsList } from "./SoundsList";
-import { Row, Column, Button, Input, PageLayout, H2 } from "../../ui-kit";
+import { AddSound } from "./AddSound";
+import axios from "axios";
+import { Row, Column, Button, PageLayout, Heading2 } from "../../ui-kit";
 
 const emptyInstrument = {
   name: "Bass",
@@ -16,47 +19,62 @@ const emptyInstrument = {
   ],
 };
 
+const views = {
+  OVERVIEW: "OVERVIEW",
+  ADD_SOUND: "ADD_SOUND",
+};
+
 export const CreateInstrument = (props) => {
   const [newInstrument, setNewInstrument] = useState(emptyInstrument);
+  const [view, setView] = useState(views.OVERVIEW);
+  const [loading, setLoading] = useState(false);
+
+  const addSound = async () => {
+    setView(views.ADD_SOUND);
+    const { data } = await axios.get("/api/sound");
+    console.log(data);
+  };
+
+  const switchToOverview = () => {
+    setView(views.OVERVIEW);
+  };
+
+  const saveInstrument = () => {};
+  const toggleHelp = () => {};
+
   return (
     <PageLayout>
       <Row>
-        <Column>
-          <H2>Create Instrument</H2>
+        <Column flex={1}>
+          <Heading2>Create Instrument</Heading2>
+        </Column>
+        <Column
+          flex={2}
+          flexDirection="row"
+          alignItems="flex-end"
+          justifyContent="flex-end">
+          <Button onClick={saveInstrument}>Save Instrument</Button>
+          <Button onClick={toggleHelp}>Help</Button>
         </Column>
       </Row>
       <Row>
-        <Column>Some tutorial here</Column>
-      </Row>
-      <Row>
         <Column>
-          <Row>
-            <Column flex={1}>Name:</Column>
-            <Column justifyContent="flex-start" flex={2}>
-              <Input type="text" />
-            </Column>
-          </Row>
-          <Row>
-            <Column flex={1}>Category:</Column>
-            <Column justifyContent="flex-start" flex={2}>
-              <Input type="text" />
-            </Column>
-          </Row>
-          <Row>
-            <Column flex={1}>Sub-category:</Column>
-            <Column justifyContent="flex-start" flex={2}>
-              <Input type="text" />
-            </Column>
-          </Row>
+          <Characteristics />
           <Row>
             <Column>
               <h3>Sounds:</h3>
             </Column>
           </Row>
-          <SoundsList
-            colors={newInstrument.colors}
-            sounds={newInstrument.sounds}
-          />
+          {view === views.OVERVIEW && (
+            <SoundsList
+              colors={newInstrument.colors}
+              sounds={newInstrument.sounds}
+              addSound={addSound}
+            />
+          )}
+          {view === views.ADD_SOUND && (
+            <AddSound switchToOverview={switchToOverview} />
+          )}
         </Column>
       </Row>
     </PageLayout>

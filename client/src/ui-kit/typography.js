@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const H2 = styled.h2`
-  padding: 10px;
+export const Heading2 = styled.h2`
+  padding: 10px 0;
   margin: 0 0 10px 0;
 `;
 

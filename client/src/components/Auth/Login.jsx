@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { login } from "./utils";
-import { Input, Button, Form, Label, Row, Column, Alert } from "../../ui-kit";
+import { Input, Button, Form, Label, Row, Column, Alert, Heading2 } from "../../ui-kit";
 
 export const Login = (props) => {
   const [userName, setUserName] = useState("");
@@ -34,7 +34,7 @@ export const Login = (props) => {
         flexDirection: "column",
         justifyContent: "flexStart",
       }}>
-      <h2>Login</h2>
+      <Heading2>Login</Heading2>
       <Form width={300} onSubmit={handleSubmit}>
         <Row>
           <Column flex={1}>

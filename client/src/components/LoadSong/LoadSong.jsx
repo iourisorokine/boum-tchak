@@ -4,7 +4,7 @@ import {
   PageLayout,
   SelectableItem,
   Button,
-  H2,
+  Heading2,
 } from "../../ui-kit";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -37,7 +37,7 @@ export const LoadSong = (props) => {
 
   return (
     <PageLayout>
-      <H2>Load Song</H2>
+      <Heading2>Load Song</Heading2>
       {songsList.map((el) => {
         return (
           <SelectableItem

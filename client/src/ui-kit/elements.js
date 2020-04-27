@@ -9,13 +9,13 @@ export const Tempo = styled.span`
 `;
 
 export const ExpandedMenuItem = styled.div`
-  margin: 5px;
+  margin: auto;
   min-width: 300px;
   max-width: 700px;
   position: absolute;
   z-index: 10;
   top: 150px;
-  left: 20%;
+  box-shadow: 3px 3px 5px #bbb;
   background-color: white;
   border: solid 1px black;
   border-radius: 3px;
@@ -60,4 +60,10 @@ export const ProfilePic = styled.img`
   width: 260px;
   object-fit: cover;
   padding: 10px;
+`;
+
+export const ColorSquare = styled.div`
+  height: 20px;
+  width: 20px;
+  background-color: ${(props) => props.backgroundColor || "white"};
 `;

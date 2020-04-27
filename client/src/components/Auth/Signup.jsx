@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Input, Button, Form, Label, Row, Column, Alert } from "../../ui-kit";
+import {
+  Input,
+  Button,
+  Form,
+  Label,
+  Row,
+  Column,
+  Alert,
+  Heading2,
+} from "../../ui-kit";
 import { signup } from "./utils";
 
 export const Signup = (props) => {
@@ -34,7 +43,7 @@ export const Signup = (props) => {
         flexDirection: "column",
         justifyContent: "flexStart",
       }}>
-      <h2>Signup</h2>
+      <Heading2>Signup</Heading2>
       <Form width={300} onsubmit={handleSubmit}>
         <Row>
           <Column flex={1}>

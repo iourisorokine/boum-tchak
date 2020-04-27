@@ -8,6 +8,7 @@ export {
   Form,
   Label,
   ProfilePic,
+  ColorSquare,
 } from "./elements";
 export {
   Button,
@@ -28,7 +29,7 @@ export {
   BlankSpace,
 } from "./layout";
 export {
-  H2,
+  Heading2,
   HeaderTitle,
   LineLabel,
   SongHeader,

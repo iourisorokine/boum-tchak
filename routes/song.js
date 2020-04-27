@@ -57,7 +57,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/:title", async (req, res) => {
-  const { title } = req.body;
+  const { title } = req.params;
   try {
     const song = await Song.find({ title }).populate("instrument");
     if (song) {

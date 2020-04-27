@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "./utils";
-import { Row, Column, Button, PageLayout, ProfilePic, H2 } from "../../ui-kit";
+import { Row, Column, Button, PageLayout, ProfilePic, Heading2 } from "../../ui-kit";
 
 export const Profile = (props) => {
   const [message, setMessage] = useState("");
@@ -22,7 +22,7 @@ export const Profile = (props) => {
   if (!props.user) {
     return (
       <PageLayout>
-        <H2>No Profile...</H2>
+        <Heading2>No Profile...</Heading2>
         <Row>
           <Column>Please login or signup to access the profile page</Column>
         </Row>
@@ -34,7 +34,7 @@ export const Profile = (props) => {
     <PageLayout>
       <Row>
         <Column>
-          <H2>Profile</H2>
+          <Heading2>Profile</Heading2>
         </Column>
       </Row>
       <Row>

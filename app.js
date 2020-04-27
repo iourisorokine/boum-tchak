@@ -89,6 +89,9 @@ app.use("/api/instrument", instrumentRoutes);
 const songRoutes = require("./routes/song");
 app.use("/api/song", songRoutes);
 
+const soundRoutes = require("./routes/sound");
+app.use("/api/sound", soundRoutes);
+
 // If no routes match, react html is sent
 app.use((req, res) => {
   res.sendFile(__dirname + "/client/public/index.html");
