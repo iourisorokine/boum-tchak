@@ -1,7 +1,7 @@
 import React from "react";
-import { Row, Column, ColorSquare, Button, Heading2 } from "../../ui-kit";
+import { Row, Column, ColorSquare, Button } from "../../ui-kit";
 
-export const SoundsList = ({ sounds, colors, addSound }) => {
+export const InstrumentSoundsList = ({ sounds, colors, addSound }) => {
   const parseSoundUrl = (soundUrl) => {
     const parts = soundUrl.split("/");
     return parts[parts.length - 1];

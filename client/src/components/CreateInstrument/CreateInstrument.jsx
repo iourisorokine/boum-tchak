@@ -1,23 +1,9 @@
 import React, { useState } from "react";
 import { Characteristics } from "./Characteristics";
-import { SoundsList } from "./SoundsList";
+import { InstrumentSoundsList } from "./InstrumentSoundsList";
 import { AddSound } from "./AddSound";
 import axios from "axios";
-import { Row, Column, Button, PageLayout, Heading2 } from "../../ui-kit";
-
-const emptyInstrument = {
-  name: "Bass",
-  colors: ["#ddd", "#733", "#944", "#b55", "#d55"],
-  category: "Bass",
-  subCategory: "Divers",
-  sounds: [
-    "",
-    "https://res.cloudinary.com/dibw9hzlc/video/upload/v1587846555/sounds/bass/Fusion-Acoustic-Bass-C2_afhrtm.wav",
-    "https://res.cloudinary.com/dibw9hzlc/video/upload/v1587846555/sounds/bass/Fusion-Fretless-Bass-C3_gbeay3.wav",
-    "https://res.cloudinary.com/dibw9hzlc/video/upload/v1587846554/sounds/bass/Synth-bass1-C2_tupsvj.wav",
-    "https://res.cloudinary.com/dibw9hzlc/video/upload/v1587846553/sounds/bass/Electric-bass1_mdc5at.wav",
-  ],
-};
+import { Row, Column, Button, PageLayout, Heading2, Alert } from "../../ui-kit";
 
 const views = {
   OVERVIEW: "OVERVIEW",
@@ -25,58 +11,144 @@ const views = {
 };
 
 export const CreateInstrument = (props) => {
-  const [newInstrument, setNewInstrument] = useState(emptyInstrument);
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+  const [message, setMessage] = useState("");
+  const [sounds, setSounds] = useState([""]);
+  const [colors, setColors] = useState(["#ddd"]);
   const [view, setView] = useState(views.OVERVIEW);
   const [loading, setLoading] = useState(false);
+  const [availableSounds, setAvailableSounds] = useState([]);
+  const [selectedSound, setSelectedSound] = useState(null);
 
-  const addSound = async () => {
+  const openAddSoundSection = async () => {
     setView(views.ADD_SOUND);
+    setLoading(true);
     const { data } = await axios.get("/api/sound");
-    console.log(data);
+    if (data) {
+      setAvailableSounds(data);
+      setLoading(false);
+    }
+  };
+
+  const displayMessage = (mes) => {
+    setMessage(mes);
+    setInterval(() => {
+      setMessage("");
+    }, 3000);
+  };
+
+  const addSound = (soundUrl, colorHex) => {
+    const updatedSounds = [...sounds, soundUrl];
+    const updatedColors = [...colors, colorHex];
+    setSounds(updatedSounds);
+    setColors(updatedColors);
+    setView(views.OVERVIEW);
   };
 
   const switchToOverview = () => {
     setView(views.OVERVIEW);
   };
 
-  const saveInstrument = () => {};
+  const selectSound = (sound) => {
+    setSelectedSound(sound);
+  };
+
+  const resetInstrument = () => {
+    setName("");
+    setCategory("");
+    setSubCategory("");
+    setSounds([""]);
+    setColors(["#ddd"]);
+  };
+
+  const saveInstrument = async () => {
+    if (!name || !category || !subCategory) {
+      displayMessage("All fields must be filled");
+      return;
+    }
+    if (sounds.length < 2 || colors.length < 2) {
+      displayMessage("You must select at least 1 sound");
+      return;
+    }
+    const createdInstrument = await axios.post("/api/instrument", {
+      name,
+      category,
+      subCategory,
+      sounds,
+      colors,
+      creator: props.user._id,
+      private: false,
+    });
+    if (createdInstrument.message) {
+      displayMessage(createdInstrument.message);
+    } else if (createdInstrument.data.status === 200) {
+      console.log(createdInstrument);
+      displayMessage(`Success! You just created a new instrument!`);
+      resetInstrument();
+    }
+  };
+
   const toggleHelp = () => {};
 
   return (
     <PageLayout>
-      <Row>
-        <Column flex={1}>
-          <Heading2>Create Instrument</Heading2>
-        </Column>
-        <Column
-          flex={2}
-          flexDirection="row"
-          alignItems="flex-end"
-          justifyContent="flex-end">
-          <Button onClick={saveInstrument}>Save Instrument</Button>
-          <Button onClick={toggleHelp}>Help</Button>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Characteristics />
+      {view === views.ADD_SOUND && (
+        <AddSound
+          switchToOverview={switchToOverview}
+          availableSounds={availableSounds}
+          selectedSound={selectedSound}
+          selectSound={selectSound}
+          loading={loading}
+          addSound={addSound}
+        />
+      )}
+      {view === views.OVERVIEW && (
+        <React.Fragment>
+          <Row>
+            <Column flex={1}>
+              <Heading2>Create Instrument</Heading2>
+            </Column>
+            <Column
+              flex={2}
+              flexDirection="row"
+              alignItems="flex-end"
+              justifyContent="flex-end">
+              <Button onClick={saveInstrument}>Save Instrument</Button>
+              <Button onClick={resetInstrument}>Reset</Button>
+              <Button onClick={toggleHelp}>Help</Button>
+            </Column>
+          </Row>
+          <Row>
+            <Column flex={2}>
+              <Characteristics
+                name={name}
+                setName={setName}
+                category={category}
+                setCategory={setCategory}
+                subCategory={subCategory}
+                setSubCategory={setSubCategory}
+              />
+            </Column>
+            <Column flex={1}>{message && <Alert>{message}</Alert>}</Column>
+          </Row>
           <Row>
             <Column>
               <h3>Sounds:</h3>
             </Column>
           </Row>
-          {view === views.OVERVIEW && (
-            <SoundsList
-              colors={newInstrument.colors}
-              sounds={newInstrument.sounds}
-              addSound={addSound}
-            />
-          )}
-          {view === views.ADD_SOUND && (
-            <AddSound switchToOverview={switchToOverview} />
-          )}
-        </Column>
-      </Row>
+          <Row>
+            <Column>
+              <InstrumentSoundsList
+                colors={colors}
+                sounds={sounds}
+                addSound={openAddSoundSection}
+              />
+            </Column>
+          </Row>
+        </React.Fragment>
+      )}
     </PageLayout>
   );
 };

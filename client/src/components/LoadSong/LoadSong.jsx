@@ -3,6 +3,7 @@ import {
   ExpandedMenuItem,
   PageLayout,
   SelectableItem,
+  SelectableText,
   Button,
   Heading2,
 } from "../../ui-kit";
@@ -16,13 +17,15 @@ export const LoadSong = (props) => {
   const [message, setMessage] = useState("");
 
   const fetchData = async () => {
+    setLoading(true);
     const { data } = await axios.get(`/api/song/creator/${props.user._id}`);
-    setSongsList(data);
-    setLoading(false);
+    if (data) {
+      setSongsList(data);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    setLoading(true);
     fetchData();
   }, []);
 
@@ -40,16 +43,14 @@ export const LoadSong = (props) => {
       <Heading2>Load Song</Heading2>
       {songsList.map((el) => {
         return (
-          <SelectableItem
+          <SelectableText
             key={el._id}
+            selected={selectedSong === el._id}
             onClick={() => {
               setSelectedSong(el._id);
             }}>
-            <p>
-              <span>{selectedSong && selectedSong === el._id && "--> "}</span>
-              {el.title}
-            </p>
-          </SelectableItem>
+            {el.title}
+          </SelectableText>
         );
       })}
       <div>{message && <p>{message}</p>}</div>

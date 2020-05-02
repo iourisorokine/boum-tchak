@@ -33,11 +33,11 @@ export const StopButton = styled(Button)`
   font-weight: bold;
 `;
 
-export const ButtonMenu = styled.div`
+export const MenuButton = styled.div`
   margin: 10px;
   border: solid 2px black;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 4px 20px;
   color: #000;
   text-decoration: none;
   cursor: pointer;
@@ -74,4 +74,14 @@ export const DeleteButton = styled.p`
     background-color: red;
     color: white;
   }
+`;
+
+const IconButton = styled.button`
+  color: black;
+  backgroundcolor: white;
+  padding: 6px;
+  bordercolor: black;
+  border: 1px solid black;
+  border-radius: 50%;
+  cursor: pointer;
 `;

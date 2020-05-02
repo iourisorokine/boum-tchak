@@ -2,23 +2,32 @@ import React, { useState } from "react";
 import {
   Input,
   Button,
-  Form,
   Label,
   Row,
   Column,
   Alert,
+  PageLayout,
+  BlankSpace,
   Heading2,
 } from "../../ui-kit";
+import { Link } from "react-router-dom";
 import { signup } from "./utils";
 
 export const Signup = (props) => {
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
+  const linkStyle = {
+    textDecoration: "none",
+    color: "black",
+  };
+
+  const handleSignup = async (e) => {
     e.preventDefault();
-    const data = signup(userName, password);
+    const data = await signup(username, password);
+    console.log("### AUTH:", username, password);
+    console.log("#### DATA", data);
     if (data.message) {
       setMessage(data.message);
     } else {
@@ -29,7 +38,7 @@ export const Signup = (props) => {
 
   const handleChange = (e) => {
     if (e.target.name === "username") {
-      setUserName(e.target.value);
+      setUsername(e.target.value);
     }
     if (e.target.name === "password") {
       setPassword(e.target.value);
@@ -37,53 +46,55 @@ export const Signup = (props) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flexStart",
-      }}>
-      <Heading2>Signup</Heading2>
-      <Form width={300} onsubmit={handleSubmit}>
-        <Row>
-          <Column flex={1}>
-            <Label htmlFor="username">Username:</Label>
-          </Column>
-          <Column flex={2}>
-            <Input
-              type="text"
-              name="username"
-              id="username"
-              value={userName}
-              onChange={handleChange}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column flex={1}>
-            <Label htmlFor="password">Password:</Label>
-          </Column>
-          <Column flex={2}>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              value={password}
-              onChange={handleChange}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column alignItems={"center"}>
-            {message && <Alert>{message}</Alert>}
-          </Column>
-        </Row>
-        <Row>
-          <Column alignItems={"center"}>
-            <Button type="submit">Submit</Button>
-          </Column>
-        </Row>
-      </Form>
-    </div>
+    <PageLayout>
+      <Row>
+        <Column />
+        <Column flex={2}>
+          <Heading2>Signup</Heading2>
+          <Row>
+            <Column>
+              <Label htmlFor="username">Username:</Label>
+            </Column>
+            <Column flex={2}>
+              <Input
+                type="text"
+                name="username"
+                width={"100%"}
+                id="username"
+                value={username}
+                onChange={handleChange}
+              />
+            </Column>
+          </Row>
+          <Row>
+            <Column flex={1}>
+              <Label htmlFor="password">Password:</Label>
+            </Column>
+            <Column flex={2}>
+              <Input
+                type="password"
+                name="password"
+                width={"100%"}
+                id="password"
+                value={password}
+                onChange={handleChange}
+              />
+            </Column>
+          </Row>
+          <BlankSpace />
+          <Row>
+            <Column alignItems={"center"}>
+              {message && <Alert>{message}</Alert>}
+              <Button onClick={handleSignup}>Submit</Button>
+              <p>Already have a profile?</p>
+              <Link to="/login" style={linkStyle}>
+                login
+              </Link>
+            </Column>
+          </Row>
+        </Column>
+        <Column />
+      </Row>
+    </PageLayout>
   );
 };

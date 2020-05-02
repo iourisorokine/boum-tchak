@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Row = styled.div`
   display: flex;
   width: 100%;
-
 `;
 
 export const Column = styled.div`
@@ -44,7 +43,7 @@ export const Wrapper = styled.div`
   align-items: ${(props) => props.alignItems || "center"};
   justify-content: ${(props) => props.justifyContent || "flex-start"};
   width: 100vw;
-  max-width: 900px;
+  max-width: ${(props) => props.maxWidth || "900px"};
   border-left: ${(props) =>
     props.border === "yes" ? "1px solid black" : null};
   border-right: ${(props) =>

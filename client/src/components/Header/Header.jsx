@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { HeaderLayout, HeaderTitle, ButtonMenu, Wrapper } from "../../ui-kit";
+import { HeaderLayout, HeaderTitle, MenuButton, Wrapper } from "../../ui-kit";
 
 const linkStyle = {
   textDecoration: "none",
@@ -15,19 +15,19 @@ export const Header = (props) => {
         <div
           style={{ display: "flex", paddingRight: 20, alignItems: "center" }}>
           <Link style={linkStyle} to="/listen">
-            <ButtonMenu>Listen</ButtonMenu>
+            <MenuButton>Listen</MenuButton>
           </Link>
           <Link style={linkStyle} to="/">
-            <ButtonMenu>Create</ButtonMenu>
+            <MenuButton>Create</MenuButton>
           </Link>
           {props.user ? (
             <Link style={linkStyle} to="/profile">
-              <ButtonMenu>Profile</ButtonMenu>
+              <MenuButton>Profile</MenuButton>
             </Link>
           ) : (
             <React.Fragment>
               <Link style={linkStyle} to="/signup">
-                <ButtonMenu>Signup</ButtonMenu>
+                <MenuButton>Signup</MenuButton>
               </Link>
               <Link style={linkStyle} to="/login">
                 Login

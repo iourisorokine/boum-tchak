@@ -55,4 +55,54 @@ router.get("/:name", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  const {
+    name,
+    category,
+    subCategory,
+    colors,
+    sounds,
+    creator,
+    private,
+  } = req.body;
+  const foundSameName = await Instrument.findOne({ name });
+  if (foundSameName) {
+    res.json({
+      message:
+        "An instrument with the same name already exists, please create a unique name",
+    });
+  }
+  try {
+    const newInstrument = await Instrument.create({
+      name,
+      category,
+      subCategory,
+      colors,
+      sounds,
+      creator,
+      private,
+    });
+    if (creator) {
+      await updateUserInstruments(creator, newInstrument._id);
+    }
+    res.json(newInstrument);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+const updateUserInstruments = async (userId, instrumentId) => {
+  try {
+    const user = await User.findById(userId);
+    const updatedInstruments = user.customInstruments.concat([instrumentId]);
+    await User.findByIdAndUpdate(
+      userId,
+      { songs: updatedInstruments },
+      { new: true }
+    );
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 module.exports = router;

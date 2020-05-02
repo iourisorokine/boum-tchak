@@ -58,7 +58,7 @@ export const SongsList = () => {
         );
       })}
       {loading ? (
-        <Bars fill="#000" stroke="#000" />
+        <Bars width={100} height={50} fill="#000" stroke="#000" />
       ) : message ? (
         <p>{message}</p>
       ) : (

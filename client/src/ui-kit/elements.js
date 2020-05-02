@@ -22,15 +22,6 @@ export const ExpandedMenuItem = styled.div`
   padding: 10px;
 `;
 
-export const SelectableItem = styled.div`
-  width: 200px;
-  height: 40px;
-  padding-left: 10px;
-  &:hover {
-    background-color: #7799dd;
-  }
-`;
-
 export const SongPost = styled.div`
   margin: 30px 10px;
   border: solid 1px black;
@@ -41,7 +32,7 @@ export const SongPost = styled.div`
 
 export const Input = styled.input`
   height: 20px;
-  min-width: 100px;
+  width: ${(props) => props.width || "100px"};
   margin: 10px;
 `;
 
@@ -54,6 +45,16 @@ export const Label = styled.label`
   margin: 0px 5px;
 `;
 
+export const Select = styled.select`
+  margin: 4px 10px;
+  height: 20px;
+  width: ${(props) => props.width || "100px"};
+`;
+
+export const Option = styled.option`
+  font-size: 12px;
+`;
+
 export const ProfilePic = styled.img`
   src: ${(props) => props.src}
   height: 260px;
@@ -63,7 +64,21 @@ export const ProfilePic = styled.img`
 `;
 
 export const ColorSquare = styled.div`
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
+  margin: 4px;
+  border: solid black 1px;
   background-color: ${(props) => props.backgroundColor || "white"};
+`;
+
+export const SelectableText = styled.p`
+  padding: 3px;
+  margin: 0;
+  cursor: pointer;
+  color: ${(props) => (props.selected ? "white" : "black")};
+  background-color: ${(props) => (props.selected ? "black" : "white")};
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;

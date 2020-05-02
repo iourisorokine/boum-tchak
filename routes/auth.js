@@ -4,9 +4,10 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-// POST api/auth/signup
+// POST /api/auth/signup
 router.post("/signup", (req, res) => {
   const { username, password } = req.body;
+  console.log("### Signup req body", req.body);
 
   if (!password || password.length < 8) {
     return res
@@ -14,13 +15,15 @@ router.post("/signup", (req, res) => {
       .json({ message: "Your password must be 8 char. min." });
   }
   if (!username) {
-    return res.status(400).json({ message: "Your email cannot be empty" });
+    return res.status(400).json({ message: "Your username cannot be empty" });
   }
 
   User.findOne({ username: username })
     .then((found) => {
       if (found) {
-        return res.status(400).json({ message: "This email is already taken" });
+        return res
+          .status(400)
+          .json({ message: "This username is already taken" });
       }
 
       const salt = bcrypt.genSaltSync();
@@ -50,7 +53,6 @@ router.post("/signup", (req, res) => {
 
 // POST /api/auth/login
 router.post("/login", (req, res) => {
-  console.log("###login req body:", req.body);
   passport.authenticate("local", (err, user) => {
     if (err) {
       return res.status(500).json({ message: "Error while authenticating" });
