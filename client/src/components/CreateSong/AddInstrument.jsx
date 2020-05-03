@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Bars } from "svg-loaders-react";
 import { InstrumentBtn, ExpandedMenuItem } from "../../ui-kit";
 import axios from "axios";
 
@@ -26,6 +27,7 @@ export const AddInstrument = ({
   console.log(newInstruments);
   return (
     <ExpandedMenuItem>
+      {loading && <Bars width={100} height={50} fill="#000" stroke="#000" />}
       {newInstruments.map((instrument) => {
         return (
           <InstrumentBtn

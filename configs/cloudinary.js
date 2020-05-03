@@ -6,6 +6,7 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });
+
 const storage = cloudinaryStorage({
   cloudinary,
   folder: "sounds", // The name of the folder in cloudinary
@@ -16,4 +17,5 @@ const storage = cloudinaryStorage({
   },
 });
 const uploader = multer({ storage });
+
 module.exports = uploader;

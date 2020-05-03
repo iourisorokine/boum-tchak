@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  ExpandedMenuItem,
-  PageLayout,
-  SelectableItem,
-  SelectableText,
-  Button,
-  Heading2,
-} from "../../ui-kit";
+import { Bars } from "svg-loaders-react";
+import { PageLayout, SelectableText, Button, Heading2, Column } from "../../ui-kit";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -41,6 +35,11 @@ export const LoadSong = (props) => {
   return (
     <PageLayout>
       <Heading2>Load Song</Heading2>
+      {loading && (
+        <Column alignItems="center">
+          <Bars width={100} height={50} fill="#000" stroke="#000" />
+        </Column>
+      )}
       {songsList.map((el) => {
         return (
           <SelectableText

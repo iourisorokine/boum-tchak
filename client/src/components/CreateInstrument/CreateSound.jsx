@@ -22,38 +22,54 @@ export const CreateSound = () => {
   };
 
   return (
-    <Row>
-      <Column flex={2}>
-        <Input
-          type="text"
-          value={soundName}
-          onChange={(e) => setSoundName(e.target.value)}
-        />
-      </Column>
-      <Column flex={2}>
-        <Input
-          type="text"
-          value={soundCategory}
-          onChange={(e) => setSoundCategory(e.target.value)}
-        />
-      </Column>
-      <Column flex={2}>
-        <Input
-          type="text"
-          value={soundSubCategory}
-          onChange={(e) => setSoundSubCategory(e.target.value)}
-        />
-      </Column>
-      <Column flex={1}>
-        <Input
-          id="file"
-          name="file"
-          type="file"
-          multiple="false"
-          onChange={fileSelectorHandler}
-        />
-        <Button onClick={uploadSound}>Upload</Button>
-      </Column>
-    </Row>
+    <React.Fragment>
+      <Row>
+        <Column>Name:</Column>
+        <Column flex={2}>
+          <Input
+            type="text"
+            value={soundName}
+            onChange={(e) => setSoundName(e.target.value)}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column>Category:</Column>
+        <Column flex={2}>
+          <Input
+            type="text"
+            value={soundCategory}
+            onChange={(e) => setSoundCategory(e.target.value)}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column>Sub-Category:</Column>
+        <Column flex={2}>
+          <Input
+            type="text"
+            value={soundSubCategory}
+            onChange={(e) => setSoundSubCategory(e.target.value)}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column>File:</Column>
+        <Column flex={2}>
+          <Input
+            id="file"
+            name="file"
+            type="file"
+            multiple="false"
+            onChange={fileSelectorHandler}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column flex={1}>
+          <Button onClick={uploadSound}>Create Sound</Button>
+        </Column>
+      </Row>
+    </React.Fragment>
   );
 };

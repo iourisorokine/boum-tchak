@@ -11,6 +11,7 @@ export const AvailableSoundsList = ({
   selectSound,
 }) => {
   const volumeBtnStyle = {
+    margin: 2,
     color: "black",
     backgroundColor: "white",
     padding: 6,
@@ -33,6 +34,13 @@ export const AvailableSoundsList = ({
         };
         return (
           <Row key={el._id}>
+            <Column>
+              <FontAwesomeIcon
+                icon={faVolumeUp}
+                style={volumeBtnStyle}
+                onClick={playSound}
+              />
+            </Column>
             <Column flex={3}>
               <SelectableText
                 selected={selectedSound === el.url}
@@ -53,13 +61,6 @@ export const AvailableSoundsList = ({
                 onClick={() => selectSound(el.url)}>
                 {el.subCategory}
               </SelectableText>
-            </Column>
-            <Column>
-              <FontAwesomeIcon
-                icon={faVolumeUp}
-                style={volumeBtnStyle}
-                onClick={playSound}
-              />
             </Column>
           </Row>
         );

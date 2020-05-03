@@ -24,10 +24,7 @@ export const Signup = (props) => {
   };
 
   const handleSignup = async (e) => {
-    e.preventDefault();
     const data = await signup(username, password);
-    console.log("### AUTH:", username, password);
-    console.log("#### DATA", data);
     if (data.message) {
       setMessage(data.message);
     } else {
@@ -49,7 +46,7 @@ export const Signup = (props) => {
     <PageLayout>
       <Row>
         <Column />
-        <Column flex={2}>
+        <Column flex={1}>
           <Heading2>Signup</Heading2>
           <Row>
             <Column>
