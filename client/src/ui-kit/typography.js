@@ -5,6 +5,11 @@ export const Heading2 = styled.h2`
   margin: 0 0 10px 0;
 `;
 
+export const Heading3 = styled.h3`
+  padding: 10px 0;
+  margin: 0 0 10px 0;
+`;
+
 export const SongHeader = styled.div`
   margin-top: -32px;
   padding: 0px 12px;

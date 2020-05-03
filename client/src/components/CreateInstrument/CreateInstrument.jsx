@@ -24,6 +24,10 @@ export const CreateInstrument = (props) => {
 
   const openAddSoundSection = async () => {
     setView(views.ADD_SOUND);
+    await fetchData();
+  };
+
+  const fetchData = async () => {
     setLoading(true);
     const { data } = await axios.get("/api/sound");
     if (data) {
@@ -40,6 +44,10 @@ export const CreateInstrument = (props) => {
   };
 
   const addSound = (soundUrl, colorHex) => {
+    if ((!soundUrl, !colorHex)) {
+      displayMessage("Please select or upload a sound and pick a color");
+      return;
+    }
     const updatedSounds = [...sounds, soundUrl];
     const updatedColors = [...colors, colorHex];
     setSounds(updatedSounds);
@@ -81,10 +89,10 @@ export const CreateInstrument = (props) => {
       creator: props.user._id,
       private: false,
     });
+    console.log(createdInstrument);
     if (createdInstrument.message) {
       displayMessage(createdInstrument.message);
-    } else if (createdInstrument.data.status === 200) {
-      console.log(createdInstrument);
+    } else if (createdInstrument.status === 200) {
       displayMessage(`Success! You just created a new instrument!`);
       resetInstrument();
     }
@@ -102,6 +110,7 @@ export const CreateInstrument = (props) => {
           selectSound={selectSound}
           loading={loading}
           addSound={addSound}
+          fetchData={fetchData}
         />
       )}
       {view === views.OVERVIEW && (

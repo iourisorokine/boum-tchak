@@ -30,10 +30,11 @@ router.get("/creator/:creatorId", async (req, res) => {
 
 router.get("/posted/:page", async (req, res) => {
   const { page } = req.params;
-  const limit = 3;
+  const limit = 7;
   try {
     const songs = await Song.find({ posted: true }).populate("instruments");
     if (songs) {
+      songs.reverse();
       const firstIndex = (page - 1) * limit;
       const lastIndex = page * limit;
       const response = songs.slice(firstIndex, lastIndex);

@@ -5,3 +5,5 @@ export {
 } from "./instruments";
 
 export { playBeat } from "./playMechanics";
+
+export { getCategories, getSubCategories } from "./categories";

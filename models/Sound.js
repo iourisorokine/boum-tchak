@@ -5,6 +5,7 @@ const SoundSchema = new Schema({
   name: String,
   category: String,
   subCategory: String,
+  pitch: String,
   url: String,
 });
 

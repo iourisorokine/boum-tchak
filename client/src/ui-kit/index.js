@@ -32,6 +32,7 @@ export {
 } from "./layout";
 export {
   Heading2,
+  Heading3,
   HeaderTitle,
   LineLabel,
   SongHeader,

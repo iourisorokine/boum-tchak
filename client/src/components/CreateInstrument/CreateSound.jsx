@@ -1,26 +1,57 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Row, Column, Input, Button } from "../../ui-kit";
+import { getCategories, getSubCategories } from "../utils";
+import { Row, Column, Input, Button, Select, Option } from "../../ui-kit";
 
-export const CreateSound = () => {
+export const CreateSound = ({ setView, fetchData }) => {
   const [soundName, setSoundName] = useState("");
   const [soundCategory, setSoundCategory] = useState("");
   const [soundSubCategory, setSoundSubCategory] = useState("");
   const [soundFile, setSoundFile] = useState(null);
+  const [message, setMessage] = useState("");
 
   const fileSelectorHandler = (event) => {
-    console.log(event.target.files[0]);
     const selectedFile = event.target.files[0];
     setSoundFile(selectedFile);
   };
 
   const uploadSound = async () => {
+    if (!soundName || !soundCategory || !soundSubCategory) {
+      displayMessage("Please chose a name and select categories");
+      return;
+    } else if (soundName.length < 5) {
+      displayMessage("The sound name must be at least 5 char.");
+    } else if (!soundFile) {
+      displayMessage("please select a file to upload");
+      return;
+    }
     const uploadData = new FormData();
     uploadData.append("sounds", soundFile);
-    const addedSound = await axios.post("/api/sound/upload", uploadData);
-    console.log(addedSound);
+    const uploadedSound = await axios.post("/api/sound/upload", uploadData);
+    const createdSound = await axios.post("/api/sound", {
+      name: soundName,
+      category: soundCategory,
+      subCategory: soundSubCategory,
+      pitch: "",
+      url: uploadedSound.data.secure_url,
+    });
+    if (createdSound.message) {
+      displayMessage(createdSound.message);
+      return;
+    }
+    setView("ADD");
+    fetchData();
   };
 
+  const soundCategories = getCategories();
+
+  const displayMessage = (mes) => {
+    setMessage(mes);
+    setInterval(() => {
+      setMessage("");
+    }, 3000);
+  };
+  console.log(soundFile);
   return (
     <React.Fragment>
       <Row>
@@ -36,21 +67,33 @@ export const CreateSound = () => {
       <Row>
         <Column>Category:</Column>
         <Column flex={2}>
-          <Input
-            type="text"
-            value={soundCategory}
-            onChange={(e) => setSoundCategory(e.target.value)}
-          />
+          <Select
+            name="category"
+            onChange={(e) => setSoundCategory(e.target.value)}>
+            {soundCategories.map((cat, i) => {
+              return (
+                <Option key={i} value={cat}>
+                  {cat !== "default" && cat}
+                </Option>
+              );
+            })}
+          </Select>
         </Column>
       </Row>
       <Row>
         <Column>Sub-Category:</Column>
         <Column flex={2}>
-          <Input
-            type="text"
-            value={soundSubCategory}
-            onChange={(e) => setSoundSubCategory(e.target.value)}
-          />
+          <Select
+            name="sub-category"
+            onChange={(e) => setSoundSubCategory(e.target.value)}>
+            {getSubCategories(soundCategory).map((subCat, i) => {
+              return (
+                <Option key={i} value={subCat}>
+                  {subCat}
+                </Option>
+              );
+            })}
+          </Select>
         </Column>
       </Row>
       <Row>
@@ -64,6 +107,13 @@ export const CreateSound = () => {
             onChange={fileSelectorHandler}
           />
         </Column>
+      </Row>
+      <Row>
+        <Column></Column>
+        <Column flex={2}>{soundFile && soundFile.name}</Column>
+      </Row>
+      <Row>
+        <Column>{message && message}</Column>
       </Row>
       <Row>
         <Column flex={1}>

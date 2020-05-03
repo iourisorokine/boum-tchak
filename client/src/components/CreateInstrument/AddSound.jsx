@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AvailableSoundsList } from "./AvailableSoundsList";
 import { SketchPicker } from "react-color";
 import { CreateSound } from "./CreateSound";
-import { Row, Button, Column, ColorSquare } from "../../ui-kit";
+import { Row, Button, Column, ColorSquare, Heading2 } from "../../ui-kit";
 
 const views = {
   ADD: "ADD",
@@ -16,6 +16,7 @@ export const AddSound = ({
   selectSound,
   addSound,
   loading,
+  fetchData,
 }) => {
   const [soundColor, setSoundColor] = useState("#aaa");
   const [view, setView] = useState(views.ADD);
@@ -27,7 +28,7 @@ export const AddSound = ({
     <React.Fragment>
       <Row>
         <Column>
-          <h3>Add Sound:</h3>
+          <Heading2>Add Sound:</Heading2>
         </Column>
         <Column flexDirection="row" justifyContent="flex-end">
           {view === views.ADD && (
@@ -59,22 +60,28 @@ export const AddSound = ({
       </Row>
       <Row>
         <Column flex={2} justifyContent="flex-start">
-          <Row>
-            <Column
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="flex-start">
-              <p>Color:</p>
-              <ColorSquare backgroundColor={soundColor} />
-            </Column>
-          </Row>
-          <SketchPicker
-            color={soundColor}
-            onChangeComplete={handleColorChange}
-          />
+          {view === views.ADD && (
+            <React.Fragment>
+              <Row>
+                <Column
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="flex-start">
+                  <p>Color:</p>
+                  <ColorSquare backgroundColor={soundColor} />
+                </Column>
+              </Row>
+              <SketchPicker
+                color={soundColor}
+                onChangeComplete={handleColorChange}
+              />
+            </React.Fragment>
+          )}
         </Column>
         <Column flex={3}>
-          {view === views.UPLOAD && <CreateSound />}
+          {view === views.UPLOAD && (
+            <CreateSound setView={setView} fetchData={fetchData} />
+          )}
           {view === views.ADD && (
             <AvailableSoundsList
               loading={loading}
