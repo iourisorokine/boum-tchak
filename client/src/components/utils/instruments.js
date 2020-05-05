@@ -13,17 +13,19 @@ export const preparePartition = (instruments, length) => {
 export const prepareInstruments = (instruments) => {
   const preparedInstruments = instruments.map((line) => {
     const lineSounds = [];
+    const lineColors = [];
     line.sounds.forEach((el) => {
-      if (el) {
-        lineSounds.push(new Audio(el));
+      if (el.url) {
+        lineSounds.push(new Audio(el.url));
       } else {
         lineSounds.push(null);
       }
+      lineColors.push(el.color);
     });
     return {
       id: line._id,
       label: line.name,
-      colors: line.colors,
+      colors: lineColors,
       sounds: lineSounds,
     };
   });
@@ -32,17 +34,19 @@ export const prepareInstruments = (instruments) => {
 
 export const prepareOneInstrument = (instrument) => {
   const lineSounds = [];
+  const lineColors = [];
   instrument.sounds.forEach((el) => {
-    if (el) {
-      lineSounds.push(new Audio(el));
+    if (el.url) {
+      lineSounds.push(new Audio(el.url));
     } else {
       lineSounds.push(null);
     }
+    lineColors.push(el.color);
   });
   return {
     id: instrument._id,
     label: instrument.name,
-    colors: instrument.colors,
+    colors: lineColors,
     sounds: lineSounds,
   };
 };

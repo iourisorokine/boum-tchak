@@ -8,8 +8,12 @@ const InstrumentSchema = new Schema({
   },
   category: String,
   subCategory: String,
-  colors: [String],
-  sounds: [String],
+  sounds: [
+    { 
+      name: String, 
+      color: String, 
+      url: String }
+    ],
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",

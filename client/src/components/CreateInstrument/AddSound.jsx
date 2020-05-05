@@ -50,7 +50,13 @@ export const AddSound = ({
 
           <Button
             backgroundColor="#0f0"
-            onClick={() => addSound(selectedSound, soundColor)}>
+            onClick={() =>
+              addSound({
+                name: selectedSound.name,
+                color: soundColor,
+                url: selectedSound.url,
+              })
+            }>
             Add
           </Button>
           <Button backgroundColor="#f00" onClick={switchToOverview}>

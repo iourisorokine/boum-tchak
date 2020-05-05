@@ -29,7 +29,8 @@ export const AvailableSoundsList = ({
         sound.name
           .toLocaleLowerCase()
           .includes(filterName.toLocaleLowerCase())) &&
-      (filterCategory === "default" || filterCategory === sound.category)&& (!filterSubCategory || filterSubCategory === sound.subCategory)
+      (filterCategory === "default" || filterCategory === sound.category) &&
+      (!filterSubCategory || filterSubCategory === sound.subCategory)
     );
   });
 
@@ -112,22 +113,22 @@ export const AvailableSoundsList = ({
             </Column>
             <Column flex={3}>
               <SelectableText
-                selected={selectedSound === el.url}
-                onClick={() => selectSound(el.url)}>
+                selected={selectedSound && selectedSound.url === el.url}
+                onClick={() => selectSound(el)}>
                 {el.name}
               </SelectableText>
             </Column>
             <Column flex={2}>
               <SelectableText
-                selected={selectedSound === el.url}
-                onClick={() => selectSound(el.url)}>
+                selected={selectedSound && selectedSound.url === el.url}
+                onClick={() => selectSound(el)}>
                 {el.category}
               </SelectableText>
             </Column>
             <Column flex={2}>
               <SelectableText
-                selected={selectedSound === el.url}
-                onClick={() => selectSound(el.url)}>
+                selected={selectedSound && selectedSound.url === el.url}
+                onClick={() => selectSound(el)}>
                 {el.subCategory}
               </SelectableText>
             </Column>

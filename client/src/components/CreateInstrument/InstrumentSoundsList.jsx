@@ -1,14 +1,14 @@
 import React from "react";
 import { Row, Column, ColorSquare, Button } from "../../ui-kit";
 
-export const InstrumentSoundsList = ({ sounds, colors, addSound }) => {
+export const InstrumentSoundsList = ({ sounds, addSound }) => {
   const parseSoundUrl = (soundUrl) => {
     const parts = soundUrl.split("/");
     return parts[parts.length - 1];
   };
 
-  const playSound = (sound) => {
-    new Audio(sound).play();
+  const playSound = (url) => {
+    new Audio(url).play();
   };
 
   return (
@@ -23,12 +23,12 @@ export const InstrumentSoundsList = ({ sounds, colors, addSound }) => {
                 </p>
               </Column>
               <Column>
-                <ColorSquare backgroundColor={colors[i]} />
+                <ColorSquare backgroundColor={el.color} />
               </Column>
               <Column flex={5}>
-                {el ? (
-                  <Button onClick={() => playSound(el)}>
-                    {parseSoundUrl(el)}
+                {el.url ? (
+                  <Button onClick={() => playSound(el.url)}>
+                    {parseSoundUrl(el.url)}
                   </Button>
                 ) : (
                   <p style={{ margin: 0, padding: "5px 18px" }}>No sound</p>

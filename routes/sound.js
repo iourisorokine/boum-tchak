@@ -45,7 +45,6 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/upload", uploader.single("sounds"), (req, res, next) => {
-  console.log("##### req file", req.file);
   if (!req.file) {
     next(new Error("No file uploaded!"));
     return;

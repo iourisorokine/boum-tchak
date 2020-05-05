@@ -15,8 +15,9 @@ export const CreateInstrument = (props) => {
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [message, setMessage] = useState("");
-  const [sounds, setSounds] = useState([""]);
-  const [colors, setColors] = useState(["#ddd"]);
+  const [sounds, setSounds] = useState([
+    { name: "default", color: "#ddd", url: "" },
+  ]);
   const [view, setView] = useState(views.OVERVIEW);
   const [loading, setLoading] = useState(false);
   const [availableSounds, setAvailableSounds] = useState([]);
@@ -43,15 +44,18 @@ export const CreateInstrument = (props) => {
     }, 3000);
   };
 
-  const addSound = (soundUrl, colorHex) => {
-    if ((!soundUrl, !colorHex)) {
+  const addSound = (sound) => {
+    if ((!sound.url, !sound.color)) {
       displayMessage("Please select or upload a sound and pick a color");
       return;
     }
-    const updatedSounds = [...sounds, soundUrl];
-    const updatedColors = [...colors, colorHex];
+    const newSound = {
+      name: sound.name,
+      color: sound.color,
+      url: sound.url,
+    };
+    const updatedSounds = [...sounds, newSound];
     setSounds(updatedSounds);
-    setColors(updatedColors);
     setView(views.OVERVIEW);
   };
 
@@ -67,8 +71,7 @@ export const CreateInstrument = (props) => {
     setName("");
     setCategory("");
     setSubCategory("");
-    setSounds([""]);
-    setColors(["#ddd"]);
+    setSounds([{ name: "default", color: "#ddd", url: "" }]);
   };
 
   const saveInstrument = async () => {
@@ -76,7 +79,7 @@ export const CreateInstrument = (props) => {
       displayMessage("All fields must be filled");
       return;
     }
-    if (sounds.length < 2 || colors.length < 2) {
+    if (sounds.length < 2) {
       displayMessage("You must select at least 1 sound");
       return;
     }
@@ -85,11 +88,9 @@ export const CreateInstrument = (props) => {
       category,
       subCategory,
       sounds,
-      colors,
       creator: props.user._id,
       private: false,
     });
-    console.log(createdInstrument);
     if (createdInstrument.message) {
       displayMessage(createdInstrument.message);
     } else if (createdInstrument.status === 200) {
@@ -150,7 +151,6 @@ export const CreateInstrument = (props) => {
           <Row>
             <Column>
               <InstrumentSoundsList
-                colors={colors}
                 sounds={sounds}
                 addSound={openAddSoundSection}
               />

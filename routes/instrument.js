@@ -77,7 +77,6 @@ router.post("/", async (req, res) => {
       name,
       category,
       subCategory,
-      colors,
       sounds,
       creator,
       private,
