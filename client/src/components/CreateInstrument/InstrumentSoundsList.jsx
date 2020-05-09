@@ -2,11 +2,6 @@ import React from "react";
 import { Row, Column, ColorSquare, Button } from "../../ui-kit";
 
 export const InstrumentSoundsList = ({ sounds, addSound }) => {
-  const parseSoundUrl = (soundUrl) => {
-    const parts = soundUrl.split("/");
-    return parts[parts.length - 1];
-  };
-
   const playSound = (url) => {
     new Audio(url).play();
   };
@@ -27,9 +22,7 @@ export const InstrumentSoundsList = ({ sounds, addSound }) => {
               </Column>
               <Column flex={5}>
                 {el.url ? (
-                  <Button onClick={() => playSound(el.url)}>
-                    {parseSoundUrl(el.url)}
-                  </Button>
+                  <Button onClick={() => playSound(el.url)}>{el.name}</Button>
                 ) : (
                   <p style={{ margin: 0, padding: "5px 18px" }}>No sound</p>
                 )}

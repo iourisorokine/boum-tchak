@@ -13,21 +13,28 @@ export const CreateLine = ({
   isDeleteLineVisible,
   animatedNotes,
   deleteLine,
+  currentPage,
+  lenghtOfPage,
 }) => {
+  const firstIndex = (currentPage - 1) * lenghtOfPage;
+  const lastIndex = currentPage * lenghtOfPage;
+
   const displayNotes = notes.map((n, i) => {
-    return (
-      <Note
-        key={i}
-        status={n}
-        notePosition={i}
-        colors={noteColors}
-        toggleActiveNote={toggleActiveNote}
-        linePosition={linePosition}
-        sounds={sounds}
-        highlighted={highlightedNote === i}
-        animated={animatedNotes.includes(i)}
-      />
-    );
+    if (i >= firstIndex && i < lastIndex) {
+      return (
+        <Note
+          key={i}
+          status={n}
+          notePosition={i}
+          colors={noteColors}
+          toggleActiveNote={toggleActiveNote}
+          linePosition={linePosition}
+          sounds={sounds}
+          highlighted={highlightedNote === i}
+          animated={animatedNotes.includes(i)}
+        />
+      );
+    }
   });
 
   return (

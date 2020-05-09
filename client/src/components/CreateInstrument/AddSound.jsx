@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AvailableSoundsList } from "./AvailableSoundsList";
 import { SketchPicker } from "react-color";
 import { CreateSound } from "./CreateSound";
@@ -17,11 +17,28 @@ export const AddSound = ({
   addSound,
   loading,
   fetchData,
+  displayMessage,
 }) => {
   const [soundColor, setSoundColor] = useState("#aaa");
   const [view, setView] = useState(views.ADD);
   const handleColorChange = (color) => {
     setSoundColor(color.hex);
+  };
+
+  useEffect(() => {
+    selectSound(null);
+  }, []);
+
+  const handleAddSoundClick = () => {
+    if (!selectedSound || !selectedSound.name || !selectedSound.url) {
+      displayMessage("Please select a sound first");
+      return;
+    }
+    addSound({
+      name: selectedSound.name,
+      color: soundColor,
+      url: selectedSound.url,
+    });
   };
 
   return (
@@ -48,15 +65,7 @@ export const AddSound = ({
             </Button>
           )}
 
-          <Button
-            backgroundColor="#0f0"
-            onClick={() =>
-              addSound({
-                name: selectedSound.name,
-                color: soundColor,
-                url: selectedSound.url,
-              })
-            }>
+          <Button backgroundColor="#0f0" onClick={handleAddSoundClick}>
             Add
           </Button>
           <Button backgroundColor="#f00" onClick={switchToOverview}>

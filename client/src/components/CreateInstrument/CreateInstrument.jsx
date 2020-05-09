@@ -41,7 +41,7 @@ export const CreateInstrument = (props) => {
     setMessage(mes);
     setInterval(() => {
       setMessage("");
-    }, 3000);
+    }, 2000);
   };
 
   const addSound = (sound) => {
@@ -103,6 +103,7 @@ export const CreateInstrument = (props) => {
 
   return (
     <PageLayout>
+      <Row>{message && <Alert>{message}</Alert>}</Row>
       {view === views.ADD_SOUND && (
         <AddSound
           switchToOverview={switchToOverview}
@@ -112,6 +113,7 @@ export const CreateInstrument = (props) => {
           loading={loading}
           addSound={addSound}
           fetchData={fetchData}
+          displayMessage={displayMessage}
         />
       )}
       {view === views.OVERVIEW && (
@@ -141,7 +143,7 @@ export const CreateInstrument = (props) => {
                 setSubCategory={setSubCategory}
               />
             </Column>
-            <Column flex={1}>{message && <Alert>{message}</Alert>}</Column>
+            <Column flex={1}></Column>
           </Row>
           <Row>
             <Column>

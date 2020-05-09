@@ -1,6 +1,7 @@
 import React from "react";
 import { CreateLine } from "./CreateLine";
 import { MusicGrid, ExpandedMenuItem } from "../../ui-kit";
+import { PageSquares } from "./PageSquares";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
@@ -14,9 +15,10 @@ import {
 import axios from "axios";
 
 const START_PARTITION_LENGTH = 8;
-const MAX_PARTITION_LENGTH = 20;
+const MAX_PARTITION_LENGTH = 50;
 const DEFAULT_TEMPO = 120;
 const DEFAULT_TIMEOUT = 60000 / 120 / 4;
+const LENGTH_OF_PAGE = 16;
 
 export class CreateSong extends React.Component {
   state = {
@@ -33,6 +35,8 @@ export class CreateSong extends React.Component {
     isSaveSongVisible: false,
     bottomMessage: "",
     isDeleteLineVisible: false,
+    currentPage: 1,
+    pages: [1],
   };
 
   componentWillUnmount() {
@@ -83,7 +87,10 @@ export class CreateSong extends React.Component {
     const preparedNewInstrument = prepareOneInstrument(instr);
     newMusicLines.push(preparedNewInstrument);
     newPartition.push(newPartitionRow);
-    this.setState({ musicLines: newMusicLines, partition: newPartition });
+    this.setState({
+      musicLines: newMusicLines,
+      partition: newPartition,
+    });
   };
 
   toggleActiveNote = (col, row, sounds) => {
@@ -98,7 +105,7 @@ export class CreateSong extends React.Component {
   };
 
   playMusic = (musicLines, partition, tempo) => {
-    this.setState({ isPlaying: true });
+    this.setState({ isPlaying: true, currentPage: 1 });
     let counter = 0;
     this.setState({
       musicPlaying: setInterval(() => {
@@ -110,6 +117,12 @@ export class CreateSong extends React.Component {
         counter++;
         if (counter >= partition[0].length) {
           counter = 0;
+        }
+        if (
+          counter > this.state.currentPage * LENGTH_OF_PAGE ||
+          counter === 0
+        ) {
+          this.nextPage();
         }
       }, tempo),
     });
@@ -164,7 +177,11 @@ export class CreateSong extends React.Component {
       updatedPartition.forEach((el) => {
         el.push(0);
       });
-      this.setState({ partition: updatedPartition });
+      const p = this.state.pages.length;
+      const pagesCalc = Math.ceil(updatedPartition[0].length / LENGTH_OF_PAGE);
+      const pagesUpdate =
+        p < pagesCalc ? this.state.pages.concat([1]) : this.state.pages;
+      this.setState({ partition: updatedPartition, pages: pagesUpdate });
     }
   };
 
@@ -174,7 +191,11 @@ export class CreateSong extends React.Component {
     updatedPartition.forEach((el) => {
       el.splice(last, 1);
     });
-    this.setState({ partition: updatedPartition });
+    const p = this.state.pages.length;
+    const pagesCalc = Math.ceil(updatedPartition[0].length / LENGTH_OF_PAGE);
+    const pagesUpdate =
+      p > pagesCalc ? this.state.pages.slice(0, p - 1) : this.state.pages;
+    this.setState({ partition: updatedPartition, pages: pagesUpdate });
   };
 
   deleteLine = (lineNumber) => {
@@ -187,6 +208,17 @@ export class CreateSong extends React.Component {
       musicLines: updatedInstruments,
     });
     this.toggleIsDeleteLineVisible();
+  };
+
+  selectPage = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+  };
+
+  nextPage = () => {
+    const current = this.state.currentPage;
+    const total = this.state.pages.length;
+    const nextPage = current >= total ? 1 : this.state.currentPage + 1;
+    this.setState({ currentPage: nextPage });
   };
 
   setIsNotePlayedOnClick = (value) => {
@@ -240,6 +272,11 @@ export class CreateSong extends React.Component {
             <p>{this.state.bottomMessage}</p>
           </ExpandedMenuItem>
         )}
+        <PageSquares
+          pages={this.state.pages}
+          selectPage={this.selectPage}
+          currentPage={this.state.currentPage}
+        />
         <MusicGrid>
           {this.state.musicLines &&
             this.state.musicLines.map((line, i) => {
@@ -256,6 +293,8 @@ export class CreateSong extends React.Component {
                   animatedNotes={this.state.animatedNotes}
                   isDeleteLineVisible={this.state.isDeleteLineVisible}
                   deleteLine={this.deleteLine}
+                  currentPage={this.state.currentPage}
+                  lenghtOfPage={LENGTH_OF_PAGE}
                 />
               );
             })}

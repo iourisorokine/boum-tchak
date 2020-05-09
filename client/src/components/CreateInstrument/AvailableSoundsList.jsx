@@ -64,6 +64,7 @@ export const AvailableSoundsList = ({
           <Input
             type="text"
             value={filterName}
+            placeholder="Search..."
             onChange={(e) => setFilterName(e.target.value)}
           />
         </Column>

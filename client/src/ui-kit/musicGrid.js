@@ -50,3 +50,12 @@ export const StyledNote = styled.div`
   animation-duration: 0.8s;
   animation-iteration-count: 1;
 `;
+
+export const PageSquare = styled.div`
+  height: 8px;
+  width: 8px;
+  margin: 4px;
+  border: 2px solid black;
+  background-color: ${(props) => (props.selected ? "black" : "white")};
+  cursor: pointer;
+`;

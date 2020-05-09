@@ -39,4 +39,4 @@ export {
   SongTitle,
   Alert,
 } from "./typography";
-export { MusicGrid, StyledNote, Line } from "./musicGrid";
+export { MusicGrid, StyledNote, Line, PageSquare } from "./musicGrid";

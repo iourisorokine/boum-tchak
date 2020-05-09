@@ -46,9 +46,9 @@ export const Label = styled.label`
 `;
 
 export const Select = styled.select`
-  margin: 4px 10px;
+  margin: 10px;
   height: 20px;
-  width: ${(props) => props.width || "100px"};
+  width: ${(props) => props.width || "106px"};
 `;
 
 export const Option = styled.option`
