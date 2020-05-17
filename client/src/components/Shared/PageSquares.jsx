@@ -1,7 +1,16 @@
 import React from "react";
 import { Row, Column, PageSquare } from "../../ui-kit";
 
-export const PageSquares = ({ currentPage, selectPage, pages }) => {
+export const PageSquares = ({
+  currentPage,
+  selectPage,
+  pages,
+  clickable = true,
+}) => {
+  if (pages.length < 2) {
+    return null;
+  }
+
   return (
     <Row>
       <Column flex={2}></Column>
@@ -11,7 +20,7 @@ export const PageSquares = ({ currentPage, selectPage, pages }) => {
             return (
               <PageSquare
                 selected={currentPage === i + 1}
-                onClick={() => selectPage(i + 1)}
+                onClick={clickable ? () => selectPage(i + 1) : null}
               />
             );
           })}

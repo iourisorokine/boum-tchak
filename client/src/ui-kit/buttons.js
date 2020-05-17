@@ -34,10 +34,10 @@ export const StopButton = styled(Button)`
 `;
 
 export const MenuButton = styled.div`
-  margin: 10px;
+  margin: 8px;
   border: solid 2px black;
   border-radius: 5px;
-  padding: 4px 20px;
+  padding: 6px 12px;
   color: #000;
   text-decoration: none;
   cursor: pointer;

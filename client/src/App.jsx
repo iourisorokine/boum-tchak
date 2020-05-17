@@ -32,7 +32,7 @@ class App extends React.Component {
           <Switch>
             <Route
               exact
-              path="/"
+              path="/create"
               render={(props) => (
                 <CreateSong user={this.state.user} {...props} />
               )}
@@ -82,7 +82,7 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/listen"
+              path="/"
               render={(props) => <SongsList {...props} />}
             />
             <Route

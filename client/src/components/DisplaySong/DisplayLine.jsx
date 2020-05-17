@@ -7,17 +7,25 @@ export const DisplayLine = ({
   noteColors,
   highlightedNote,
   animatedNotes,
+  lengthOfPage,
+  currentPage,
 }) => {
+  const firstIndex = (currentPage - 1) * lengthOfPage;
+  const lastIndex = currentPage * lengthOfPage;
+
   const displayNotes = notes.map((n, i) => {
-    return (
-      <Note
-        key={i}
-        status={n}
-        colors={noteColors}
-        highlighted={highlightedNote === i}
-        isAnimated={animatedNotes.includes(i)}
-      />
-    );
+    console.log('FIRST LAST CURRENT', firstIndex, lastIndex, i)
+    if (i >= firstIndex && i < lastIndex) {
+      return (
+        <Note
+          key={i}
+          status={n}
+          colors={noteColors}
+          highlighted={highlightedNote === i}
+          isAnimated={animatedNotes.includes(i)}
+        />
+      );
+    }
   });
 
   return <Line>{displayNotes}</Line>;

@@ -55,6 +55,18 @@ export const CreateSound = ({ setView, fetchData }) => {
   return (
     <React.Fragment>
       <Row>
+        <Column>Select file:</Column>
+        <Column flex={2}>
+          <Input
+            id="file"
+            name="file"
+            type="file"
+            multiple="false"
+            onChange={fileSelectorHandler}
+          />
+        </Column>
+      </Row>
+      <Row>
         <Column>Name:</Column>
         <Column flex={2}>
           <Input
@@ -94,18 +106,6 @@ export const CreateSound = ({ setView, fetchData }) => {
               );
             })}
           </Select>
-        </Column>
-      </Row>
-      <Row>
-        <Column>File:</Column>
-        <Column flex={2}>
-          <Input
-            id="file"
-            name="file"
-            type="file"
-            multiple="false"
-            onChange={fileSelectorHandler}
-          />
         </Column>
       </Row>
       <Row>

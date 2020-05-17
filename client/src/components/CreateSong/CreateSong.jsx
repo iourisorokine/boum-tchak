@@ -1,7 +1,7 @@
 import React from "react";
 import { CreateLine } from "./CreateLine";
 import { MusicGrid, ExpandedMenuItem } from "../../ui-kit";
-import { PageSquares } from "./PageSquares";
+import { PageSquares } from "../Shared/PageSquares";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";

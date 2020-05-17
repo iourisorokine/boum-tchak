@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
 
 export const MusicGrid = styled.div`
-  margin: 20px;
-  padding-bottom: 20px;
+  margin: 10px 20px;
+  padding-bottom: 10px;
 `;
 
 export const Line = styled.div`
