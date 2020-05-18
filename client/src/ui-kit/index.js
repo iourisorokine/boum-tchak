@@ -3,6 +3,7 @@ export {
   ExpandedMenuItem,
   Input,
   SongPost,
+  SongPostPlay,
   Tempo,
   Form,
   Label,

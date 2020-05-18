@@ -22,12 +22,27 @@ export const ExpandedMenuItem = styled.div`
   padding: 10px;
 `;
 
+export const SongPostPlay = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin-top: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+`;
+
 export const SongPost = styled.div`
+  position: relative;
   margin: 30px 10px;
   border: solid 1px black;
   border-radius: 10px;
   padding-top: 10px;
   width: 80%;
+  &:hover ${SongPostPlay} {
+    visibility: visible;
+  }
 `;
 
 export const Input = styled.input`

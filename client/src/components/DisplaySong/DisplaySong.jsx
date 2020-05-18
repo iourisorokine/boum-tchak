@@ -2,9 +2,30 @@ import React from "react";
 import { DisplayLine } from "./DisplayLine";
 import { PageSquares } from "../Shared/PageSquares";
 import { playBeat } from "../utils";
-import { MusicGrid, SongPost, SongHeader, SongTitle, Row } from "../../ui-kit";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faStop } from "@fortawesome/free-solid-svg-icons";
+import {
+  MusicGrid,
+  SongPost,
+  SongPostPlay,
+  SongHeader,
+  SongTitle,
+  Row,
+} from "../../ui-kit";
 
 const LENGTH_OF_PAGE = 16;
+
+const iconsStyle = {
+  width: 40,
+  height: 40,
+  padding: "10px 30px",
+  border: "solid 1px rgba(0, 0, 0, 0.7)",
+  color: "rgba(0, 0, 0, 0.7)",
+  backgroundColor: "rgba(50, 50, 50, 0.2)",
+  borderRadius: 5,
+  zIndex: 5,
+};
 
 export class DisplaySong extends React.Component {
   state = {
@@ -83,6 +104,13 @@ export class DisplaySong extends React.Component {
   render() {
     return (
       <SongPost>
+        <SongPostPlay onClick={this.onSongClick}>
+          {this.state.isPlaying ? (
+            <FontAwesomeIcon icon={faStop} color="black" style={iconsStyle} />
+          ) : (
+            <FontAwesomeIcon icon={faPlay} color="black" style={iconsStyle} />
+          )}
+        </SongPostPlay>
         <SongHeader>
           <SongTitle b={true}>{this.props.title}</SongTitle>
           <SongTitle>by {this.props.creatorName}</SongTitle>
@@ -95,7 +123,7 @@ export class DisplaySong extends React.Component {
             clickable={false}
           />
         </Row>
-        <MusicGrid onClick={this.onSongClick}>
+        <MusicGrid>
           {this.props.musicLines.map((line, i) => {
             return (
               <DisplayLine
