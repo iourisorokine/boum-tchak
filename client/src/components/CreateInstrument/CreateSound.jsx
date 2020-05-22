@@ -51,7 +51,6 @@ export const CreateSound = ({ setView, fetchData }) => {
       setMessage("");
     }, 3000);
   };
-  console.log(soundFile);
   return (
     <React.Fragment>
       <Row>

@@ -22,26 +22,21 @@ passport.deserializeUser((userIdFromSession, cb) => {
 // Local Strategy
 passport.use(
   new LocalStrategy((username, password, next) => {
-    console.log("passport stages: ", username, password);
     User.findOne({ username }, (err, foundUser) => {
-      console.log("found: ", foundUser);
       if (err) {
         next(err);
         return;
       }
 
       if (!foundUser) {
-        console.log("not found: ", foundUser);
         next(null, false, { message: "Incorrect email." });
         return;
       }
 
       if (!bcrypt.compareSync(password, foundUser.password)) {
-        console.log("password pb: ", foundUser);
         next(null, false, { message: "Incorrect password." });
         return;
       }
-      console.log("found, all shound be good: ", foundUser);
       next(null, foundUser);
     });
   })

@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 router.get("/starter", async (req, res) => {
   try {
     const starterInstruments = await Instrument.find({
-      name: { $in: ["Kicks", "Snares", "Hi-Hats", "Clap"] },
+      name: { $in: ["Kicks 1", "Snares 1", "Hi-Hats 1", "Clap 1"] },
     });
     if (!starterInstruments) {
       throw new Error({ message: "could not find any instruments" });

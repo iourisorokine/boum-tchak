@@ -14,7 +14,6 @@ export const DisplayLine = ({
   const lastIndex = currentPage * lengthOfPage;
 
   const displayNotes = notes.map((n, i) => {
-    console.log('FIRST LAST CURRENT', firstIndex, lastIndex, i)
     if (i >= firstIndex && i < lastIndex) {
       return (
         <Note

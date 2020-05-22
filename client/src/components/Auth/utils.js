@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const signup = (username, password) => {
-  console.log(username, password);
   return axios
     .post("/api/auth/signup", { username, password })
     .then((response) => {
@@ -13,7 +12,6 @@ export const signup = (username, password) => {
 };
 
 export const login = (username, password) => {
-  console.log(username, password);
   return axios
     .post("/api/auth/login", { username, password })
     .then((response) => {

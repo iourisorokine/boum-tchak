@@ -28,7 +28,6 @@ router.get("/:category", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { name, category, subCategory, pitch, url } = req.body;
-  console.log(req.body);
   const pitchInfo = pitch || "";
   try {
     const newSound = await Sound.create({

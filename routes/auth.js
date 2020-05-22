@@ -7,7 +7,6 @@ const bcrypt = require("bcrypt");
 // POST /api/auth/signup
 router.post("/signup", (req, res) => {
   const { username, password } = req.body;
-  console.log("### Signup req body", req.body);
 
   if (!password || password.length < 8) {
     return res
