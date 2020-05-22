@@ -24,7 +24,6 @@ export const AddInstrument = ({
     toggleIsAddInstrumentVisible();
   };
 
-  console.log(newInstruments);
   return (
     <ExpandedMenuItem>
       {loading && <Bars width={100} height={50} fill="#000" stroke="#000" />}

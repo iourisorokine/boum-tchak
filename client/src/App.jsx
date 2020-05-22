@@ -7,6 +7,7 @@ import { Signup } from "./components/Auth/Signup";
 import { Profile } from "./components/Auth/Profile";
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { CreateInstrument } from "./components/CreateInstrument/CreateInstrument";
+import { About } from "./components/InfoPages/About";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
 import { Header } from "./components/Header/Header";
@@ -36,6 +37,11 @@ class App extends React.Component {
               render={(props) => (
                 <CreateSong user={this.state.user} {...props} />
               )}
+            />
+            <Route
+              exact
+              path="/about"
+              render={(props) => <About {...props} />}
             />
             <Route
               exact
