@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "./utils";
-import { Row, Column, Button, PageLayout, ProfilePic, Heading2 } from "../../ui-kit";
+import {
+  Row,
+  Column,
+  Button,
+  PageLayout,
+  ProfilePic,
+  Heading2,
+} from "../../ui-kit";
 
 export const Profile = (props) => {
   const [message, setMessage] = useState("");
@@ -13,10 +20,15 @@ export const Profile = (props) => {
   };
 
   const onCreateInstrumentBtnClick = () => {
-    setMessage("Coming soon, stay tuned...");
-    setInterval(() => {
-      setMessage("");
-    }, 2000);
+    const isUserAdmin = props.user && props.user.admin === true;
+    if (isUserAdmin) {
+      props.history.push("/create-instrument");
+    } else {
+      setMessage("Coming soon, stay tuned...");
+      setInterval(() => {
+        setMessage("");
+      }, 2000);
+    }
   };
 
   if (!props.user) {

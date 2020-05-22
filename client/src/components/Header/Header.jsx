@@ -5,6 +5,7 @@ import { HeaderLayout, HeaderTitle, MenuButton, Wrapper } from "../../ui-kit";
 const linkStyle = {
   textDecoration: "none",
   color: "black",
+  padding: "0 8px",
 };
 
 export const Header = (props) => {
