@@ -277,28 +277,38 @@ export class CreateSong extends React.Component {
           selectPage={this.selectPage}
           currentPage={this.state.currentPage}
         />
-        <MusicGrid>
-          {this.state.musicLines &&
-            this.state.musicLines.map((line, i) => {
-              return (
-                <CreateLine
-                  key={i}
-                  linePosition={i}
-                  label={line.label}
-                  notes={this.state.partition[i]}
-                  noteColors={line.colors}
-                  toggleActiveNote={this.toggleActiveNote}
-                  sounds={line.sounds}
-                  highlightedNote={this.state.highlightedNote}
-                  animatedNotes={this.state.animatedNotes}
-                  isDeleteLineVisible={this.state.isDeleteLineVisible}
-                  deleteLine={this.deleteLine}
-                  currentPage={this.state.currentPage}
-                  lenghtOfPage={LENGTH_OF_PAGE}
-                />
-              );
-            })}
-        </MusicGrid>
+        <div
+          style={{
+            minHeight: 300,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+          {!this.state.musicLines.length&&<p>No partition to display yet... Click on "Add Lines" to start composing.</p>}
+          <MusicGrid>
+            {this.state.musicLines &&
+              this.state.musicLines.map((line, i) => {
+                return (
+                  <CreateLine
+                    key={i}
+                    linePosition={i}
+                    label={line.label}
+                    notes={this.state.partition[i]}
+                    noteColors={line.colors}
+                    toggleActiveNote={this.toggleActiveNote}
+                    sounds={line.sounds}
+                    highlightedNote={this.state.highlightedNote}
+                    animatedNotes={this.state.animatedNotes}
+                    isDeleteLineVisible={this.state.isDeleteLineVisible}
+                    deleteLine={this.deleteLine}
+                    currentPage={this.state.currentPage}
+                    lenghtOfPage={LENGTH_OF_PAGE}
+                  />
+                );
+              })}
+          </MusicGrid>
+        </div>
         <PlayControls
           onPlayBtnPress={this.onPlayBtnPress}
           onStopBtnPress={this.onStopBtnPress}

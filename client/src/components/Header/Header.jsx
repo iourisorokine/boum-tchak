@@ -5,6 +5,11 @@ import { HeaderLayout, HeaderTitle, MenuButton, Wrapper } from "../../ui-kit";
 const linkStyle = {
   textDecoration: "none",
   color: "black",
+};
+
+const textLinkStyle = {
+  textDecoration: "none",
+  color: "black",
   padding: "0 8px",
 };
 
@@ -32,12 +37,12 @@ export const Header = (props) => {
               <Link style={linkStyle} to="/signup">
                 <MenuButton>Signup</MenuButton>
               </Link>
-              <Link style={linkStyle} to="/login">
+              <Link style={textLinkStyle} to="/login">
                 Login
               </Link>
             </React.Fragment>
           )}
-          <Link style={linkStyle} to="/about">
+          <Link style={textLinkStyle} to="/about">
             About
           </Link>
         </div>
