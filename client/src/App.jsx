@@ -28,7 +28,7 @@ class App extends React.Component {
     return (
       <MainScreen>
         <Header user={this.state.user} />
-        <Wrapper border="yes">
+        <Wrapper>
           <BackHeader />
           <Switch>
             <Route
@@ -89,7 +89,12 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              render={(props) => <SongsList {...props} />}
+              render={(props) => <SongsList intro={true} {...props} />}
+            />
+            <Route
+              exact
+              path="/listen"
+              render={(props) => <SongsList intro={false} {...props} />}
             />
             <Route
               exact
