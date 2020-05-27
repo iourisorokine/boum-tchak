@@ -18,11 +18,11 @@ export const Header = (props) => {
     <HeaderLayout>
       <Wrapper flexDirection="row" justifyContent="space-between">
         <Link style={linkStyle} to="/">
-          <HeaderTitle>Bum-Tchak!</HeaderTitle>
+          <HeaderTitle>Boum-Tchak!</HeaderTitle>
         </Link>
         <div
           style={{ display: "flex", paddingRight: 20, alignItems: "center" }}>
-          <Link style={linkStyle} to="/">
+          <Link style={linkStyle} to="/listen">
             <MenuButton>Listen</MenuButton>
           </Link>
           <Link style={linkStyle} to="/create">

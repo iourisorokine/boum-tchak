@@ -30,6 +30,7 @@ export {
   Wrapper,
   PageLayout,
   BlankSpace,
+  AppIntroLayout,
 } from "./layout";
 export {
   Heading2,

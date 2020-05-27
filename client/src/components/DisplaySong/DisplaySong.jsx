@@ -20,9 +20,9 @@ const iconsStyle = {
   width: 40,
   height: 40,
   padding: "10px 30px",
-  border: "solid 1px rgba(0, 0, 0, 0.7)",
+  border: "solid 1px rgba(0, 0, 0, 0.6)",
   color: "rgba(0, 0, 0, 0.7)",
-  backgroundColor: "rgba(50, 50, 50, 0.2)",
+  backgroundColor: "rgba(250, 250, 250, 0.5)",
   borderRadius: 5,
   zIndex: 5,
 };

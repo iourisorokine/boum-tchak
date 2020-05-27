@@ -15,7 +15,7 @@ import {
 import axios from "axios";
 
 const START_PARTITION_LENGTH = 8;
-const MAX_PARTITION_LENGTH = 50;
+const MAX_PARTITION_LENGTH = 64;
 const DEFAULT_TEMPO = 120;
 const DEFAULT_TIMEOUT = 60000 / 120 / 4;
 const LENGTH_OF_PAGE = 16;
@@ -285,7 +285,12 @@ export class CreateSong extends React.Component {
             alignItems: "center",
             justifyContent: "center",
           }}>
-          {!this.state.musicLines.length&&<p>No partition to display yet... Click on "Add Lines" to start composing.</p>}
+          {!this.state.musicLines.length && (
+            <p>
+              No partition to display yet... Click on "Add Lines" to start
+              composing.
+            </p>
+          )}
           <MusicGrid>
             {this.state.musicLines &&
               this.state.musicLines.map((line, i) => {

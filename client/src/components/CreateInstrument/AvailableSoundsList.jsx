@@ -61,6 +61,17 @@ export const AvailableSoundsList = ({
         <Column></Column>
         <Column flex={3}>
           <Heading3>Name</Heading3>
+        </Column>
+        <Column flex={2}>
+          <Heading3>Category</Heading3>
+        </Column>
+        <Column flex={2}>
+          <Heading3>Sub-cat.</Heading3>
+        </Column>
+      </Row>
+      <Row>
+        <Column></Column>
+        <Column flex={3}>
           <Input
             type="text"
             value={filterName}
@@ -69,7 +80,6 @@ export const AvailableSoundsList = ({
           />
         </Column>
         <Column flex={2}>
-          <Heading3>Category</Heading3>
           <Select
             name="category"
             value={filterCategory}
@@ -84,7 +94,6 @@ export const AvailableSoundsList = ({
           </Select>
         </Column>
         <Column flex={2}>
-          <Heading3>Sub-cat.</Heading3>
           <Select
             name="sub-category"
             value={filterSubCategory}

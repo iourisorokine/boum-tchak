@@ -3,6 +3,7 @@ import { Bars } from "svg-loaders-react";
 import axios from "axios";
 import { DisplaySong } from "./DisplaySong";
 import { prepareInstruments } from "../utils/instruments";
+import { AppIntro } from "../InfoPages/AppIntro";
 import { BlankSpace } from "../../ui-kit";
 
 export const SongsList = () => {
@@ -46,6 +47,7 @@ export const SongsList = () => {
 
   return (
     <React.Fragment>
+      <AppIntro />
       {songs.map((song) => {
         return (
           <DisplaySong

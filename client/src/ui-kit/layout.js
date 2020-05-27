@@ -5,6 +5,14 @@ export const Row = styled.div`
   width: 100%;
 `;
 
+export const AppIntroLayout = styled.div`
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Column = styled.div`
   display: flex;
   flex-direction: ${(props) => props.flexDirection || "column"};
@@ -44,10 +52,6 @@ export const Wrapper = styled.div`
   justify-content: ${(props) => props.justifyContent || "flex-start"};
   width: 100vw;
   max-width: ${(props) => props.maxWidth || "900px"};
-  border-left: ${(props) =>
-    props.border === "yes" ? "1px solid black" : null};
-  border-right: ${(props) =>
-    props.border === "yes" ? "1px solid black" : null};
 `;
 
 export const PageLayout = styled.div`

@@ -7,6 +7,7 @@ export const CreateSound = ({ setView, fetchData }) => {
   const [soundName, setSoundName] = useState("");
   const [soundCategory, setSoundCategory] = useState("");
   const [soundSubCategory, setSoundSubCategory] = useState("");
+  const [soundPitch, setSoundPitch] = useState("");
   const [soundFile, setSoundFile] = useState(null);
   const [message, setMessage] = useState("");
 
@@ -32,7 +33,7 @@ export const CreateSound = ({ setView, fetchData }) => {
       name: soundName,
       category: soundCategory,
       subCategory: soundSubCategory,
-      pitch: "",
+      pitch: soundPitch,
       url: uploadedSound.data.secure_url,
     });
     if (createdSound.message) {
@@ -105,6 +106,16 @@ export const CreateSound = ({ setView, fetchData }) => {
               );
             })}
           </Select>
+        </Column>
+      </Row>
+      <Row>
+        <Column>Pitch (optional):</Column>
+        <Column flex={2}>
+          <Input
+            type="text"
+            value={soundPitch}
+            onChange={(e) => setSoundPitch(e.target.value)}
+          />
         </Column>
       </Row>
       <Row>
