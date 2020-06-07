@@ -6,7 +6,7 @@ import { prepareInstruments } from "../utils/instruments";
 import { AppIntro } from "../InfoPages/AppIntro";
 import { BlankSpace } from "../../ui-kit";
 
-export const SongsList = () => {
+export const SongsList = ({ isAppIntroDisplayed = false}) => {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +47,7 @@ export const SongsList = () => {
 
   return (
     <React.Fragment>
-      <AppIntro />
+      {isAppIntroDisplayed && <AppIntro />}
       {songs.map((song) => {
         return (
           <DisplaySong

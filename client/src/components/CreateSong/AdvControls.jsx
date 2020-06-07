@@ -16,8 +16,8 @@ export const AdvControls = ({
           <Button>Load Song</Button>
         </Link>
       )}
-      <Button onClick={toggleIsAddInstrumentVisible}>Add Line</Button>
-      <Button onClick={toggleIsDeleteLineVisible}>Remove Line</Button>
+      <Button onClick={toggleIsAddInstrumentVisible}>Add Instrument</Button>
+      <Button onClick={toggleIsDeleteLineVisible}>Remove Instrument</Button>
     </ControlsPad>
   );
 };

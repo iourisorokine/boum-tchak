@@ -7,7 +7,7 @@ import { Signup } from "./components/Auth/Signup";
 import { Profile } from "./components/Auth/Profile";
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { CreateInstrument } from "./components/CreateInstrument/CreateInstrument";
-import { About } from "./components/InfoPages/About";
+import { Help } from "./components/InfoPages/Help";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
 import { Header } from "./components/Header/Header";
@@ -40,8 +40,8 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/about"
-              render={(props) => <About {...props} />}
+              path="/help"
+              render={(props) => <Help {...props} />}
             />
             <Route
               exact
@@ -89,12 +89,16 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              render={(props) => <SongsList intro={true} {...props} />}
+              render={(props) => (
+                <SongsList isAppIntroDisplayed={true} {...props} />
+              )}
             />
             <Route
               exact
               path="/listen"
-              render={(props) => <SongsList intro={false} {...props} />}
+              render={(props) => (
+                <SongsList isAppIntroDisplayed={false} {...props} />
+              )}
             />
             <Route
               exact
