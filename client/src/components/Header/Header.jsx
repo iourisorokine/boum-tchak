@@ -42,8 +42,8 @@ export const Header = (props) => {
               </Link>
             </React.Fragment>
           )}
-          <Link style={textLinkStyle} to="/about">
-            About
+          <Link style={textLinkStyle} to="/help">
+            Help
           </Link>
         </div>
       </Wrapper>

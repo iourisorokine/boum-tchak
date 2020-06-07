@@ -6,7 +6,7 @@ export const Row = styled.div`
 `;
 
 export const AppIntroLayout = styled.div`
-  height: 50vh;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;
