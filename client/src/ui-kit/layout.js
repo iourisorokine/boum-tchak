@@ -5,6 +5,16 @@ export const Row = styled.div`
   width: 100%;
 `;
 
+export const SelectableRow = styled(Row)`
+  padding: ${(props) => props.padding || 0};
+  cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+    opacity: ${(props) => (props.selected ? 0.5 : 1)};
+  }
+`;
+
 export const AppIntroLayout = styled.div`
   min-height: 60vh;
   display: flex;

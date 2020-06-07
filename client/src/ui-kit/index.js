@@ -23,6 +23,7 @@ export {
 } from "./buttons";
 export {
   Row,
+  SelectableRow,
   Column,
   HeaderLayout,
   BackHeader,
