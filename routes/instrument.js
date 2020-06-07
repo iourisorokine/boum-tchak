@@ -3,12 +3,16 @@ const router = express.Router();
 const Instrument = require("../models/Instrument");
 
 router.get("/", async (req, res) => {
+  const { category } = req.query || null;
   try {
-    const instruments = await Instrument.find();
+    const instruments = category
+      ? await Instrument.find({ category })
+      : await Instrument.find();
     if (!instruments) {
       throw new Error({ message: "could not find any instruments" });
     }
-    res.json(instruments);
+    const reversedIntruments = instruments.reverse();
+    res.json(reversedIntruments);
   } catch (error) {
     res.json(error);
   }
