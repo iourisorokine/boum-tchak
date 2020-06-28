@@ -19,6 +19,7 @@ export const PageSquares = ({
           {pages.map((el, i) => {
             return (
               <PageSquare
+                key={i}
                 selected={currentPage === i + 1}
                 onClick={clickable ? () => selectPage(i + 1) : null}
               />

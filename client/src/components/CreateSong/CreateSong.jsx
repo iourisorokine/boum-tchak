@@ -64,12 +64,7 @@ export class CreateSong extends React.Component {
       });
     };
 
-    if (
-      this.props &&
-      this.props.match &&
-      this.props.match.params &&
-      this.props.match.params.id
-    ) {
+    if (this.props?.match?.params?.id) {
       prepareLoadedSong();
     } else {
       prepareNewMusic();
