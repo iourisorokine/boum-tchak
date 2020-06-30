@@ -7,7 +7,8 @@ router.get("/", async (req, res) => {
   try {
     const allSounds = await Sound.find();
     if (allSounds) {
-      res.json(allSounds);
+      const allSoundsReversed = allSounds.reverse();
+      res.json(allSoundsReversed);
     }
   } catch (error) {
     res.json(err);

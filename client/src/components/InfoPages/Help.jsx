@@ -28,7 +28,7 @@ export const Help = () => {
           </p>
           <Row alignItems="center" justifyContent="center">
             <Column alignItems="center" justifyContent="center">
-              <img src="images/music-grid-1.png" />
+              <img src="images/music-grid-1.png" alt="Music grid example" />
             </Column>
           </Row>
           <p>
@@ -44,7 +44,7 @@ export const Help = () => {
           </p>
           <Row alignItems="center" justifyContent="center">
             <Column alignItems="center" justifyContent="center">
-              <img src="images/music-grid-2.png" />
+              <img src="images/music-grid-2.png" alt="Music grid example" />
             </Column>
           </Row>
           <p>
@@ -55,7 +55,7 @@ export const Help = () => {
           </p>
           <Row alignItems="center" justifyContent="center">
             <Column alignItems="center" justifyContent="center">
-              <img src="images/music-grid-3.png" />
+              <img src="images/music-grid-3.png" alt="Music grid example" />
             </Column>
           </Row>
           <p>
@@ -71,7 +71,10 @@ export const Help = () => {
           </p>
           <Row alignItems="center" justifyContent="center">
             <Column alignItems="center" justifyContent="center">
-              <img src="images/music-pages-selectors.png" />
+              <img
+                src="images/music-pages-selectors.png"
+                alt="Page selectors example"
+              />
             </Column>
           </Row>
           <p>

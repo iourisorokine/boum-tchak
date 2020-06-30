@@ -47,18 +47,20 @@ export const MenuButton = styled.div`
   }
 `;
 
-export const InstrumentBtn = styled.button`
+export const CategoryBtn = styled.button`
   height: 30px;
   min-width: 40px;
   margin: 8px;
   padding: 0px 10px;
   border-radius: 15px;
   border: solid 1px black;
-  background-color: #fff;
-  font-size: 16px;
+  color: ${(props) => (props.selected ? "white" : "black")};
+  background-color: ${(props) => (props.selected ? "black" : "white")};
+  font-size: 12px;
   &:hover {
     background-color: black;
     color: white;
+    opacity: ${(props) => (props.selected ? 0.5 : 1)};
   }
 `;
 

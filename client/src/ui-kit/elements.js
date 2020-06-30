@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ControlsPad = styled.div`
   padding: 10px;
@@ -98,4 +97,3 @@ export const SelectableText = styled.p`
     color: white;
   }
 `;
-

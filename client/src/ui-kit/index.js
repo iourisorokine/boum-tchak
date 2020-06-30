@@ -17,12 +17,13 @@ export {
   Button,
   MenuButton,
   DeleteButton,
-  InstrumentBtn,
+  CategoryBtn,
   PlayButton,
   StopButton,
 } from "./buttons";
 export {
   Row,
+  SelectableRow,
   Column,
   HeaderLayout,
   BackHeader,

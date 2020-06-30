@@ -6,7 +6,7 @@ import { prepareInstruments } from "../utils/instruments";
 import { AppIntro } from "../InfoPages/AppIntro";
 import { BlankSpace } from "../../ui-kit";
 
-export const SongsList = ({ isAppIntroDisplayed = false}) => {
+export const SongsList = ({ isAppIntroDisplayed = false }) => {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,6 +51,7 @@ export const SongsList = ({ isAppIntroDisplayed = false}) => {
       {songs.map((song) => {
         return (
           <DisplaySong
+            key={song._id}
             title={song.title}
             partition={song.partition}
             musicLines={song.instruments}

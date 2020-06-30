@@ -35,6 +35,7 @@ export const CreateLine = ({
         />
       );
     }
+    return null;
   });
 
   return (
