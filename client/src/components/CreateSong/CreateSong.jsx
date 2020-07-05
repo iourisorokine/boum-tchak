@@ -6,6 +6,7 @@ import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
 import { SaveSong } from "./SaveSong";
+import GlobalStateContext from "../GlobalStateContext/GlobalStateContext";
 import {
   playBeat,
   preparePartition,
@@ -16,181 +17,79 @@ import axios from "axios";
 
 const START_PARTITION_LENGTH = 8;
 const MAX_PARTITION_LENGTH = 64;
-const DEFAULT_TEMPO = 120;
-const DEFAULT_TIMEOUT = 60000 / 120 / 4;
 const LENGTH_OF_PAGE = 16;
 
 export class CreateSong extends React.Component {
-  state = {
-    partition: [],
-    isPlaying: false,
-    musicPlaying: null,
-    highlightedNote: [-1],
-    animatedNotes: [],
-    musicLines: [],
-    tempo: DEFAULT_TEMPO,
-    timeoutTempo: DEFAULT_TIMEOUT,
-    isNotePlayedOnClick: true,
-    isAddInstrumentVisible: false,
-    isSaveSongVisible: false,
-    bottomMessage: "",
-    isDeleteLineVisible: false,
-    currentPage: 1,
-    pages: [1],
-  };
+  static contextType = GlobalStateContext;
+
+  setGlobalState = this.context.setGlobalState;
 
   componentWillUnmount() {
-    this.stopPlaying();
+    const stopPlaying = this.context.stopPlaying;
+    stopPlaying();
   }
+
+  prepareNewMusic = async () => {
+    const setGlobalState = this.context.setGlobalState;
+    const { data } = await axios.get("/api/instrument/starter");
+    const musicLines = prepareInstruments(data);
+    const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
+    setGlobalState({ musicLines, partition: newPartition });
+  };
+
+  prepareLoadedSong = async () => {
+    const setGlobalState = this.context.setGlobalState;
+    const songId = this.props.match.params.id;
+    const { data: loadedSong } = await axios.get(`/api/song/${songId}`);
+    const newInstruments = [...loadedSong.instruments];
+    const musicLines = prepareInstruments(newInstruments);
+    setGlobalState({
+      musicLines,
+      partition: loadedSong.partition,
+      tempo: loadedSong.tempo,
+      timeoutTempo: 60000 / loadedSong.tempo / 4,
+    });
+  };
 
   componentDidMount() {
-    const prepareNewMusic = async () => {
-      const { data } = await axios.get("/api/instrument/starter");
-      const musicLines = prepareInstruments(data);
-      const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
-      this.setState({ musicLines, partition: newPartition });
-    };
-
-    const prepareLoadedSong = async () => {
-      const songId = this.props.match.params.id;
-      const { data: loadedSong } = await axios.get(`/api/song/${songId}`);
-      const newInstruments = [...loadedSong.instruments];
-      const musicLines = prepareInstruments(newInstruments);
-      this.setState({
-        musicLines,
-        partition: loadedSong.partition,
-        tempo: loadedSong.tempo,
-        timeoutTempo: 60000 / loadedSong.tempo / 4,
-      });
-    };
-
     if (this.props?.match?.params?.id) {
-      prepareLoadedSong();
+      this.prepareLoadedSong();
     } else {
-      prepareNewMusic();
+      this.prepareNewMusic();
     }
   }
 
-  addInstrument = (instr) => {
-    const length = this.state.partition[0] ? this.state.partition[0].length : 8;
-    const newPartitionRow = [];
-    for (let i = 1; i <= length; i++) {
-      newPartitionRow.push(0);
-    }
-    const newPartition = [...this.state.partition];
-    const newMusicLines = [...this.state.musicLines];
-    const preparedNewInstrument = prepareOneInstrument(instr);
-    newMusicLines.push(preparedNewInstrument);
-    newPartition.push(newPartitionRow);
-    this.setState({
-      musicLines: newMusicLines,
-      partition: newPartition,
-    });
-  };
-
-  toggleActiveNote = (col, row, sounds) => {
-    const updatedPartition = [...this.state.partition];
-    const depth = sounds.length;
-    const newIndex = (updatedPartition[row][col] + 1) % depth;
-    updatedPartition[row][col] = newIndex;
-    if (sounds[newIndex] && this.state.isNotePlayedOnClick) {
-      sounds[newIndex].play();
-    }
-    this.setState({ partition: updatedPartition });
-  };
-
-  playMusic = (musicLines, partition, tempo) => {
-    this.setState({ isPlaying: true, currentPage: 1 });
-    let counter = 0;
-    this.setState({
-      musicPlaying: setInterval(() => {
-        this.setState({
-          highlightedNote: counter,
-          animatedNotes: [counter - 1, counter, counter + 1],
-        });
-        playBeat(musicLines, partition, counter);
-        counter++;
-        if (counter >= partition[0].length) {
-          counter = 0;
-        }
-        if (
-          counter > this.state.currentPage * LENGTH_OF_PAGE ||
-          counter === 0
-        ) {
-          this.nextPage();
-        }
-      }, tempo),
-    });
-  };
-
-  stopPlaying = () => {
-    this.setState({ isPlaying: false });
-    clearInterval(this.state.musicPlaying);
-  };
-
-  onStopBtnPress = () => {
-    this.stopPlaying();
-  };
-
-  onPlayBtnPress = () => {
-    this.playMusic(
-      this.state.musicLines,
-      this.state.partition,
-      this.state.timeoutTempo
-    );
-  };
-
-  saveTheSong = async (title) => {
-    const songInstruments = this.state.musicLines.map((el) => {
-      return el.id;
-    });
-    const songData = {
-      title,
-      partition: this.state.partition,
-      tempo: this.state.tempo,
-      instruments: songInstruments,
-      creator: this.props.user._id || "anonymous",
-      creatorName: this.props.user.username || "anonymous",
-      posted: true,
-    };
-    await axios.post("api/song/", songData);
-    this.setState({
-      isSaveSongVisible: false,
-      bottomMessage: `New song "${title}" successfully saved!`,
-    });
-    setTimeout(() => {
-      this.setState({ bottomMessage: "" });
-    }, 1500);
-  };
-
   addOneBar = () => {
+    const setGlobalState = this.context.setGlobalState;
     if (
-      this.state.partition.length &&
-      this.state.partition[0].length < MAX_PARTITION_LENGTH
+      this.context.globalState.partition.length &&
+      this.context.globalState.partition[0].length < MAX_PARTITION_LENGTH
     ) {
-      const updatedPartition = [...this.state.partition];
+      const updatedPartition = [...this.context.globalState.partition];
       updatedPartition.forEach((el) => {
         el.push(0);
       });
-      const p = this.state.pages.length;
+      const p = this.context.globalState.pages.length;
       const pagesCalc = Math.ceil(updatedPartition[0].length / LENGTH_OF_PAGE);
       const pagesUpdate =
-        p < pagesCalc ? this.state.pages.concat([1]) : this.state.pages;
-      this.setState({ partition: updatedPartition, pages: pagesUpdate });
+        p < pagesCalc
+          ? this.context.globalState.pages.concat([1])
+          : this.context.globalState.pages;
+      setGlobalState({ partition: updatedPartition, pages: pagesUpdate });
     }
   };
 
   removeOneBar = () => {
-    const updatedPartition = [...this.state.partition];
+    const updatedPartition = [...this.context.globalState.partition];
     const last = updatedPartition[0].length - 1;
     updatedPartition.forEach((el) => {
       el.splice(last, 1);
     });
-    const p = this.state.pages.length;
+    const p = this.context.globalState.pages.length;
     const pagesCalc = Math.ceil(updatedPartition[0].length / LENGTH_OF_PAGE);
     const pagesUpdate =
-      p > pagesCalc ? this.state.pages.slice(0, p - 1) : this.state.pages;
-    this.setState({ partition: updatedPartition, pages: pagesUpdate });
+      p > pagesCalc ? this.context.globalState.pages.slice(0, p - 1) : this.context.globalState.pages;
+    this.context.setGlobalState({ partition: updatedPartition, pages: pagesUpdate });
   };
 
   deleteLine = (lineNumber) => {
@@ -198,7 +97,7 @@ export class CreateSong extends React.Component {
     const updatedInstruments = [...this.state.musicLines];
     updatedPartition.splice(lineNumber, 1);
     updatedInstruments.splice(lineNumber, 1);
-    this.setState({
+    this.context.setGlobalState({
       partition: updatedPartition,
       musicLines: updatedInstruments,
     });
@@ -206,71 +105,162 @@ export class CreateSong extends React.Component {
   };
 
   selectPage = (pageNumber) => {
-    this.setState({ currentPage: pageNumber });
+    this.context.setGlobalState({ currentPage: pageNumber });
   };
 
   nextPage = () => {
-    const current = this.state.currentPage;
-    const total = this.state.pages.length;
-    const nextPage = current >= total ? 1 : this.state.currentPage + 1;
-    this.setState({ currentPage: nextPage });
-  };
-
-  setIsNotePlayedOnClick = (value) => {
-    this.setState({ isNotePlayedOnClick: value });
-  };
-
-  setTempo = (value) => {
-    this.setState({ tempo: value });
-  };
-
-  setTimeoutTempo = (value) => {
-    this.setState({ timeoutTempo: value });
-  };
-
-  toggleIsAddInstrumentVisible = () => {
-    this.setState({
-      isAddInstrumentVisible: !this.state.isAddInstrumentVisible,
-    });
-  };
-
-  toggleIsSaveSongVisible = () => {
-    this.setState({
-      isSaveSongVisible: !this.state.isSaveSongVisible,
-    });
-  };
-
-  toggleIsDeleteLineVisible = () => {
-    this.setState({
-      isDeleteLineVisible: !this.state.isDeleteLineVisible,
-    });
+    const current = this.context.globalState.currentPage;
+    const total = this.context.globalState.pages.length;
+    const nextPage = current >= total ? 1 : this.context.globalState.currentPage + 1;
+    this.context.setGlobalState({ currentPage: nextPage });
   };
 
   render() {
+    const {
+      globalState,
+      setGlobalState,
+      setIsSaveSongVisible,
+      setTempo,
+      setTimeoutTempo,
+    } = this.context;
+    console.log("state", this.state);
+    console.log("globalState", globalState);
+
+    const toggleIsDeleteLineVisible = () => {
+      setGlobalState({ isDeleteLineVisible: !globalState.isDeleteLineVisible });
+    };
+
+    const toggleIsAddInstrumentVisible = () => {
+      setGlobalState({
+        isAddInstrumentVisible: !globalState.isAddInstrumentVisible,
+      });
+    };
+
+    const setIsNotePlayedOnClick = (value) => {
+      setGlobalState({ isNotePlayedOnClick: value });
+    };
+
+    const playMusic = (musicLines, partition, tempo) => {
+      if (!partition || !partition.length) return;
+      setGlobalState({ isPlaying: true, currentPage: 1 });
+      let counter = 0;
+      setGlobalState({
+        musicPlaying: setInterval(() => {
+          setGlobalState({
+            highlightedNote: counter,
+            animatedNotes: [counter - 1, counter, counter + 1],
+          });
+          playBeat(musicLines, partition, counter);
+          counter++;
+          if (counter >= partition[0].length) {
+            counter = 0;
+          }
+          if (
+            counter > this.state.currentPage * LENGTH_OF_PAGE ||
+            counter === 0
+          ) {
+            this.nextPage();
+          }
+        }, tempo),
+      });
+    };
+
+    const onPlayBtnPress = () => {
+      playMusic(
+        globalState.musicLines,
+        globalState.partition,
+        globalState.timeoutTempo
+      );
+    };
+
+    const stopPlaying = () => {
+      setGlobalState({ isPlaying: false });
+      clearInterval(globalState.musicPlaying);
+    };
+
+    const onStopBtnPress = () => {
+      stopPlaying();
+    };
+
+    const addInstrument = (instr) => {
+      const length = globalState.partition[0]
+        ? globalState.partition[0].length
+        : 8;
+      const newPartitionRow = [];
+      for (let i = 1; i <= length; i++) {
+        newPartitionRow.push(0);
+      }
+      const newPartition = [...globalState.partition];
+      const newMusicLines = [...globalState.musicLines];
+      const preparedNewInstrument = prepareOneInstrument(instr);
+      newMusicLines.push(preparedNewInstrument);
+      newPartition.push(newPartitionRow);
+      setGlobalState({
+        musicLines: newMusicLines,
+        partition: newPartition,
+      });
+    };
+
+    const toggleActiveNote = (col, row, sounds) => {
+      const updatedPartition = [...globalState.partition];
+      const depth = sounds.length;
+      const newIndex = (updatedPartition[row][col] + 1) % depth;
+      updatedPartition[row][col] = newIndex;
+      if (sounds[newIndex] && globalState.isNotePlayedOnClick) {
+        sounds[newIndex].play();
+      }
+      setGlobalState({ partition: updatedPartition });
+    };
+
+    const saveTheSong = async (title) => {
+      const songInstruments = globalState.musicLines.map((el) => {
+        return el.id;
+      });
+      const songData = {
+        title,
+        partition: globalState.partition,
+        tempo: globalState.tempo,
+        instruments: songInstruments,
+        creator: this.props.user._id || "anonymous",
+        creatorName: this.props.user.username || "anonymous",
+        posted: true,
+      };
+      await axios.post("api/song/", songData);
+      setGlobalState({
+        isSaveSongVisible: false,
+        bottomMessage: `New song "${title}" successfully saved!`,
+      });
+      setTimeout(() => {
+        setGlobalState({ bottomMessage: "" });
+      }, 1500);
+    };
+
     return (
       <React.Fragment>
-        {this.state.isAddInstrumentVisible && (
+        {globalState.isAddInstrumentVisible && (
           <AddInstrument
-            addInstrument={this.addInstrument}
-            toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
+            addInstrument={addInstrument}
+            toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
           />
         )}
-        {this.state.isSaveSongVisible && (
+        {globalState.isSaveSongVisible && (
           <SaveSong
-            saveTheSong={this.saveTheSong}
-            toggleIsSaveSongVisible={this.toggleIsSaveSongVisible}
+            saveTheSong={saveTheSong}
+            toggleIsSaveSongVisible={() =>
+              setIsSaveSongVisible(!globalState.isSaveSongVisible)
+            }
             user={this.props.user}
           />
         )}
-        {this.state.bottomMessage && (
+        {globalState.bottomMessage && (
           <ExpandedMenuItem>
-            <p>{this.state.bottomMessage}</p>
+            <p>{globalState.bottomMessage}</p>
           </ExpandedMenuItem>
         )}
         <PageSquares
-          pages={this.state.pages}
+          pages={globalState.pages}
           selectPage={this.selectPage}
-          currentPage={this.state.currentPage}
+          currentPage={globalState.currentPage}
         />
         <div
           style={{
@@ -280,29 +270,29 @@ export class CreateSong extends React.Component {
             alignItems: "center",
             justifyContent: "center",
           }}>
-          {!this.state.musicLines.length && (
+          {!globalState.musicLines.length && (
             <p>
               No partition to display yet... Click on "Add Lines" to start
               composing.
             </p>
           )}
           <MusicGrid>
-            {this.state.musicLines &&
-              this.state.musicLines.map((line, i) => {
+            {globalState.musicLines &&
+              globalState.musicLines.map((line, i) => {
                 return (
                   <CreateLine
                     key={i}
                     linePosition={i}
                     label={line.label}
-                    notes={this.state.partition[i]}
+                    notes={globalState.partition[i]}
                     noteColors={line.colors}
-                    toggleActiveNote={this.toggleActiveNote}
+                    toggleActiveNote={toggleActiveNote}
                     sounds={line.sounds}
-                    highlightedNote={this.state.highlightedNote}
-                    animatedNotes={this.state.animatedNotes}
-                    isDeleteLineVisible={this.state.isDeleteLineVisible}
+                    highlightedNote={globalState.highlightedNote}
+                    animatedNotes={globalState.animatedNotes}
+                    isDeleteLineVisible={globalState.isDeleteLineVisible}
                     deleteLine={this.deleteLine}
-                    currentPage={this.state.currentPage}
+                    currentPage={globalState.currentPage}
                     lenghtOfPage={LENGTH_OF_PAGE}
                   />
                 );
@@ -310,24 +300,26 @@ export class CreateSong extends React.Component {
           </MusicGrid>
         </div>
         <PlayControls
-          onPlayBtnPress={this.onPlayBtnPress}
-          onStopBtnPress={this.onStopBtnPress}
+          onPlayBtnPress={onPlayBtnPress}
+          onStopBtnPress={onStopBtnPress}
           addOneBar={this.addOneBar}
           removeOneBar={this.removeOneBar}
-          isPlaying={this.state.isPlaying}
-          tempo={this.state.tempo}
-          setTempo={this.setTempo}
-          setTimeoutTempo={this.setTimeoutTempo}
+          isPlaying={globalState.isPlaying}
+          tempo={globalState.tempo}
+          setTempo={setTempo}
+          setTimeoutTempo={setTimeoutTempo}
           numberOfBars={
-            this.state.partition[0] ? this.state.partition[0].length : 0
+            globalState.partition[0] ? globalState.partition[0].length : 0
           }
-          isNotePlayedOnClick={this.state.isNotePlayedOnClick}
-          setIsNotePlayedOnClick={this.setIsNotePlayedOnClick}
+          isNotePlayedOnClick={globalState.isNotePlayedOnClick}
+          setIsNotePlayedOnClick={setIsNotePlayedOnClick}
         />
         <AdvControls
-          toggleIsAddInstrumentVisible={this.toggleIsAddInstrumentVisible}
-          toggleIsSaveSongVisible={this.toggleIsSaveSongVisible}
-          toggleIsDeleteLineVisible={this.toggleIsDeleteLineVisible}
+          toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
+          toggleIsSaveSongVisible={() =>
+            setIsSaveSongVisible(!globalState.isSaveSongVisible)
+          }
+          toggleIsDeleteLineVisible={toggleIsDeleteLineVisible}
           user={this.props.user}
         />
       </React.Fragment>
