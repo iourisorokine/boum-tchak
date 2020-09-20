@@ -12,7 +12,7 @@ export const Button = styled.button`
   box-shadow: 3px 3px 5px #bbb;
   cursor: pointer;
   &:hover {
-    background-color: black;
+    background-color: ${(props) => props.hoverColor || "black"};
     color: white;
   }
 `;

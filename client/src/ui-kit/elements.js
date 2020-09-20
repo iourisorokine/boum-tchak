@@ -10,7 +10,7 @@ export const Tempo = styled.span`
 
 export const ExpandedMenuItem = styled.div`
   margin: auto;
-  min-width: 300px;
+  min-width: 400px;
   max-width: 700px;
   position: absolute;
   z-index: 10;

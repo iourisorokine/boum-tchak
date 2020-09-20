@@ -5,7 +5,9 @@ import {
   ExpandedMenuItem,
   Column,
   Row,
+  Button,
   SelectableRow,
+  Text,
 } from "../../ui-kit";
 import axios from "axios";
 
@@ -46,7 +48,7 @@ export const AddInstrument = ({
 
   return (
     <ExpandedMenuItem>
-      <Row>
+      <Row padding="10px 12px 4px 12px">
         <Column flexDirection="row">
           {categories.map((cat) => {
             if (cat !== "default") {
@@ -62,7 +64,7 @@ export const AddInstrument = ({
           })}
         </Column>
       </Row>
-      <Row>
+      <Row padding="4px 12px 0 12px">
         <Column>
           {loading && (
             <Bars width={100} height={50} fill="#000" stroke="#000" />
@@ -73,12 +75,25 @@ export const AddInstrument = ({
                 key={instrument.name}
                 padding="4px"
                 onClick={() => handleClick(instrument)}>
-                <Column>{instrument.name}</Column>
-                <Column>{instrument.category}</Column>
-                <Column>{instrument.subCategory}</Column>
+                <Column flex={2}>
+                  <Text>{instrument.name}</Text>
+                </Column>
+                <Column>
+                  <Text>{instrument.category}</Text>
+                </Column>
+                <Column>
+                  <Text>{instrument.subCategory}</Text>
+                </Column>
               </SelectableRow>
             );
           })}
+        </Column>
+      </Row>
+      <Row padding="20px 0 10px 0">
+        <Column alignItems="center">
+          <Button hoverColor="red" onClick={toggleIsAddInstrumentVisible}>
+            Cancel
+          </Button>
         </Column>
       </Row>
     </ExpandedMenuItem>

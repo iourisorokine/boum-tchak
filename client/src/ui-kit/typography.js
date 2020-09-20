@@ -30,6 +30,13 @@ export const LineLabel = styled.p`
   width: 60px;
 `;
 
+export const Text = styled.p`
+  font-size: 12px;
+  line-height: 12px;
+  padding: ${(props) => props.padding || 2};
+  margin: 0;
+`;
+
 export const HeaderTitle = styled.h1`
   padding: 0px 50px;
   font-size: 56px;
