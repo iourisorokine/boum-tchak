@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DisplayLine } from "./DisplayLine";
 import { PageSquares } from "../Shared/PageSquares";
 import { playBeat } from "../utils";
@@ -27,120 +27,106 @@ const iconsStyle = {
   zIndex: 5,
 };
 
-export class DisplaySong extends React.Component {
-  state = {
-    isPlaying: false,
-    musicPlaying: null,
-    highlightedNote: -1,
-    animatedNotes: [-1, -1, -1],
-    timeoutTempo: 60000 / this.props.tempo / 4,
-    currentPage: 1,
-    pages: [1],
-  };
+export const DisplaySong = (props) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(null);
+  const [highlightedNote, setHighlightedNote] = useState(-1);
+  const [animatedNotes, setAnimatedNotes] = useState([-1, -1, -1]);
+  const [timeoutTempo, setTimeoutTempo] = useState(60000 / props.tempo / 4);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pages, setPages] = useState([1]);
 
-  componentDidMount() {
+  let intervalId = useRef(null);
+
+  useEffect(() => {
     const updatedPages = [];
-    const numberOfPages = Math.ceil(
-      this.props.partition[0].length / LENGTH_OF_PAGE
-    );
+    const numberOfPages = Math.ceil(props.partition[0].length / LENGTH_OF_PAGE);
     for (let i = 1; i <= numberOfPages; i++) {
       updatedPages.push(1);
     }
-    this.setState({ pages: updatedPages });
-  }
+    setPages(updatedPages);
+  }, []);
 
-  componentWillUnmount() {
-    this.stopPlaying();
-  }
+  useEffect(() => {
+    return () => clearInterval(intervalId.current);
+  }, []);
 
-  playMusic = (musicLines, partition, tempo) => {
-    this.setState({ isPlaying: true, currentPage: 1 });
+  const playMusic = (musicLines, partition, tempo) => {
+    setIsPlaying(true);
+    setCurrentPage(1);
     let counter = 0;
-    this.setState({
-      musicPlaying: setInterval(() => {
-        this.setState({
-          highlightedNote: counter,
-          animatedNotes: [counter - 1, counter, counter + 1],
-        });
-        playBeat(musicLines, partition, counter);
-        counter++;
-        if (counter >= partition[0].length) {
-          counter = 0;
-        }
-        if (
-          counter > this.state.currentPage * LENGTH_OF_PAGE ||
-          counter === 0
-        ) {
-          this.nextPage();
-        }
-      }, tempo),
-    });
+    intervalId.current = setInterval(() => {
+      setHighlightedNote(counter);
+      setAnimatedNotes([counter - 1, counter, counter + 1]);
+      playBeat(musicLines, partition, counter);
+      counter++;
+      if (counter >= partition[0].length) {
+        counter = 0;
+      }
+      if (counter > currentPage * LENGTH_OF_PAGE || counter === 0) {
+        nextPage();
+      }
+    }, tempo);
   };
 
-  stopPlaying = () => {
-    this.setState({ isPlaying: false });
-    clearInterval(this.state.musicPlaying);
+  const stopPlaying = () => {
+    setIsPlaying(false);
+    setMusicPlaying(clearInterval(musicPlaying));
   };
 
-  nextPage = () => {
-    const current = this.state.currentPage;
-    const total = this.state.pages.length;
-    const nextPage = current >= total ? 1 : this.state.currentPage + 1;
-    this.setState({ currentPage: nextPage });
+  const nextPage = () => {
+    const current = currentPage;
+    const total = pages.length;
+    const nextPage = current >= total ? 1 : currentPage + 1;
+    setCurrentPage(nextPage);
   };
 
-  onSongClick = () => {
-    if (this.state.isPlaying) {
-      this.stopPlaying();
+  const onSongClick = () => {
+    if (isPlaying) {
+      stopPlaying();
     } else {
-      this.playMusic(
-        this.props.musicLines,
-        this.props.partition,
-        this.state.timeoutTempo
-      );
+      playMusic(props.musicLines, props.partition, timeoutTempo);
     }
   };
 
-  render() {
-    return (
-      <SongPost>
-        <SongPostPlay onClick={this.onSongClick}>
-          {this.state.isPlaying ? (
-            <FontAwesomeIcon icon={faStop} color="black" style={iconsStyle} />
-          ) : (
-            <FontAwesomeIcon icon={faPlay} color="black" style={iconsStyle} />
-          )}
-        </SongPostPlay>
-        <SongHeader>
-          <SongTitle b={true}>{this.props.title}</SongTitle>
-          <SongTitle>by {this.props.creatorName}</SongTitle>
-        </SongHeader>
-        <Row>
-          <PageSquares
-            pages={this.state.pages}
-            selectPage={this.selectPage}
-            currentPage={this.state.currentPage}
-            clickable={false}
-          />
-        </Row>
-        <MusicGrid>
-          {this.props.musicLines.map((line, i) => {
-            return (
-              <DisplayLine
-                key={i}
-                linePosition={i}
-                notes={this.props.partition[i]}
-                noteColors={line.colors}
-                sounds={line.sounds}
-                lengthOfPage={LENGTH_OF_PAGE}
-                currentPage={this.state.currentPage}
-                highlightedNote={this.state.highlightedNote}
-                animatedNotes={this.state.animatedNotes}
-              />
-            );
-          })}
-        </MusicGrid>
-      </SongPost>
-    );
-  }
-}
+  return (
+    <SongPost>
+      <SongPostPlay onClick={onSongClick}>
+        {isPlaying ? (
+          <FontAwesomeIcon icon={faStop} color="black" style={iconsStyle} />
+        ) : (
+          <FontAwesomeIcon icon={faPlay} color="black" style={iconsStyle} />
+        )}
+      </SongPostPlay>
+      <SongHeader>
+        <SongTitle b={true}>{props.title}</SongTitle>
+        <SongTitle>by {props.creatorName}</SongTitle>
+      </SongHeader>
+      <Row>
+        <PageSquares
+          pages={pages}
+          selectPage={props.selectPage}
+          currentPage={currentPage}
+          clickable={false}
+        />
+      </Row>
+      <MusicGrid>
+        {props.musicLines.map((line, i) => {
+          return (
+            <DisplayLine
+              key={i}
+              linePosition={i}
+              notes={props.partition[i]}
+              noteColors={line.colors}
+              sounds={line.sounds}
+              lengthOfPage={LENGTH_OF_PAGE}
+              currentPage={currentPage}
+              highlightedNote={highlightedNote}
+              animatedNotes={animatedNotes}
+            />
+          );
+        })}
+      </MusicGrid>
+    </SongPost>
+  );
+};
