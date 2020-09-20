@@ -123,8 +123,6 @@ export class CreateSong extends React.Component {
       setTempo,
       setTimeoutTempo,
     } = this.context;
-    console.log("state", this.state);
-    console.log("globalState", globalState);
 
     const toggleIsDeleteLineVisible = () => {
       setGlobalState({ isDeleteLineVisible: !globalState.isDeleteLineVisible });
