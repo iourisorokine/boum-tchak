@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Row = styled.div`
+  padding: ${(props) => props.padding || 0};
   display: flex;
   width: 100%;
 `;
@@ -28,6 +29,7 @@ export const Column = styled.div`
   flex-direction: ${(props) => props.flexDirection || "column"};
   justify-content: center;
   min-height: 20px;
+  padding: ${(props) => props.padding || 0};
   align-items: ${(props) => props.alignItems || "flex-start"};
   justify-content: ${(props) => props.justifyContent || "center"};
   flex: ${(props) => props.flex || 1};

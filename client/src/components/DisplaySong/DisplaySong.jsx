@@ -48,7 +48,7 @@ export const DisplaySong = (props) => {
   }, []);
 
   useEffect(() => {
-    return () => clearInterval(intervalId.current);
+    return () => stopPlaying();
   }, []);
 
   const playMusic = (musicLines, partition, tempo) => {
@@ -71,7 +71,7 @@ export const DisplaySong = (props) => {
 
   const stopPlaying = () => {
     setIsPlaying(false);
-    setMusicPlaying(clearInterval(musicPlaying));
+    clearInterval(intervalId.current);
   };
 
   const nextPage = () => {

@@ -41,5 +41,6 @@ export {
   SongHeader,
   SongTitle,
   Alert,
+  Text,
 } from "./typography";
 export { MusicGrid, StyledNote, Line, PageSquare } from "./musicGrid";

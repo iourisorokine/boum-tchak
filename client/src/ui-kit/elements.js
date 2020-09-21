@@ -10,7 +10,7 @@ export const Tempo = styled.span`
 
 export const ExpandedMenuItem = styled.div`
   margin: auto;
-  min-width: 300px;
+  min-width: 400px;
   max-width: 700px;
   position: absolute;
   z-index: 10;
@@ -88,7 +88,7 @@ export const ColorSquare = styled.div`
 
 export const SelectableText = styled.p`
   padding: 3px;
-  margin: 0;
+  margin: 0px;
   cursor: pointer;
   color: ${(props) => (props.selected ? "white" : "black")};
   background-color: ${(props) => (props.selected ? "black" : "white")};
