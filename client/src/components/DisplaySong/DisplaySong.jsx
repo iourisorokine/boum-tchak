@@ -29,13 +29,12 @@ const iconsStyle = {
 
 export const DisplaySong = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [musicPlaying, setMusicPlaying] = useState(null);
   const [highlightedNote, setHighlightedNote] = useState(-1);
   const [animatedNotes, setAnimatedNotes] = useState([-1, -1, -1]);
-  const [timeoutTempo, setTimeoutTempo] = useState(60000 / props.tempo / 4);
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState([1]);
 
+  const timeoutTempo = 60000 / props.tempo / 4;
   let intervalId = useRef(null);
 
   useEffect(() => {
