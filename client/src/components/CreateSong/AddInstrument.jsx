@@ -64,16 +64,18 @@ export const AddInstrument = ({
           })}
         </Column>
       </Row>
+      {loading && (
+        <Column justifyContent="center" alignItems="center">
+          <Bars width={100} height={50} fill="#000" stroke="#000" />
+        </Column>
+      )}
       <Row padding="4px 12px 0 12px">
         <Column>
-          {loading && (
-            <Bars width={100} height={50} fill="#000" stroke="#000" />
-          )}
           {newInstruments.map((instrument) => {
             return (
               <SelectableRow
                 key={instrument.name}
-                padding="4px"
+                padding="4px 0 4px 0"
                 onClick={() => handleClick(instrument)}>
                 <Column flex={2}>
                   <Text>{instrument.name}</Text>
