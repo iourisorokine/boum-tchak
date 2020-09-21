@@ -48,11 +48,12 @@ export const CreateSong = (props) => {
   }, []);
 
   const prepareNewMusic = async () => {
-    const { data } = await axios.get("/api/instrument/starter");
-    const musicLines = prepareInstruments(data);
-    const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
-    setMusicLines(musicLines);
-    setPartition(newPartition);
+    // const { data } = await axios.get("/api/instrument/starter");
+    // const musicLines = prepareInstruments(data);
+    // const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
+    // setMusicLines(musicLines);
+    // setPartition(newPartition);
+    // test empty partition at start
   };
 
   const prepareLoadedSong = async () => {
@@ -133,7 +134,7 @@ export const CreateSong = (props) => {
       if (counter > currentPage * LENGTH_OF_PAGE || counter === 0) {
         nextPage();
       }
-    }
+    };
 
     musicPlaying.current = setInterval(playInterval, tempo);
   };

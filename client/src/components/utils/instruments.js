@@ -1,4 +1,5 @@
 export const preparePartition = (instruments, length) => {
+  if (!instruments) return [];
   const partition = [];
   instruments.forEach((el) => {
     const emptyLine = [];
