@@ -88,7 +88,7 @@ export const ColorSquare = styled.div`
 
 export const SelectableText = styled.p`
   padding: 3px;
-  margin: 0;
+  margin: 0px;
   cursor: pointer;
   color: ${(props) => (props.selected ? "white" : "black")};
   background-color: ${(props) => (props.selected ? "black" : "white")};
