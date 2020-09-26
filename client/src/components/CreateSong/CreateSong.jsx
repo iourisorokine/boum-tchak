@@ -14,9 +14,8 @@ import {
 } from "../utils";
 import axios from "axios";
 
-const START_PARTITION_LENGTH = 8;
+// const START_PARTITION_LENGTH = 8;
 const MAX_PARTITION_LENGTH = 64;
-const LENGTH_OF_PAGE = 16;
 const DEFAULT_TEMPO = 120;
 const DEFAULT_TIMEOUT = 60000 / 120 / 4;
 
@@ -37,6 +36,8 @@ export const CreateSong = (props) => {
   const [pages, setPages] = useState([1]);
 
   let musicPlaying = React.useRef(null);
+
+  const lengthOfPage = window.innerWidth >= 800 ? 16 : 12;
 
   useEffect(() => {
     if (props?.match?.params?.id) {
@@ -73,9 +74,8 @@ export const CreateSong = (props) => {
       updatedPartition.forEach((el) => {
         el.push(0);
       });
-      const p = pages.length;
-      const pagesCalc = Math.ceil(updatedPartition[0].length / LENGTH_OF_PAGE);
-      const pagesUpdate = p < pagesCalc ? pages.concat([1]) : pages;
+      const pagesCalc = Math.ceil(updatedPartition[0].length / lengthOfPage);
+      const pagesUpdate = pages.length < pagesCalc ? pages.concat([1]) : pages;
       setPartition(updatedPartition);
       setPages(pagesUpdate);
     }
@@ -87,9 +87,9 @@ export const CreateSong = (props) => {
     updatedPartition.forEach((el) => {
       el.splice(last, 1);
     });
-    const p = pages.length;
-    const pagesCalc = Math.ceil(updatedPartition[0].length / LENGTH_OF_PAGE);
-    const pagesUpdate = p > pagesCalc ? pages.slice(0, p - 1) : pages;
+    const pagesCalc = Math.ceil(updatedPartition[0].length / lengthOfPage);
+    const pagesUpdate =
+      pages.length > pagesCalc ? pages.slice(0, pages.length - 1) : pages;
     setPartition(updatedPartition);
     setPages(pagesUpdate);
   };
@@ -104,13 +104,8 @@ export const CreateSong = (props) => {
     toggleIsDeleteLineVisible();
   };
 
-  const nextPage = () => {
-    const nextPage = currentPage >= pages.length ? 1 : currentPage + 1;
-    setCurrentPage(nextPage);
-  };
-
   const toggleIsDeleteLineVisible = () => {
-    setIsDeleteLineVisible(!isDeleteLineVisible);
+    if (partition.length) setIsDeleteLineVisible(!isDeleteLineVisible);
   };
 
   const toggleIsAddInstrumentVisible = () => {
@@ -131,8 +126,9 @@ export const CreateSong = (props) => {
       if (counter >= partition[0].length) {
         counter = 0;
       }
-      if (counter > currentPage * LENGTH_OF_PAGE || counter === 0) {
-        nextPage();
+      if (counter % lengthOfPage === 1) {
+        const nextPage = Math.ceil(counter / lengthOfPage);
+        setCurrentPage(nextPage);
       }
     };
 
@@ -253,7 +249,7 @@ export const CreateSong = (props) => {
                   isDeleteLineVisible={isDeleteLineVisible}
                   deleteLine={deleteLine}
                   currentPage={currentPage}
-                  lenghtOfPage={LENGTH_OF_PAGE}
+                  lenghtOfPage={lengthOfPage}
                 />
               );
             })}

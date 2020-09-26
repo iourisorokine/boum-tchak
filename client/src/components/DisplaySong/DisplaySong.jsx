@@ -14,8 +14,6 @@ import {
   Row,
 } from "../../ui-kit";
 
-const LENGTH_OF_PAGE = 16;
-
 const iconsStyle = {
   width: 40,
   height: 40,
@@ -37,9 +35,11 @@ export const DisplaySong = (props) => {
   const timeoutTempo = 60000 / props.tempo / 4;
   let intervalId = useRef(null);
 
+  const lengthOfPage = window.innerWidth >= 800 ? 16 : 12;
+
   useEffect(() => {
     const updatedPages = [];
-    const numberOfPages = Math.ceil(props.partition[0].length / LENGTH_OF_PAGE);
+    const numberOfPages = Math.ceil(props.partition[0].length / lengthOfPage);
     for (let i = 1; i <= numberOfPages; i++) {
       updatedPages.push(1);
     }
@@ -62,8 +62,9 @@ export const DisplaySong = (props) => {
       if (counter >= partition[0].length) {
         counter = 0;
       }
-      if (counter > currentPage * LENGTH_OF_PAGE || counter === 0) {
-        nextPage();
+      if (counter % lengthOfPage === 1) {
+        const nextPage = Math.ceil(counter / lengthOfPage);
+        setCurrentPage(nextPage);
       }
     }, tempo);
   };
@@ -71,13 +72,6 @@ export const DisplaySong = (props) => {
   const stopPlaying = () => {
     setIsPlaying(false);
     clearInterval(intervalId.current);
-  };
-
-  const nextPage = () => {
-    const current = currentPage;
-    const total = pages.length;
-    const nextPage = current >= total ? 1 : currentPage + 1;
-    setCurrentPage(nextPage);
   };
 
   const onSongClick = () => {
@@ -118,7 +112,7 @@ export const DisplaySong = (props) => {
               notes={props.partition[i]}
               noteColors={line.colors}
               sounds={line.sounds}
-              lengthOfPage={LENGTH_OF_PAGE}
+              lengthOfPage={lengthOfPage}
               currentPage={currentPage}
               highlightedNote={highlightedNote}
               animatedNotes={animatedNotes}
