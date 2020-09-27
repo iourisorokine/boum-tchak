@@ -19,24 +19,26 @@ export const CreateLine = ({
   const firstIndex = (currentPage - 1) * lenghtOfPage;
   const lastIndex = currentPage * lenghtOfPage;
 
-  const displayNotes = notes.map((n, i) => {
-    if (i >= firstIndex && i < lastIndex) {
-      return (
-        <Note
-          key={i}
-          status={n}
-          notePosition={i}
-          colors={noteColors}
-          toggleActiveNote={toggleActiveNote}
-          linePosition={linePosition}
-          sounds={sounds}
-          highlighted={highlightedNote === i}
-          animated={animatedNotes.includes(i)}
-        />
-      );
-    }
-    return null;
-  });
+  const displayNotes = notes?.length
+    ? notes.map((n, i) => {
+        if (i >= firstIndex && i < lastIndex) {
+          return (
+            <Note
+              key={i}
+              status={n}
+              notePosition={i}
+              colors={noteColors}
+              toggleActiveNote={toggleActiveNote}
+              linePosition={linePosition}
+              sounds={sounds}
+              highlighted={highlightedNote === i}
+              animated={animatedNotes.includes(i)}
+            />
+          );
+        }
+        return null;
+      })
+    : [];
 
   return (
     <Line>

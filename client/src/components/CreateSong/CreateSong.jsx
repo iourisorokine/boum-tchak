@@ -14,7 +14,7 @@ import {
 } from "../utils";
 import axios from "axios";
 
-// const START_PARTITION_LENGTH = 8;
+const START_PARTITION_LENGTH = 8;
 const MAX_PARTITION_LENGTH = 64;
 const DEFAULT_TEMPO = 120;
 const DEFAULT_TIMEOUT = 60000 / 120 / 4;
@@ -40,8 +40,9 @@ export const CreateSong = (props) => {
   const lengthOfPage = window.innerWidth >= 800 ? 16 : 12;
 
   useEffect(() => {
-    if (props?.match?.params?.id) {
-      prepareLoadedSong();
+    const songIdToLoad = props?.match?.params?.id;
+    if (songIdToLoad) {
+      prepareLoadedSong(songIdToLoad);
     } else {
       prepareNewMusic();
     }
@@ -49,17 +50,16 @@ export const CreateSong = (props) => {
   }, []);
 
   const prepareNewMusic = async () => {
-    // const { data } = await axios.get("/api/instrument/starter");
-    // const musicLines = prepareInstruments(data);
-    // const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
-    // setMusicLines(musicLines);
-    // setPartition(newPartition);
-    // test empty partition at start
+    const { data } = await axios.get("/api/instrument/starter");
+    const musicLines = prepareInstruments(data);
+    const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
+    setMusicLines(musicLines);
+    setPartition(newPartition);
   };
 
-  const prepareLoadedSong = async () => {
-    const songId = props.match.params.id;
-    const { data: loadedSong } = await axios.get(`/api/song/${songId}`);
+  const prepareLoadedSong = async (songIdToLoad) => {
+    const { data: loadedSong } = await axios.get(`/api/song/${songIdToLoad}`);
+    console.log(loadedSong);
     const newInstruments = [...loadedSong.instruments];
     const musicLines = prepareInstruments(newInstruments);
     setMusicLines(musicLines);
