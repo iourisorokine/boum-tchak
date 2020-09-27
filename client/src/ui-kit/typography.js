@@ -27,7 +27,7 @@ export const SongTitle = styled.p`
 export const LineLabel = styled.p`
   font-size: 10px;
   line-height: 10px;
-  width: 60px;
+  width: 70px;
 `;
 
 export const Text = styled.p`

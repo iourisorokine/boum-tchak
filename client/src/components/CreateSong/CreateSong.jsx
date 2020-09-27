@@ -6,6 +6,7 @@ import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
 import { SaveSong } from "./SaveSong";
+import { ToolsLine } from "./ToolsLine";
 import {
   playBeat,
   preparePartition,
@@ -217,6 +218,7 @@ export const CreateSong = (props) => {
         pages={pages}
         selectPage={setCurrentPage}
         currentPage={currentPage}
+        createMode
       />
       <div
         style={{
@@ -226,14 +228,9 @@ export const CreateSong = (props) => {
           alignItems: "center",
           justifyContent: "center",
         }}>
-        {!musicLines.length && (
-          <p>
-            No partition to display yet... Click on "Add Lines" to start
-            composing.
-          </p>
-        )}
         <MusicGrid>
-          {musicLines &&
+          <ToolsLine notes={partition[0]} />
+          {musicLines.length ? (
             musicLines.map((line, i) => {
               return (
                 <CreateLine
@@ -252,7 +249,13 @@ export const CreateSong = (props) => {
                   lenghtOfPage={lengthOfPage}
                 />
               );
-            })}
+            })
+          ) : (
+            <p>
+              No partition to display yet... Click on "Add Lines" to start
+              composing.
+            </p>
+          )}
         </MusicGrid>
       </div>
       <PlayControls

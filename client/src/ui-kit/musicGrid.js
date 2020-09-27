@@ -55,7 +55,10 @@ export const PageSquare = styled.div`
   height: 8px;
   width: 8px;
   margin: 4px;
-  border: 2px solid black;
-  background-color: ${(props) => (props.selected ? "black" : "white")};
+  border-width: 2px;
+  border-style: solid;
+  border-color: ${(props) => props.color || "black"};
+  background-color: ${(props) =>
+    props.selected ? props.color || "black" : "white"};
   cursor: pointer;
 `;

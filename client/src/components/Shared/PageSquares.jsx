@@ -6,8 +6,9 @@ export const PageSquares = ({
   selectPage,
   pages,
   clickable = true,
+  createMode,
 }) => {
-  if (pages.length < 2) {
+  if (pages.length < 2 && !createMode) {
     return null;
   }
 
