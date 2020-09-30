@@ -34,7 +34,6 @@ export const AddInstrument = ({
         });
         const newUniqueCategories = [...new Set(allCategories)];
         setUniqueCategories(newUniqueCategories);
-        console.log("### categories", uniqueCategories);
       }
     }
     setLoading(false);
