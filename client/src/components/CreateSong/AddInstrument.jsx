@@ -19,7 +19,6 @@ export const AddInstrument = ({
   const [searchCategory, setSearchCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [uniqueCategories, setUniqueCategories] = useState([]);
-  const categories = ["Drums", "Bass", "Synth", "Guitar", "Voice"];
 
   const fetchInstrumentsData = async (searchCat, shouldCreateBtns) => {
     const searchParams = searchCat && {
