@@ -1,11 +1,19 @@
 import React from "react";
 import { Line, LineLabel } from "../../ui-kit";
 
-export const ToolsLine = ({ notes }) => {
+export const ToolsLine = ({ notes, lengthOfPage, isLastPage }) => {
   const displayBarsLength = [];
+  const lastPageFull = notes?.length && notes?.length % lengthOfPage === 0;
+  const maxLength = notes?.length > lengthOfPage ? lengthOfPage : notes?.length;
+  const maxLength2 =
+    isLastPage && lastPageFull
+      ? maxLength
+      : isLastPage
+      ? notes?.length % lengthOfPage
+      : maxLength;
 
-  if (notes?.length && notes?.length >= 4) {
-    for (let i = 4; i <= notes.length; i += 4) {
+  if (lengthOfPage && lengthOfPage >= 4) {
+    for (let i = 4; i <= maxLength2; i += 4) {
       displayBarsLength.push(
         <div
           key={i}
