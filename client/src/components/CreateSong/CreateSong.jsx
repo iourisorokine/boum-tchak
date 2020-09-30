@@ -93,6 +93,7 @@ export const CreateSong = (props) => {
       pages.length > pagesCalc ? pages.slice(0, pages.length - 1) : pages;
     setPartition(updatedPartition);
     setPages(pagesUpdate);
+    if (currentPage > pagesUpdate.length) setCurrentPage(pagesUpdate.length);
   };
 
   const deleteLine = (lineNumber) => {
@@ -229,7 +230,11 @@ export const CreateSong = (props) => {
           justifyContent: "center",
         }}>
         <MusicGrid>
-          <ToolsLine notes={partition[0]} />
+          <ToolsLine
+            notes={partition[0]}
+            lengthOfPage={lengthOfPage}
+            isLastPage={currentPage === pages.length}
+          />
           {musicLines.length ? (
             musicLines.map((line, i) => {
               return (
