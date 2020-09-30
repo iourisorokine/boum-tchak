@@ -18,22 +18,31 @@ export const AddInstrument = ({
   const [newInstruments, setNewInstruments] = useState([]);
   const [searchCategory, setSearchCategory] = useState(null);
   const [loading, setLoading] = useState(false);
-  const categories = ["Drums", "Bass", "Synth", "Guitar"];
+  const [uniqueCategories, setUniqueCategories] = useState([]);
+  const categories = ["Drums", "Bass", "Synth", "Guitar", "Voice"];
 
-  const fetchInstrumentsData = async (searchCat) => {
+  const fetchInstrumentsData = async (searchCat, shouldCreateBtns) => {
     const searchParams = searchCat && {
       params: { category: searchCat },
     };
     const { data } = await axios.get("/api/instrument", searchParams);
     if (data) {
       setNewInstruments(data);
+      if (shouldCreateBtns) {
+        const allCategories = data.map((instrument) => {
+          return instrument.category;
+        });
+        const newUniqueCategories = [...new Set(allCategories)];
+        setUniqueCategories(newUniqueCategories);
+        console.log("### categories", uniqueCategories);
+      }
     }
     setLoading(false);
   };
 
   useEffect(() => {
     setLoading(true);
-    fetchInstrumentsData();
+    fetchInstrumentsData(null, true);
   }, []);
 
   const handleClick = (inst) => {
@@ -50,7 +59,7 @@ export const AddInstrument = ({
     <ExpandedMenuItem>
       <Row padding="10px 12px 4px 12px">
         <Column flexDirection="row">
-          {categories.map((cat) => {
+          {uniqueCategories.map((cat) => {
             if (cat !== "default") {
               return (
                 <CategoryBtn

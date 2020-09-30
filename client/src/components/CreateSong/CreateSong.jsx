@@ -252,7 +252,7 @@ export const CreateSong = (props) => {
             })
           ) : (
             <p>
-              No partition to display yet... Click on "Add Lines" to start
+              No partition to display yet... Click on "Add Instruments" to start
               composing.
             </p>
           )}
