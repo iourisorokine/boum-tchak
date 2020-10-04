@@ -60,13 +60,20 @@ export const CreateSong = (props) => {
 
   const prepareLoadedSong = async (songIdToLoad) => {
     const { data: loadedSong } = await axios.get(`/api/song/${songIdToLoad}`);
-    console.log(loadedSong);
     const newInstruments = [...loadedSong.instruments];
     const musicLines = prepareInstruments(newInstruments);
     setMusicLines(musicLines);
     setPartition(loadedSong.partition);
     setTempo(loadedSong.tempo);
     setTimeoutTempo(60000 / loadedSong.tempo / 4);
+    const numberOfPages = Math.ceil(
+      loadedSong.partition[0].length / lengthOfPage
+    );
+    const newPages = [];
+    for (let i = 1; i <= numberOfPages; i++) {
+      newPages.push(1);
+    }
+    setPages(newPages);
   };
 
   const addOneBar = () => {
@@ -75,8 +82,11 @@ export const CreateSong = (props) => {
       updatedPartition.forEach((el) => {
         el.push(0);
       });
-      const pagesCalc = Math.ceil(updatedPartition[0].length / lengthOfPage);
-      const pagesUpdate = pages.length < pagesCalc ? pages.concat([1]) : pages;
+      const pagesCalculation = Math.ceil(
+        updatedPartition[0].length / lengthOfPage
+      );
+      const pagesUpdate =
+        pages.length < pagesCalculation ? pages.concat([1]) : pages;
       setPartition(updatedPartition);
       setPages(pagesUpdate);
     }
@@ -185,7 +195,7 @@ export const CreateSong = (props) => {
       creatorName: props.user.username || "anonymous",
       posted: true,
     };
-    await axios.post("api/song/", songData);
+    const savedSong = await axios.post("api/song/", songData);
     setIsSaveSongVisible(false);
     setBottomMessage(`New song "${title}" successfully saved!`);
     setTimeout(() => {

@@ -38,14 +38,10 @@ class App extends React.Component {
                 <CreateSong user={this.state.user} {...props} />
               )}
             />
+            <Route exact path="/help" render={(props) => <Help {...props} />} />
             <Route
               exact
-              path="/help"
-              render={(props) => <Help {...props} />}
-            />
-            <Route
-              exact
-              path="/song/:id"
+              path="/create/:id"
               render={(props) => (
                 <CreateSong user={this.state.user} {...props} />
               )}
