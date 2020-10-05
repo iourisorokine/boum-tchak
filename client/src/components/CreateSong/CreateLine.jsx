@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { globalContext } from "../../context/GlobalContext";
 import { Note } from "./Note";
 import { Line, LineLabel, DeleteButton } from "../../ui-kit";
 
@@ -10,12 +11,13 @@ export const CreateLine = ({
   sounds,
   highlightedNote,
   label,
-  isDeleteLineVisible,
   animatedNotes,
   deleteLine,
   currentPage,
   lenghtOfPage,
 }) => {
+  const { isRemoveInstrumentVisible } = useContext(globalContext);
+
   const firstIndex = (currentPage - 1) * lenghtOfPage;
   const lastIndex = currentPage * lenghtOfPage;
 
@@ -43,7 +45,7 @@ export const CreateLine = ({
   return (
     <Line>
       <LineLabel>{label && label}</LineLabel>
-      {isDeleteLineVisible && (
+      {isRemoveInstrumentVisible && (
         <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
       )}
       {displayNotes}

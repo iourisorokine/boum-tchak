@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { globalContext } from "../../context/GlobalContext";
 import {
   Button,
   PlayButton,
@@ -6,7 +7,10 @@ import {
   ControlsPad,
   Tempo,
 } from "../../ui-kit";
-import { globalContext } from "../../context/GlobalContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
+
+const iconStyle = { width: 16, height: 16 };
 
 export const PlayControls = ({
   onPlayBtnPress,
@@ -43,9 +47,13 @@ export const PlayControls = ({
   return (
     <ControlsPad>
       {isPlaying ? (
-        <StopButton onClick={onStopBtnPress}>[]</StopButton>
+        <StopButton onClick={onStopBtnPress}>
+          <FontAwesomeIcon icon={faStop} color="white" style={iconStyle} />
+        </StopButton>
       ) : (
-        <PlayButton onClick={onPlayBtnPress}>></PlayButton>
+        <PlayButton onClick={onPlayBtnPress}>
+          <FontAwesomeIcon icon={faPlay} color="white" style={iconStyle} />
+        </PlayButton>
       )}
       <Button onClick={togglePlayOnClick}>
         Play on click: {isNotePlayedOnClick ? "yes" : "no"}

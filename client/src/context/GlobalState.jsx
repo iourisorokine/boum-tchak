@@ -12,7 +12,7 @@ import {
   SET_IS_PLAYING,
   SET_INSTRUMENTS,
   SET_PARTITION,
-  SET_IS_DELETE_LINE_VISIBLE,
+  SET_IS_REMOVE_INSTRUMENT_VISIBLE,
 } from "./types";
 
 export const GlobalState = (props) => {
@@ -20,7 +20,7 @@ export const GlobalState = (props) => {
     isPLaying: false,
     instruments: [],
     partition: [],
-    isDeleteLineVisible: false,
+    isRemoveInstrumentVisible: false,
     partitionLength: config.START_PARTITION_LENGTH,
     maxPartitionLength: config.MAX_PARTITION_LENGTH,
     tempo: config.DEFAULT_TEMPO,
@@ -51,9 +51,14 @@ export const GlobalState = (props) => {
     dispatch({ type: SET_IS_SAVE_SONG_VISIBLE, payload: value });
   };
 
-  const toggleIsDeleteLineVisible = () => {
-    const newValue = !state.isDeleteLineVisible;
-    dispatch({ type: SET_IS_DELETE_LINE_VISIBLE, payload: newValue });
+  const setIsRemoveInstrumentVisible = (value) => {
+    dispatch({ type: SET_IS_REMOVE_INSTRUMENT_VISIBLE, payload: value });
+  };
+
+  const toggleIsRemoveInstrumentVisible = () => {
+    console.log("!!!!!!!!!!%%%%%%%%%", state.isRemoveInstrumentVisible);
+    const newValue = !state.isRemoveInstrumentVisible;
+    dispatch({ type: SET_IS_REMOVE_INSTRUMENT_VISIBLE, payload: newValue });
   };
 
   const setIsPlaying = (value) => {
@@ -79,12 +84,13 @@ export const GlobalState = (props) => {
         isNotePlayedOnClick: state.isNotePlayedOnClick,
         isAddInstrumentVisible: state.isAddInstrumentVisible,
         isSaveSongVisible: state.isSaveSongVisible,
-        isDeleteLineVisible: state.isDeleteLineVisible,
+        isRemoveInstrumentVisible: state.isRemoveInstrumentVisible,
         setTempo,
         setIsPlaying,
         setInstruments,
         setPartition,
-        toggleIsDeleteLineVisible,
+        setIsRemoveInstrumentVisible,
+        toggleIsRemoveInstrumentVisible,
         setTimeoutTempo,
         setIsNotePlayedOnClick,
         toggleIsAddInstrumentVisible,

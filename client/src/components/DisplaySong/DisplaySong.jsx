@@ -3,8 +3,7 @@ import { DisplayLine } from "./DisplayLine";
 import { PageSquares } from "../Shared/PageSquares";
 import { playBeat } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { faStop } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
 import {
   MusicGrid,
   SongPost,
