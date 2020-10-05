@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CreateLine } from "./CreateLine";
-import { MusicGrid, ExpandedMenuItem } from "../../ui-kit";
+import { MusicGrid, ExpandedMenuItem, Button } from "../../ui-kit";
 import { PageSquares } from "../Shared/PageSquares";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
 import { SaveSong } from "./SaveSong";
 import { ToolsLine } from "./ToolsLine";
+import { config } from "./../../config/config";
 import {
   playBeat,
   preparePartition,
@@ -14,31 +15,39 @@ import {
   prepareOneInstrument,
 } from "../utils";
 import axios from "axios";
-
-const START_PARTITION_LENGTH = 8;
-const MAX_PARTITION_LENGTH = 64;
-const DEFAULT_TEMPO = 120;
-const DEFAULT_TIMEOUT = 60000 / 120 / 4;
+import { globalContext } from "../../context/GlobalContext";
 
 export const CreateSong = (props) => {
-  const [partition, setPartition] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [highlightedNote, setHighlightedNote] = useState([-1]);
   const [animatedNotes, setAnimatedNotes] = useState([]);
-  const [musicLines, setMusicLines] = useState([]);
-  const [tempo, setTempo] = useState(DEFAULT_TEMPO);
-  const [timeoutTempo, setTimeoutTempo] = useState(DEFAULT_TIMEOUT);
-  const [isNotePlayedOnClick, setIsNotePlayedOnClick] = useState(true);
-  const [isAddInstrumentVisible, setIsAddInstrumentVisible] = useState(false);
-  const [isSaveSongVisible, setIsSaveSongVisible] = useState(false);
   const [bottomMessage, setBottomMessage] = useState("");
-  const [isDeleteLineVisible, setIsDeleteLineVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState([1]);
 
   let musicPlaying = React.useRef(null);
 
   const lengthOfPage = window.innerWidth >= 800 ? 16 : 12;
+
+  const {
+    tempo,
+    setTempo,
+    isPlaying,
+    setIsPlaying,
+    timeoutTempo,
+    instruments,
+    setInstruments,
+    partition,
+    setPartition,
+    setTimeoutTempo,
+    isNotePlayedOnClick,
+    setIsNotePlayedOnClick,
+    isAddInstrumentVisible,
+    toggleIsAddInstrumentVisible,
+    isDeleteLineVisible,
+    toggleIsDeleteLineVisible,
+    isSaveSongVisible,
+    setIsSaveSongVisible,
+  } = useContext(globalContext);
 
   useEffect(() => {
     const songIdToLoad = props?.match?.params?.id;
@@ -52,17 +61,20 @@ export const CreateSong = (props) => {
 
   const prepareNewMusic = async () => {
     const { data } = await axios.get("/api/instrument/starter");
-    const musicLines = prepareInstruments(data);
-    const newPartition = preparePartition(musicLines, START_PARTITION_LENGTH);
-    setMusicLines(musicLines);
+    const preparedInstruments = prepareInstruments(data);
+    const newPartition = preparePartition(
+      preparedInstruments,
+      config.START_PARTITION_LENGTH
+    );
+    setInstruments(preparedInstruments);
     setPartition(newPartition);
   };
 
   const prepareLoadedSong = async (songIdToLoad) => {
     const { data: loadedSong } = await axios.get(`/api/song/${songIdToLoad}`);
     const newInstruments = [...loadedSong.instruments];
-    const musicLines = prepareInstruments(newInstruments);
-    setMusicLines(musicLines);
+    const preparedInstruments = prepareInstruments(newInstruments);
+    setInstruments(preparedInstruments);
     setPartition(loadedSong.partition);
     setTempo(loadedSong.tempo);
     setTimeoutTempo(60000 / loadedSong.tempo / 4);
@@ -77,7 +89,7 @@ export const CreateSong = (props) => {
   };
 
   const addOneBar = () => {
-    if (partition.length && partition[0].length < MAX_PARTITION_LENGTH) {
+    if (partition.length && partition[0].length < config.MAX_PARTITION_LENGTH) {
       const updatedPartition = [...partition];
       updatedPartition.forEach((el) => {
         el.push(0);
@@ -108,23 +120,15 @@ export const CreateSong = (props) => {
 
   const deleteLine = (lineNumber) => {
     const updatedPartition = [...partition];
-    const updatedMusicLines = [...musicLines];
+    const updatedInstruments = [...instruments];
     updatedPartition.splice(lineNumber, 1);
-    updatedMusicLines.splice(lineNumber, 1);
+    updatedInstruments.splice(lineNumber, 1);
     setPartition(updatedPartition);
-    setMusicLines(updatedMusicLines);
+    setInstruments(updatedInstruments);
     toggleIsDeleteLineVisible();
   };
 
-  const toggleIsDeleteLineVisible = () => {
-    if (partition.length) setIsDeleteLineVisible(!isDeleteLineVisible);
-  };
-
-  const toggleIsAddInstrumentVisible = () => {
-    setIsAddInstrumentVisible(!isAddInstrumentVisible);
-  };
-
-  const playMusic = (musicLines, partition, tempo) => {
+  const playMusic = (instruments, partition, tempo) => {
     if (!partition || !partition.length) return;
     setIsPlaying(true);
     setCurrentPage(1);
@@ -133,7 +137,7 @@ export const CreateSong = (props) => {
     const playInterval = () => {
       setHighlightedNote(counter);
       setAnimatedNotes([counter - 1, counter, counter + 1]);
-      playBeat(musicLines, partition, counter);
+      playBeat(instruments, partition, counter);
       counter++;
       if (counter >= partition[0].length) {
         counter = 0;
@@ -148,7 +152,7 @@ export const CreateSong = (props) => {
   };
 
   const onPlayBtnPress = () => {
-    playMusic(musicLines, partition, timeoutTempo);
+    playMusic(instruments, partition, timeoutTempo);
   };
 
   const stopPlaying = () => {
@@ -163,11 +167,11 @@ export const CreateSong = (props) => {
       newPartitionRow.push(0);
     }
     const newPartition = [...partition];
-    const newMusicLines = [...musicLines];
+    const newInstruments = [...instruments];
     const preparedNewInstrument = prepareOneInstrument(instr);
-    newMusicLines.push(preparedNewInstrument);
+    newInstruments.push(preparedNewInstrument);
     newPartition.push(newPartitionRow);
-    setMusicLines(newMusicLines);
+    setInstruments(newInstruments);
     setPartition(newPartition);
   };
 
@@ -183,7 +187,7 @@ export const CreateSong = (props) => {
   };
 
   const saveTheSong = async (title) => {
-    const songInstruments = musicLines.map((el) => {
+    const songInstruments = instruments.map((el) => {
       return el.id;
     });
     const songData = {
@@ -195,7 +199,7 @@ export const CreateSong = (props) => {
       creatorName: props.user.username || "anonymous",
       posted: true,
     };
-    const savedSong = await axios.post("api/song/", songData);
+    await axios.post("api/song/", songData);
     setIsSaveSongVisible(false);
     setBottomMessage(`New song "${title}" successfully saved!`);
     setTimeout(() => {
@@ -245,8 +249,8 @@ export const CreateSong = (props) => {
             lengthOfPage={lengthOfPage}
             isLastPage={currentPage === pages.length}
           />
-          {musicLines.length ? (
-            musicLines.map((line, i) => {
+          {instruments.length ? (
+            instruments.map((line, i) => {
               return (
                 <CreateLine
                   key={i}
@@ -278,13 +282,7 @@ export const CreateSong = (props) => {
         onStopBtnPress={stopPlaying}
         addOneBar={addOneBar}
         removeOneBar={removeOneBar}
-        isPlaying={isPlaying}
-        tempo={tempo}
-        setTempo={setTempo}
-        setTimeoutTempo={setTimeoutTempo}
         numberOfBars={partition[0] ? partition[0].length : 0}
-        isNotePlayedOnClick={isNotePlayedOnClick}
-        setIsNotePlayedOnClick={setIsNotePlayedOnClick}
       />
       <AdvControls
         toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
