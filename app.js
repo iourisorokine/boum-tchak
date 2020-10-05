@@ -94,6 +94,7 @@ app.use("/api/instrument", instrumentRoutes);
 
 const songRoutes = require("./routes/song");
 app.use("/api/song", songRoutes);
+app.use("/create/api/song", songRoutes);
 
 const soundRoutes = require("./routes/sound");
 app.use("/api/sound", soundRoutes);

@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { GlobalStateProvider } from "./components/GlobalStateContext/GlobalStateContext";
+import { GlobalState } from "./context/GlobalState";
 import axios from "axios";
 
 const renderApp = async () => {
@@ -12,9 +12,9 @@ const renderApp = async () => {
   const user = authResponse.data;
   ReactDOM.render(
     <BrowserRouter>
-      <GlobalStateProvider>
+      <GlobalState>
         <App user={user} />
-      </GlobalStateProvider>
+      </GlobalState>
     </BrowserRouter>,
     document.getElementById("root")
   );

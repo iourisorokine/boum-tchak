@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Button,
   PlayButton,
@@ -6,34 +6,38 @@ import {
   ControlsPad,
   Tempo,
 } from "../../ui-kit";
+import { globalContext } from "../../context/GlobalContext";
 
 export const PlayControls = ({
   onPlayBtnPress,
   onStopBtnPress,
-  isPlaying,
   addOneBar,
   removeOneBar,
-  isNotePlayedOnClick,
-  setIsNotePlayedOnClick,
-  tempo,
-  setTempo,
-  setTimeoutTempo,
   numberOfBars,
 }) => {
+  const {
+    tempo,
+    setTempo,
+    isPlaying,
+    setTimeoutTempo,
+    isNotePlayedOnClick,
+    setIsNotePlayedOnClick,
+  } = useContext(globalContext);
+
   const togglePlayOnClick = () => {
     setIsNotePlayedOnClick(!isNotePlayedOnClick);
   };
 
   const onPlusTempoPress = () => {
     setTempo(tempo + 5);
-    const calcTimeout = 60000 / tempo / 4;
-    setTimeoutTempo(calcTimeout);
+    const newTimeout = 60000 / tempo / 4;
+    setTimeoutTempo(newTimeout);
   };
 
   const onMinusTempoPress = () => {
     setTempo(tempo - 5);
-    const calcTimeout = 60000 / tempo / 4;
-    setTimeoutTempo(calcTimeout);
+    const newTimeout = 60000 / tempo / 4;
+    setTimeoutTempo(newTimeout);
   };
 
   return (

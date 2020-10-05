@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Bars } from "svg-loaders-react";
-import { PageLayout, SelectableText, Button, Heading2, Column } from "../../ui-kit";
+import {
+  PageLayout,
+  SelectableText,
+  Button,
+  Heading2,
+  Column,
+} from "../../ui-kit";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -55,7 +61,7 @@ export const LoadSong = (props) => {
       <div>{message && <p>{message}</p>}</div>
       {selectedSong && (
         <div style={{ paddingTop: 20 }}>
-          <Link to={`song/${selectedSong}`}>
+          <Link to={`/create/${selectedSong}`}>
             <Button>Load</Button>
           </Link>
           <Button onClick={() => deleteSong(selectedSong)}>Delete</Button>
