@@ -44,7 +44,7 @@ export const CreateSong = (props) => {
     isAddInstrumentVisible,
     toggleIsAddInstrumentVisible,
     isDeleteLineVisible,
-    toggleIsDeleteLineVisible,
+    setIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
   } = useContext(globalContext);
@@ -125,7 +125,7 @@ export const CreateSong = (props) => {
     updatedInstruments.splice(lineNumber, 1);
     setPartition(updatedPartition);
     setInstruments(updatedInstruments);
-    toggleIsDeleteLineVisible();
+    setIsRemoveInstrumentVisible(!setIsRemoveInstrumentVisible);
   };
 
   const playMusic = (instruments, partition, tempo) => {
@@ -212,7 +212,6 @@ export const CreateSong = (props) => {
       {isAddInstrumentVisible && (
         <AddInstrument
           addInstrument={addInstrument}
-          toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
         />
       )}
       {isSaveSongVisible && (
@@ -262,7 +261,6 @@ export const CreateSong = (props) => {
                   sounds={line.sounds}
                   highlightedNote={highlightedNote}
                   animatedNotes={animatedNotes}
-                  isDeleteLineVisible={isDeleteLineVisible}
                   deleteLine={deleteLine}
                   currentPage={currentPage}
                   lenghtOfPage={lengthOfPage}
@@ -287,7 +285,6 @@ export const CreateSong = (props) => {
       <AdvControls
         toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
         toggleIsSaveSongVisible={() => setIsSaveSongVisible(!isSaveSongVisible)}
-        toggleIsDeleteLineVisible={toggleIsDeleteLineVisible}
         user={props.user}
       />
     </React.Fragment>

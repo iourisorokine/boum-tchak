@@ -7,6 +7,7 @@ import {
   SET_IS_PLAYING,
   SET_INSTRUMENTS,
   SET_PARTITION,
+  SET_IS_REMOVE_INSTRUMENT_VISIBLE,
 } from "./types";
 
 export default (state, action) => {
@@ -27,6 +28,11 @@ export default (state, action) => {
       return {
         ...state,
         isAddInstrumentVisible: payload,
+      };
+    case SET_IS_REMOVE_INSTRUMENT_VISIBLE:
+      return {
+        ...state,
+        isRemoveInstrumentVisible: payload,
       };
     case SET_IS_NOTE_PLAYED_ON_CLICK:
       return {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Line, LineLabel } from "../../ui-kit";
+import { Line, LineLabel, Row } from "../../ui-kit";
 
 export const ToolsLine = ({ notes, lengthOfPage, isLastPage }) => {
   const displayBarsLength = [];
@@ -32,9 +32,9 @@ export const ToolsLine = ({ notes, lengthOfPage, isLastPage }) => {
     }
   }
   return (
-    <Line>
+    <Row>
       <LineLabel />
       {displayBarsLength}
-    </Line>
+    </Row>
   );
 };

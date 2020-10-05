@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { globalContext } from "../../context/GlobalContext";
 import { Bars } from "svg-loaders-react";
 import {
   CategoryBtn,
@@ -11,14 +12,16 @@ import {
 } from "../../ui-kit";
 import axios from "axios";
 
-export const AddInstrument = ({
-  addInstrument,
-  toggleIsAddInstrumentVisible,
-}) => {
+export const AddInstrument = ({ addInstrument }) => {
   const [newInstruments, setNewInstruments] = useState([]);
   const [searchCategory, setSearchCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [uniqueCategories, setUniqueCategories] = useState([]);
+
+  const {
+    setIsRemoveInstrumentVisible,
+    toggleIsAddInstrumentVisible,
+  } = useContext(globalContext);
 
   const fetchInstrumentsData = async (searchCat, shouldCreateBtns) => {
     const searchParams = searchCat && {
@@ -100,7 +103,9 @@ export const AddInstrument = ({
       </Row>
       <Row padding="20px 0 10px 0">
         <Column alignItems="center">
-          <Button hoverColor="red" onClick={toggleIsAddInstrumentVisible}>
+          <Button
+            hoverColor="red"
+            onClick={() => setIsRemoveInstrumentVisible(false)}>
             Cancel
           </Button>
         </Column>
