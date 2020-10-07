@@ -12,11 +12,10 @@ export const CreateLine = ({
   highlightedNote,
   label,
   animatedNotes,
-  deleteLine,
   currentPage,
   lenghtOfPage,
 }) => {
-  const { isRemoveInstrumentVisible } = useContext(globalContext);
+  const { isRemoveInstrumentVisible, deleteLine } = useContext(globalContext);
 
   const firstIndex = (currentPage - 1) * lenghtOfPage;
   const lastIndex = currentPage * lenghtOfPage;

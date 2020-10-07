@@ -32,7 +32,6 @@ export const CreateSong = (props) => {
   const {
     tempo,
     setTempo,
-    isPlaying,
     setIsPlaying,
     timeoutTempo,
     instruments,
@@ -41,10 +40,8 @@ export const CreateSong = (props) => {
     setPartition,
     setTimeoutTempo,
     isNotePlayedOnClick,
-    setIsNotePlayedOnClick,
     isAddInstrumentVisible,
     toggleIsAddInstrumentVisible,
-    isDeleteLineVisible,
     setIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
@@ -117,16 +114,6 @@ export const CreateSong = (props) => {
     setPartition(updatedPartition);
     setPages(pagesUpdate);
     if (currentPage > pagesUpdate.length) setCurrentPage(pagesUpdate.length);
-  };
-
-  const deleteLine = (lineNumber) => {
-    const updatedPartition = [...partition];
-    const updatedInstruments = [...instruments];
-    updatedPartition.splice(lineNumber, 1);
-    updatedInstruments.splice(lineNumber, 1);
-    setPartition(updatedPartition);
-    setInstruments(updatedInstruments);
-    setIsRemoveInstrumentVisible(!setIsRemoveInstrumentVisible);
   };
 
   const playMusic = (instruments, partition, tempo) => {
@@ -260,7 +247,6 @@ export const CreateSong = (props) => {
                   sounds={line.sounds}
                   highlightedNote={highlightedNote}
                   animatedNotes={animatedNotes}
-                  deleteLine={deleteLine}
                   currentPage={currentPage}
                   lenghtOfPage={lengthOfPage}
                 />

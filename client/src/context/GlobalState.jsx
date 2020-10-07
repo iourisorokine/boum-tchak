@@ -72,6 +72,16 @@ export const GlobalState = (props) => {
     dispatch({ type: SET_PARTITION, payload: value });
   };
 
+  const deleteLine = (lineNumber) => {
+    const updatedPartition = [...state.partition];
+    const updatedInstruments = [...state.instruments];
+    updatedPartition.splice(lineNumber, 1);
+    updatedInstruments.splice(lineNumber, 1);
+    setPartition(updatedPartition);
+    setInstruments(updatedInstruments);
+    setIsRemoveInstrumentVisible(!setIsRemoveInstrumentVisible);
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -94,6 +104,7 @@ export const GlobalState = (props) => {
         setIsNotePlayedOnClick,
         toggleIsAddInstrumentVisible,
         setIsSaveSongVisible,
+        deleteLine,
       }}>
       {props.children}
     </GlobalContext.Provider>
