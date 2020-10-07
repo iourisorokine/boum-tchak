@@ -1,33 +1,32 @@
-import React from "react";
-import { Line, LineLabel, Row } from "../../ui-kit";
+import React, { useContext } from "react";
+import { LineLabel, Row, SmallEditBtn, BarIndicator } from "../../ui-kit";
+import { globalContext } from "../../context/GlobalContext";
 
-export const ToolsLine = ({ notes, lengthOfPage, isLastPage }) => {
+export const ToolsLine = ({ totalLength, lengthOfPage, isLastPage }) => {
+  const { copyOneBar, copiedPartitionBar, pasteOneBar } = useContext(
+    globalContext
+  );
+
   const displayBarsLength = [];
-  const lastPageFull = notes?.length && notes?.length % lengthOfPage === 0;
-  const maxLength = notes?.length > lengthOfPage ? lengthOfPage : notes?.length;
-  const maxLength2 =
-    isLastPage && lastPageFull
-      ? maxLength
-      : isLastPage
-      ? notes?.length % lengthOfPage
-      : maxLength;
+  const l = totalLength;
+  const lastPageFull = l && l % lengthOfPage === 0;
+  const maxLength = l > lengthOfPage ? lengthOfPage : l;
+  const maxLength2 = isLastPage && !lastPageFull ? l % lengthOfPage : maxLength;
 
   if (lengthOfPage && lengthOfPage >= 4) {
     for (let i = 4; i <= maxLength2; i += 4) {
+      // Zero base index
+      const barIndex = i / 4 - 1;
       displayBarsLength.push(
-        <div
-          key={i}
-          style={{
-            borderBottom: "1px solid #888",
-            width: 138,
-            marginRight: 3,
-            marginLeft: 3,
-            marginBottom: 12,
-            fontSize: 10,
-            color: "#888",
-          }}>
+        <BarIndicator key={barIndex}>
           1 bar
-        </div>
+          <SmallEditBtn onClick={() => copyOneBar(barIndex)}>copy</SmallEditBtn>
+          {copiedPartitionBar && (
+            <SmallEditBtn onClick={() => pasteOneBar(barIndex)}>
+              paste
+            </SmallEditBtn>
+          )}
+        </BarIndicator>
       );
     }
   }

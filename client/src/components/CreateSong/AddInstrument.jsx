@@ -19,7 +19,6 @@ export const AddInstrument = ({ addInstrument }) => {
   const [uniqueCategories, setUniqueCategories] = useState([]);
 
   const {
-    setIsRemoveInstrumentVisible,
     toggleIsAddInstrumentVisible,
   } = useContext(globalContext);
 
@@ -105,7 +104,7 @@ export const AddInstrument = ({ addInstrument }) => {
         <Column alignItems="center">
           <Button
             hoverColor="red"
-            onClick={() => setIsRemoveInstrumentVisible(false)}>
+            onClick={toggleIsAddInstrumentVisible}>
             Cancel
           </Button>
         </Column>

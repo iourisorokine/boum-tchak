@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CreateLine } from "./CreateLine";
-import { MusicGrid, ExpandedMenuItem, Button } from "../../ui-kit";
+import { MusicGrid, ExpandedMenuItem } from "../../ui-kit";
 import { PageSquares } from "../Shared/PageSquares";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
@@ -230,7 +230,7 @@ export const CreateSong = (props) => {
         }}>
         <MusicGrid>
           <ToolsLine
-            notes={partition[0]}
+            totalLength={partition[0] && partition[0].length}
             lengthOfPage={lengthOfPage}
             isLastPage={currentPage === pages.length}
           />

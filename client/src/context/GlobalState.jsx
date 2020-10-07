@@ -13,6 +13,7 @@ import {
   SET_INSTRUMENTS,
   SET_PARTITION,
   SET_IS_REMOVE_INSTRUMENT_VISIBLE,
+  SET_COPIED_PARTITION_BAR,
 } from "./types";
 
 export const GlobalState = (props) => {
@@ -20,6 +21,7 @@ export const GlobalState = (props) => {
     isPLaying: false,
     instruments: [],
     partition: [],
+    copiedPartitionBar: null,
     isRemoveInstrumentVisible: false,
     partitionLength: config.START_PARTITION_LENGTH,
     maxPartitionLength: config.MAX_PARTITION_LENGTH,
@@ -82,6 +84,41 @@ export const GlobalState = (props) => {
     setIsRemoveInstrumentVisible(!setIsRemoveInstrumentVisible);
   };
 
+  const copyOneBar = (barIndex) => {
+    const newCopiedBar = [];
+    const startIndex = 4 * barIndex;
+    const endIndex = startIndex + 3;
+    state.partition.forEach((el) => {
+      const newLine = [];
+      for (let i = startIndex; i <= endIndex; i++) {
+        newLine.push(el[i]);
+      }
+      newCopiedBar.push(newLine);
+    });
+    dispatch({ type: SET_COPIED_PARTITION_BAR, payload: newCopiedBar });
+  };
+
+  const pasteOneBar = (barIndex) => {
+    const updatedPartition = [];
+    const partitionLength = state.partition[0].length;
+    const startIndex = 4 * barIndex;
+    const endIndex = startIndex + 3;
+    state.partition.forEach((el, index) => {
+      const newLine = [];
+      let offset = 0;
+      for (let i = 0; i < partitionLength; i++) {
+        if (i >= startIndex && i <= endIndex) {
+          newLine.push(state.copiedPartitionBar[index][0 + offset]);
+          offset++;
+        } else {
+          newLine.push(el[i]);
+        }
+      }
+      updatedPartition.push(newLine);
+    });
+    dispatch({ type: SET_PARTITION, payload: updatedPartition });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -89,6 +126,7 @@ export const GlobalState = (props) => {
         isPlaying: state.isPlaying,
         instruments: state.instruments,
         partition: state.partition,
+        copiedPartitionBar: state.copiedPartitionBar,
         timeoutTempo: state.timeoutTempo,
         isNotePlayedOnClick: state.isNotePlayedOnClick,
         isAddInstrumentVisible: state.isAddInstrumentVisible,
@@ -98,6 +136,8 @@ export const GlobalState = (props) => {
         setIsPlaying,
         setInstruments,
         setPartition,
+        copyOneBar,
+        pasteOneBar,
         setIsRemoveInstrumentVisible,
         toggleIsRemoveInstrumentVisible,
         setTimeoutTempo,
