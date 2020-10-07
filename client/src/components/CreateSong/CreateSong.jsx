@@ -10,6 +10,7 @@ import { ToolsLine } from "./ToolsLine";
 import { config } from "./../../config/config";
 import {
   playBeat,
+  getRandomName,
   preparePartition,
   prepareInstruments,
   prepareOneInstrument,
@@ -195,8 +196,8 @@ export const CreateSong = (props) => {
       partition,
       tempo,
       instruments: songInstruments,
-      creator: props.user._id || "anonymous",
-      creatorName: props.user.username || "anonymous",
+      creator: props.user?._id || undefined,
+      creatorName: props.user?.username || getRandomName(),
       posted: true,
     };
     await axios.post("api/song/", songData);
@@ -210,9 +211,7 @@ export const CreateSong = (props) => {
   return (
     <React.Fragment>
       {isAddInstrumentVisible && (
-        <AddInstrument
-          addInstrument={addInstrument}
-        />
+        <AddInstrument addInstrument={addInstrument} />
       )}
       {isSaveSongVisible && (
         <SaveSong

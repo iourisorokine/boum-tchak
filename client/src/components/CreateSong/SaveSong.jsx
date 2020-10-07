@@ -10,12 +10,22 @@ export const SaveSong = ({ saveTheSong, user, toggleIsSaveSongVisible }) => {
   };
   return (
     <ExpandedMenuItem>
-      {user ? (
+      {
         <React.Fragment>
-          <p style={{ margin: 10 }}>
-            Name your song (if you modified an existing song, <br />
-            it will still be saved under as new one):
-          </p>
+          {user ? (
+            <p style={{ margin: 10 }}>
+              Name your song (if you modified an existing song, <br />
+              it will still be saved under as new one):
+            </p>
+          ) : (
+            <p style={{ margin: 10 }}>
+              You don't have a user account yet, therefore your song <br />
+              will be published as annonymous... to bad!
+              <br />
+              Please create a user profile before saving next time <br />
+              Name your song:
+            </p>
+          )}
           <Input
             type="text"
             placeholder="Padapoum"
@@ -27,23 +37,7 @@ export const SaveSong = ({ saveTheSong, user, toggleIsSaveSongVisible }) => {
             <Button onClick={() => toggleIsSaveSongVisible()}>Cancel</Button>
           </div>
         </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <p style={{ margin: 10 }}>
-            To save a song, you need to have a profile, but let's do it! <br />
-            Please login or signup:
-          </p>
-
-          <div>
-            <Link to="/signup">
-              <Button>Signup</Button>
-            </Link>
-            <Link to="/login">
-              <Button>Login</Button>
-            </Link>
-          </div>
-        </React.Fragment>
-      )}
+      }
     </ExpandedMenuItem>
   );
 };

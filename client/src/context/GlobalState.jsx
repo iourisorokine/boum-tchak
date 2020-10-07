@@ -56,7 +56,6 @@ export const GlobalState = (props) => {
   };
 
   const toggleIsRemoveInstrumentVisible = () => {
-    console.log("!!!!!!!!!!%%%%%%%%%", state.isRemoveInstrumentVisible);
     const newValue = !state.isRemoveInstrumentVisible;
     dispatch({ type: SET_IS_REMOVE_INSTRUMENT_VISIBLE, payload: newValue });
   };
