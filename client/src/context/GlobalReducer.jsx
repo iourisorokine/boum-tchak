@@ -8,6 +8,7 @@ import {
   SET_INSTRUMENTS,
   SET_PARTITION,
   SET_IS_REMOVE_INSTRUMENT_VISIBLE,
+  SET_COPIED_PARTITION_BAR,
 } from "./types";
 
 export default (state, action) => {
@@ -58,6 +59,11 @@ export default (state, action) => {
       return {
         ...state,
         partition: payload,
+      };
+    case SET_COPIED_PARTITION_BAR:
+      return {
+        ...state,
+        copiedPartitionBar: payload,
       };
     default:
       return state;

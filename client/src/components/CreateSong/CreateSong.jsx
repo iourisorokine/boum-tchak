@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CreateLine } from "./CreateLine";
-import { MusicGrid, ExpandedMenuItem, Button } from "../../ui-kit";
+import { MusicGrid, ExpandedMenuItem } from "../../ui-kit";
 import { PageSquares } from "../Shared/PageSquares";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
@@ -10,6 +10,7 @@ import { ToolsLine } from "./ToolsLine";
 import { config } from "./../../config/config";
 import {
   playBeat,
+  getRandomName,
   preparePartition,
   prepareInstruments,
   prepareOneInstrument,
@@ -31,7 +32,6 @@ export const CreateSong = (props) => {
   const {
     tempo,
     setTempo,
-    isPlaying,
     setIsPlaying,
     timeoutTempo,
     instruments,
@@ -40,10 +40,8 @@ export const CreateSong = (props) => {
     setPartition,
     setTimeoutTempo,
     isNotePlayedOnClick,
-    setIsNotePlayedOnClick,
     isAddInstrumentVisible,
     toggleIsAddInstrumentVisible,
-    isDeleteLineVisible,
     setIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
@@ -118,16 +116,6 @@ export const CreateSong = (props) => {
     if (currentPage > pagesUpdate.length) setCurrentPage(pagesUpdate.length);
   };
 
-  const deleteLine = (lineNumber) => {
-    const updatedPartition = [...partition];
-    const updatedInstruments = [...instruments];
-    updatedPartition.splice(lineNumber, 1);
-    updatedInstruments.splice(lineNumber, 1);
-    setPartition(updatedPartition);
-    setInstruments(updatedInstruments);
-    setIsRemoveInstrumentVisible(!setIsRemoveInstrumentVisible);
-  };
-
   const playMusic = (instruments, partition, tempo) => {
     if (!partition || !partition.length) return;
     setIsPlaying(true);
@@ -195,8 +183,8 @@ export const CreateSong = (props) => {
       partition,
       tempo,
       instruments: songInstruments,
-      creator: props.user._id || "anonymous",
-      creatorName: props.user.username || "anonymous",
+      creator: props.user?._id || undefined,
+      creatorName: props.user?.username || getRandomName(),
       posted: true,
     };
     await axios.post("api/song/", songData);
@@ -210,9 +198,7 @@ export const CreateSong = (props) => {
   return (
     <React.Fragment>
       {isAddInstrumentVisible && (
-        <AddInstrument
-          addInstrument={addInstrument}
-        />
+        <AddInstrument addInstrument={addInstrument} />
       )}
       {isSaveSongVisible && (
         <SaveSong
@@ -244,7 +230,7 @@ export const CreateSong = (props) => {
         }}>
         <MusicGrid>
           <ToolsLine
-            notes={partition[0]}
+            totalLength={partition[0] && partition[0].length}
             lengthOfPage={lengthOfPage}
             isLastPage={currentPage === pages.length}
           />
@@ -261,7 +247,6 @@ export const CreateSong = (props) => {
                   sounds={line.sounds}
                   highlightedNote={highlightedNote}
                   animatedNotes={animatedNotes}
-                  deleteLine={deleteLine}
                   currentPage={currentPage}
                   lenghtOfPage={lengthOfPage}
                 />

@@ -7,3 +7,5 @@ export {
 export { playBeat } from "./playMechanics";
 
 export { getCategories, getSubCategories } from "./categories";
+
+export { getRandomName } from "./getRandomName";

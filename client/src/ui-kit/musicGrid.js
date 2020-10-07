@@ -62,3 +62,11 @@ export const PageSquare = styled.div`
     props.selected ? props.color || "black" : "white"};
   cursor: pointer;
 `;
+
+export const BarIndicator = styled.div`
+  border-bottom: 1px solid #aaa;
+  width: 138px;
+  margin: 0px 3px 12px 3px;
+  font-size: 10px;
+  color: #aaa;
+`;

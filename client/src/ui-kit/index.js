@@ -20,6 +20,8 @@ export {
   CategoryBtn,
   PlayButton,
   StopButton,
+  IconButton,
+  SmallEditBtn,
 } from "./buttons";
 export {
   Row,
@@ -43,4 +45,10 @@ export {
   Alert,
   Text,
 } from "./typography";
-export { MusicGrid, StyledNote, Line, PageSquare } from "./musicGrid";
+export {
+  MusicGrid,
+  StyledNote,
+  Line,
+  PageSquare,
+  BarIndicator,
+} from "./musicGrid";

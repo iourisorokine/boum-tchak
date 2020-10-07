@@ -59,7 +59,7 @@ export const PlayControls = ({
         Play on click: {isNotePlayedOnClick ? "yes" : "no"}
       </Button>
       <Button onClick={removeOneBar}>-</Button>
-      <Tempo>Bars: {numberOfBars}</Tempo>
+      <Tempo>Notes: {numberOfBars}</Tempo>
       <Button onClick={addOneBar}>+</Button>
       <Button onClick={onMinusTempoPress}>-</Button>
       <Tempo>Tempo: {tempo}</Tempo>

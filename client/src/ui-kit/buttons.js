@@ -78,7 +78,7 @@ export const DeleteButton = styled.p`
   }
 `;
 
-const IconButton = styled.button`
+export const IconButton = styled.button`
   color: black;
   backgroundcolor: white;
   padding: 6px;
@@ -86,4 +86,17 @@ const IconButton = styled.button`
   border: 1px solid black;
   border-radius: 50%;
   cursor: pointer;
+`;
+
+export const SmallEditBtn = styled.button`
+  color: #aaa;
+  border: 1px solid #aaa;
+  margin: 4px 4px 4px 8px;
+  background-color: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+  &:hover {
+    background-color: #aaa;
+    color: #fff;
+  }
 `;
