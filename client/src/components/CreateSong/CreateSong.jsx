@@ -233,6 +233,7 @@ export const CreateSong = (props) => {
             totalLength={partition[0] && partition[0].length}
             lengthOfPage={lengthOfPage}
             isLastPage={currentPage === pages.length}
+            currentPage={currentPage}
           />
           {instruments.length ? (
             instruments.map((line, i) => {
