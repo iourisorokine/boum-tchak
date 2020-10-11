@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AvailableSoundsList } from "./AvailableSoundsList";
 import { CreateSound } from "./CreateSound";
-import { Row, Button, Column, Heading2 } from "../../ui-kit";
+import { Row, Button, Column, Heading2, Input } from "../../ui-kit";
 
 const views = {
   ADD: "ADD",
@@ -19,6 +19,7 @@ export const AddSound = ({
   displayMessage,
 }) => {
   const [view, setView] = useState(views.ADD);
+  const [filterName, setFilterName] = useState("");
 
   useEffect(() => {
     selectSound(null);
@@ -39,10 +40,25 @@ export const AddSound = ({
   return (
     <React.Fragment>
       <Row>
-        <Column>
-          <Heading2>Add Sound:</Heading2>
+        <Column flexDirection="row" justifyContent="left">
+          <Heading2>Add Sound</Heading2>
         </Column>
-        <Column flexDirection="row" justifyContent="flex-end">
+        <Column flexDirection="row" justifyContent="left">
+          <Input
+            type="text"
+            width="140px"
+            value={filterName}
+            placeholder="Search..."
+            onChange={(e) => setFilterName(e.target.value)}
+          />
+        </Column>
+        <Column flex={2} flexDirection="row" justifyContent="flex-end">
+          <Button backgroundColor="#0f0" onClick={handleAddSoundClick}>
+            Add
+          </Button>
+          <Button backgroundColor="#f00" onClick={switchToOverview}>
+            Cancel
+          </Button>
           {view === views.ADD && (
             <Button
               onClick={() => {
@@ -59,13 +75,6 @@ export const AddSound = ({
               Search sound
             </Button>
           )}
-
-          <Button backgroundColor="#0f0" onClick={handleAddSoundClick}>
-            Add
-          </Button>
-          <Button backgroundColor="#f00" onClick={switchToOverview}>
-            Cancel
-          </Button>
         </Column>
       </Row>
       <Row>
@@ -79,6 +88,7 @@ export const AddSound = ({
               availableSounds={availableSounds}
               selectedSound={selectedSound}
               selectSound={selectSound}
+              filterName={filterName}
             />
           )}
         </Column>
