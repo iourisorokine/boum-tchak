@@ -33,9 +33,9 @@ export const CreateInstrument = (props) => {
   const [availableSounds, setAvailableSounds] = useState([]);
   const [selectedSound, setSelectedSound] = useState(null);
   const [editedColor, setEditedColor] = useState("start");
-  const [startColor, setStartColor] = useState("#aaa");
-  const [endColor, setEndColor] = useState("#555");
-  const [pickerColor, setPickerColor] = useState("#aaa");
+  const [startColor, setStartColor] = useState("#aaaaaa");
+  const [endColor, setEndColor] = useState("#555555");
+  const [pickerColor, setPickerColor] = useState("#aaaaaa");
 
   const handleColorChange = (color) => {
     setPickerColor(color.hex);
