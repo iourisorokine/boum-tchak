@@ -33,7 +33,7 @@ const gradientBuilder = (value1, value2, steps) => {
    * ==================================
    * source: http://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
    */
-  pad = (n, width, z) => {
+  const pad = (n, width, z) => {
     z = z || "0";
     n = n + "";
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
@@ -107,5 +107,3 @@ const gradientBuilder = (value1, value2, steps) => {
   console.log(colors);
   return colors;
 };
-
-gradientBuilder("#0000ff", "#ff33ff", 5);
