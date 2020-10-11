@@ -18,6 +18,7 @@ export const Characteristics = ({
         <Column flex={1}>Name:</Column>
         <Column justifyContent="flex-start" flex={2}>
           <Input
+            width="160px"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -29,6 +30,7 @@ export const Characteristics = ({
         <Column justifyContent="flex-start" flex={2}>
           <Select
             name="category"
+            width="170px"
             value={category}
             onChange={(e) => setCategory(e.target.value)}>
             {instrumentCategories.map((cat, i) => {
@@ -46,6 +48,7 @@ export const Characteristics = ({
         <Column justifyContent="flex-start" flex={2}>
           <Select
             name="sub-category"
+            width="170px"
             value={subCategory}
             onChange={(e) => setSubCategory(e.target.value)}>
             {getSubCategories(category).map((subCat, i) => {

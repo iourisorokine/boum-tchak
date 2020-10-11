@@ -2,7 +2,7 @@
  * Inspired by https://codepen.io/BangEqual/pen/VLNowO
  */
 
-const gradientBuilder = (value1, value2, steps) => {
+export const gradientBuilder = (value1, value2, steps) => {
   //return a workable RGB int array [r,g,b] from hex representation
   function processHEX(val) {
     //does the hex contain extra char?

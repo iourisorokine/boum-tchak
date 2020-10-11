@@ -68,6 +68,9 @@ export const AvailableSoundsList = ({
         <Column flex={2}>
           <Heading3>Sub-cat.</Heading3>
         </Column>
+        <Column flex={2}>
+          <Heading3>Pitch</Heading3>
+        </Column>
       </Row>
       <Row>
         <Column></Column>
@@ -107,6 +110,7 @@ export const AvailableSoundsList = ({
             })}
           </Select>
         </Column>
+        <Column flex={2}></Column>
       </Row>
       {filteredSounds.map((el) => {
         const playSound = () => {
@@ -140,6 +144,13 @@ export const AvailableSoundsList = ({
                 selected={selectedSound && selectedSound.url === el.url}
                 onClick={() => selectSound(el)}>
                 {el.subCategory}
+              </SelectableText>
+            </Column>
+            <Column flex={2}>
+              <SelectableText
+                selected={selectedSound && selectedSound.url === el.url}
+                onClick={() => selectSound(el)}>
+                {el.pitch}
               </SelectableText>
             </Column>
           </Row>

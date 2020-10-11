@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AvailableSoundsList } from "./AvailableSoundsList";
-import { SketchPicker } from "react-color";
 import { CreateSound } from "./CreateSound";
-import { Row, Button, Column, ColorSquare, Heading2 } from "../../ui-kit";
+import { Row, Button, Column, Heading2 } from "../../ui-kit";
 
 const views = {
   ADD: "ADD",
@@ -19,11 +18,7 @@ export const AddSound = ({
   fetchData,
   displayMessage,
 }) => {
-  const [soundColor, setSoundColor] = useState("#aaa");
   const [view, setView] = useState(views.ADD);
-  const handleColorChange = (color) => {
-    setSoundColor(color.hex);
-  };
 
   useEffect(() => {
     selectSound(null);
@@ -36,7 +31,7 @@ export const AddSound = ({
     }
     addSound({
       name: selectedSound.name,
-      color: soundColor,
+      color: "#ddd",
       url: selectedSound.url,
     });
   };
@@ -74,26 +69,7 @@ export const AddSound = ({
         </Column>
       </Row>
       <Row>
-        <Column flex={2} justifyContent="flex-start">
-          {view === views.ADD && (
-            <React.Fragment>
-              <Row>
-                <Column
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="flex-start">
-                  <p>Color:</p>
-                  <ColorSquare backgroundColor={soundColor} />
-                </Column>
-              </Row>
-              <SketchPicker
-                color={soundColor}
-                onChangeComplete={handleColorChange}
-              />
-            </React.Fragment>
-          )}
-        </Column>
-        <Column flex={3}>
+        <Column flex={1}>
           {view === views.UPLOAD && (
             <CreateSound setView={setView} fetchData={fetchData} />
           )}
