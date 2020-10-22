@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Characteristics } from "./Characteristics";
 import { InstrumentSoundsList } from "./InstrumentSoundsList";
 import { AddSound } from "./AddSound";
@@ -44,8 +44,13 @@ export const CreateInstrument = (props) => {
     } else if (editedColor === "end") {
       setEndColor(color.hex);
     }
-    updateSoundsColors();
+    console.log('Start color:', startColor, 'end color:', endColor);
+
   };
+
+  useEffect(()=>{
+    updateSoundsColors();
+  }, [startColor, endColor])
 
   const updateSoundsColors = () => {
     const updatedSounds = [...sounds];
