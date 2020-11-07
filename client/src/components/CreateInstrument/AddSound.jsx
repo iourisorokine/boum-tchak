@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AvailableSoundsList } from "./AvailableSoundsList";
-import { SketchPicker } from "react-color";
 import { CreateSound } from "./CreateSound";
-import { Row, Button, Column, ColorSquare, Heading2 } from "../../ui-kit";
+import { Row, Button, Column, Heading2, Input } from "../../ui-kit";
 
 const views = {
   ADD: "ADD",
@@ -19,11 +18,8 @@ export const AddSound = ({
   fetchData,
   displayMessage,
 }) => {
-  const [soundColor, setSoundColor] = useState("#aaa");
   const [view, setView] = useState(views.ADD);
-  const handleColorChange = (color) => {
-    setSoundColor(color.hex);
-  };
+  const [filterName, setFilterName] = useState("");
 
   useEffect(() => {
     selectSound(null);
@@ -36,7 +32,7 @@ export const AddSound = ({
     }
     addSound({
       name: selectedSound.name,
-      color: soundColor,
+      color: "#ddd",
       url: selectedSound.url,
     });
   };
@@ -44,10 +40,25 @@ export const AddSound = ({
   return (
     <React.Fragment>
       <Row>
-        <Column>
-          <Heading2>Add Sound:</Heading2>
+        <Column flexDirection="row" justifyContent="left">
+          <Heading2>Add Sound</Heading2>
         </Column>
-        <Column flexDirection="row" justifyContent="flex-end">
+        <Column flexDirection="row" justifyContent="left">
+          <Input
+            type="text"
+            width="140px"
+            value={filterName}
+            placeholder="Search..."
+            onChange={(e) => setFilterName(e.target.value)}
+          />
+        </Column>
+        <Column flex={2} flexDirection="row" justifyContent="flex-end">
+          <Button backgroundColor="#0f0" onClick={handleAddSoundClick}>
+            Add
+          </Button>
+          <Button backgroundColor="#f00" onClick={switchToOverview}>
+            Cancel
+          </Button>
           {view === views.ADD && (
             <Button
               onClick={() => {
@@ -64,36 +75,10 @@ export const AddSound = ({
               Search sound
             </Button>
           )}
-
-          <Button backgroundColor="#0f0" onClick={handleAddSoundClick}>
-            Add
-          </Button>
-          <Button backgroundColor="#f00" onClick={switchToOverview}>
-            Cancel
-          </Button>
         </Column>
       </Row>
       <Row>
-        <Column flex={2} justifyContent="flex-start">
-          {view === views.ADD && (
-            <React.Fragment>
-              <Row>
-                <Column
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="flex-start">
-                  <p>Color:</p>
-                  <ColorSquare backgroundColor={soundColor} />
-                </Column>
-              </Row>
-              <SketchPicker
-                color={soundColor}
-                onChangeComplete={handleColorChange}
-              />
-            </React.Fragment>
-          )}
-        </Column>
-        <Column flex={3}>
+        <Column flex={1}>
           {view === views.UPLOAD && (
             <CreateSound setView={setView} fetchData={fetchData} />
           )}
@@ -103,6 +88,7 @@ export const AddSound = ({
               availableSounds={availableSounds}
               selectedSound={selectedSound}
               selectSound={selectSound}
+              filterName={filterName}
             />
           )}
         </Column>

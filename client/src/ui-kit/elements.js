@@ -46,9 +46,11 @@ export const SongPost = styled.div`
 `;
 
 export const Input = styled.input`
-  height: 20px;
+  height: 24px;
   width: ${(props) => props.width || "100px"};
   margin: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
 `;
 
 export const Form = styled.form`

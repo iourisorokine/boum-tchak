@@ -10,7 +10,7 @@ import {
   Heading3,
   Select,
   Option,
-  Input,
+  SelectableRow,
 } from "../../ui-kit";
 
 export const AvailableSoundsList = ({
@@ -18,8 +18,8 @@ export const AvailableSoundsList = ({
   availableSounds,
   selectedSound,
   selectSound,
+  filterName,
 }) => {
-  const [filterName, setFilterName] = useState("");
   const [filterCategory, setFilterCategory] = useState("default");
   const [filterSubCategory, setFilterSubCategory] = useState("");
 
@@ -58,30 +58,15 @@ export const AvailableSoundsList = ({
   return (
     <React.Fragment>
       <Row>
-        <Column></Column>
-        <Column flex={3}>
+        <Column />
+        <Column flex={2}>
           <Heading3>Name</Heading3>
         </Column>
-        <Column flex={2}>
+        <Column flex={2} flexDirection="row" justifyContent="left">
           <Heading3>Category</Heading3>
-        </Column>
-        <Column flex={2}>
-          <Heading3>Sub-cat.</Heading3>
-        </Column>
-      </Row>
-      <Row>
-        <Column></Column>
-        <Column flex={3}>
-          <Input
-            type="text"
-            value={filterName}
-            placeholder="Search..."
-            onChange={(e) => setFilterName(e.target.value)}
-          />
-        </Column>
-        <Column flex={2}>
           <Select
             name="category"
+            width="60px"
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}>
             {soundCategories.map((cat, i) => {
@@ -93,9 +78,11 @@ export const AvailableSoundsList = ({
             })}
           </Select>
         </Column>
-        <Column flex={2}>
+        <Column flex={2} flexDirection="row" justifyContent="left">
+          <Heading3>Sub-cat.</Heading3>
           <Select
             name="sub-category"
+            width="60px"
             value={filterSubCategory}
             onChange={(e) => setFilterSubCategory(e.target.value)}>
             {getSubCategories(filterCategory).map((subCat, i) => {
@@ -107,13 +94,20 @@ export const AvailableSoundsList = ({
             })}
           </Select>
         </Column>
+        <Column flex={2}>
+          <Heading3>Pitch</Heading3>
+        </Column>
       </Row>
       {filteredSounds.map((el) => {
         const playSound = () => {
           return new Audio(el.url).play();
         };
         return (
-          <Row key={el._id}>
+          <SelectableRow
+            selected={selectedSound && selectedSound.url === el.url}
+            noHoverHighlight
+            onClick={() => selectSound(el)}
+            key={el._id}>
             <Column>
               <FontAwesomeIcon
                 icon={faVolumeUp}
@@ -121,28 +115,10 @@ export const AvailableSoundsList = ({
                 onClick={playSound}
               />
             </Column>
-            <Column flex={3}>
-              <SelectableText
-                selected={selectedSound && selectedSound.url === el.url}
-                onClick={() => selectSound(el)}>
-                {el.name}
-              </SelectableText>
-            </Column>
-            <Column flex={2}>
-              <SelectableText
-                selected={selectedSound && selectedSound.url === el.url}
-                onClick={() => selectSound(el)}>
-                {el.category}
-              </SelectableText>
-            </Column>
-            <Column flex={2}>
-              <SelectableText
-                selected={selectedSound && selectedSound.url === el.url}
-                onClick={() => selectSound(el)}>
-                {el.subCategory}
-              </SelectableText>
-            </Column>
-          </Row>
+            {["name", "category", "subCategory", "pitch"].map((columnTitle) => {
+              return <Column flex={2}>{el[columnTitle]}</Column>;
+            })}
+          </SelectableRow>
         );
       })}
     </React.Fragment>

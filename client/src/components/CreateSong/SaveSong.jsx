@@ -28,8 +28,9 @@ export const SaveSong = ({ saveTheSong, user, toggleIsSaveSongVisible }) => {
           )}
           <Input
             type="text"
-            placeholder="Padapoum"
+            placeholder="My Supa Song..."
             value={title}
+            width={"260px"}
             onChange={handleChange}
           />
           <div>

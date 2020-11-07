@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Characteristics } from "./Characteristics";
 import { InstrumentSoundsList } from "./InstrumentSoundsList";
 import { AddSound } from "./AddSound";
+import { SketchPicker } from "react-color";
+import { gradientBuilder } from "../utils";
 import axios from "axios";
-import { Row, Column, Button, PageLayout, Heading2, Alert } from "../../ui-kit";
+import {
+  Row,
+  Column,
+  Button,
+  PageLayout,
+  Heading2,
+  Alert,
+  CategoryBtn,
+} from "../../ui-kit";
 
 const views = {
   OVERVIEW: "OVERVIEW",
@@ -22,6 +32,40 @@ export const CreateInstrument = (props) => {
   const [loading, setLoading] = useState(false);
   const [availableSounds, setAvailableSounds] = useState([]);
   const [selectedSound, setSelectedSound] = useState(null);
+  const [editedColor, setEditedColor] = useState("start");
+  const [startColor, setStartColor] = useState("#aaaaaa");
+  const [endColor, setEndColor] = useState("#555555");
+  const [pickerColor, setPickerColor] = useState("#aaaaaa");
+
+  const handleColorChange = (color) => {
+    setPickerColor(color.hex);
+    if (editedColor === "start") {
+      setStartColor(color.hex);
+    } else if (editedColor === "end") {
+      setEndColor(color.hex);
+    }
+    console.log('Start color:', startColor, 'end color:', endColor);
+
+  };
+
+  useEffect(()=>{
+    updateSoundsColors();
+  }, [startColor, endColor])
+
+  const updateSoundsColors = () => {
+    const updatedSounds = [...sounds];
+    const l = updatedSounds.length;
+    if (l === 1) return;
+    if (l >= 2) updatedSounds[1].color = startColor;
+    if (l >= 3) updatedSounds[l - 1].color = endColor;
+    if (l > 3) {
+      const gradient = gradientBuilder(startColor, endColor, l - 3);
+      for (let i = 2; i < l - 1; i++) {
+        updatedSounds[i].color = gradient[i - 2];
+      }
+    }
+    setSounds(updatedSounds);
+  };
 
   const openAddSoundSection = async () => {
     setView(views.ADD_SOUND);
@@ -142,20 +186,42 @@ export const CreateInstrument = (props) => {
                 subCategory={subCategory}
                 setSubCategory={setSubCategory}
               />
+              <Row>
+                <Column>
+                  <h3>Sounds:</h3>
+                </Column>
+              </Row>
+              <Row>
+                <Column>
+                  <InstrumentSoundsList
+                    sounds={sounds}
+                    addSound={openAddSoundSection}
+                  />
+                </Column>
+              </Row>
             </Column>
-            <Column flex={1}></Column>
-          </Row>
-          <Row>
-            <Column>
-              <h3>Sounds:</h3>
-            </Column>
-          </Row>
-          <Row>
-            <Column>
-              <InstrumentSoundsList
-                sounds={sounds}
-                addSound={openAddSoundSection}
+            <Column flex={1}>
+              <SketchPicker
+                color={pickerColor}
+                onChangeComplete={handleColorChange}
               />
+              <Row>
+                <Column
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="flex-start">
+                  <CategoryBtn
+                    selected={editedColor === "start"}
+                    onClick={() => setEditedColor("start")}>
+                    Pick start color
+                  </CategoryBtn>
+                  <CategoryBtn
+                    selected={editedColor === "end"}
+                    onClick={() => setEditedColor("end")}>
+                    Pick end color
+                  </CategoryBtn>
+                </Column>
+              </Row>
             </Column>
           </Row>
         </React.Fragment>

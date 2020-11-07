@@ -9,9 +9,13 @@ export const Row = styled.div`
 export const SelectableRow = styled(Row)`
   padding: ${(props) => props.padding || 0};
   cursor: pointer;
+  color: ${(props) => (props.selected ? "white" : "black")};
+  background-color: ${(props) => (props.selected ? "black" : "white")};
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: ${(props) =>
+      props.noHoverHighlight && !props.selected ? "white" : "black"};
+    color: ${(props) =>
+      props.noHoverHighlight && !props.selected ? "black" : "white"};
     opacity: ${(props) => (props.selected ? 0.5 : 1)};
   }
 `;
