@@ -31,8 +31,12 @@ router.get("/creator/:creatorId", async (req, res) => {
 router.get("/posted/:page", async (req, res) => {
   const { page } = req.params;
   const limit = 7;
+  console.log('Searching for songs');
   try {
     const songs = await Song.find({ posted: true }).populate("instruments");
+    if(!songs || !songs.length){
+      console.log('no soungs found')
+    }
     if (songs) {
       songs.reverse();
       const firstIndex = (page - 1) * limit;
@@ -41,6 +45,7 @@ router.get("/posted/:page", async (req, res) => {
       res.json(response);
     }
   } catch (error) {
+    console.log('Ae error occured when fetching the songs: ', error)
     res.json(error);
   }
 });

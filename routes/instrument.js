@@ -20,15 +20,18 @@ router.get("/", async (req, res) => {
 
 // builds a basic drumkit at the start of the app
 router.get("/starter", async (req, res) => {
+  console.log('Fetching the instruments')
   try {
     const starterInstruments = await Instrument.find({
       name: { $in: ["Kicks 1", "Snares 1", "Clap 1"] },
     });
-    if (!starterInstruments) {
+    if (!starterInstruments || !starterInstruments.length) {
+      console.log('could not find the starter instruments...')
       throw new Error({ message: "could not find any instruments" });
     }
     res.json(starterInstruments);
   } catch (error) {
+    console.log('an error ,ocuured when finding the instruments: ', error);
     res.json(error);
   }
 });
