@@ -1,12 +1,14 @@
 # Boum-Tchak
 
-## Intro
+## What is This?
 
-Boum-Tchak is an app that allows to create musical and rhythmic loops generating a visual result, in form of a mosaic.
+Boum-Tchak is an app to combine samples and create rhythms.
 
-Each music loop (song) is composed lines that represent instruments. Each instrument contains one or several sounds. The horizontal axis represents the time and each line is divided in "bars" which correspond to a certain fraction of time. For each instrument and each bar, there is a note.
+Each track is composed of lines that represent instruments. 
+Each instrument contains one or several sounds. 
+Lines are divided in "bars" which correspond to a certain fraction of time. For each instrument and each bar, there is a note.
 
-The notes are represented by squares that act like switches: each note can be pressed to switch between the sounds that will be played by the corresponding instrument at the corresponding bar. Thus, by switching on the notes on different positions in the grid, the user creates a partition. When the user presses play, the partition is read and the sounds are played.
+The notes can be switched on/off to compose loops.
 
 ## Functionalities
 
@@ -20,28 +22,34 @@ If a partition is longer than the view width, it is spread on several pages, and
 
 ### Listen
 
-The listen section is the feed with songs. Clicking anywhere on the song launches it, and stops it when it is already playing. It is possible to play several songs at the time, but the playing is stopped when the user quits the page.
+A feed with posted songs (currently - all saved songs), hat can be played and paused by clicking on them.
 
 ### Profile
 
 A very basic user space, mainly used to save and load user's own creations.
+Possibility to create instruments and upload own sounds for selected users.
+
+### Create Instrument
+
+Very "behind the scenes for now: one or several samples can be selected or uploaded each associated with a color to form an instrument. Sounds have categories, sub-categories, and pitches in order to help with the creation and classification.
+Automatic color gradients are generated via a tool in order to give the instruments a good visual effect.
 
 ## Tech Stack
 
 - Frontend: React
 - Backend: Node.JS + Express
 - Database: MongoDB + Mongoose
-- API: REST - possibility to migrate to single endpoint (GraphQL) in the future.
 
 ## Further development
 
-I am looking forward to developing the app further and enable, among others:
+I am looking forward to developing the app further and ship, among others:
 
-- Social interactions
-- More powerful music editing tools
+- A user-friendly to upload sounds and create instruments
+- A possibility to record wav samples directly
+- Improvements in music editing
+- DJ mode: create several mini-loops that can be launched separately or together
+- Social interactions (claps-like system)
 - Pedagogic elements (Rhytmic patterns, tutorials)
-- Adding additional content
-- Performance improvement
 
 If you are interested in contributing, please feel free to contact me.
 
