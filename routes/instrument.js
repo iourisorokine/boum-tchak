@@ -26,12 +26,10 @@ router.get("/starter", async (req, res) => {
       name: { $in: ["Kicks 1", "Snares 1", "Clap 1"] },
     });
     if (!starterInstruments || !starterInstruments.length) {
-      console.log('could not find the starter instruments...')
       throw new Error({ message: "could not find any instruments" });
     }
     res.json(starterInstruments);
   } catch (error) {
-    console.log('an error ,ocuured when finding the instruments: ', error);
     res.json(error);
   }
 });
