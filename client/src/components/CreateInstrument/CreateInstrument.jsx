@@ -120,7 +120,7 @@ export const CreateInstrument = (props) => {
 
   const saveInstrument = async () => {
     if (!name || !category || !subCategory) {
-      displayMessage("All fields must be filled");
+      displayMessage(`Please enter the fields: ${!name?'Name':''} ${!category?'Category':''} ${!subCategory?'Sub-category':''}`);
       return;
     }
     if (sounds.length < 2) {

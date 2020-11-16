@@ -65,7 +65,6 @@ router.post("/", async (req, res) => {
     name,
     category,
     subCategory,
-    colors,
     sounds,
     creator,
     private,
@@ -76,6 +75,16 @@ router.post("/", async (req, res) => {
       message:
         "An instrument with the same name already exists, please create a unique name",
     });
+  }
+  if(sounds.length<2){
+    res.json({
+      message: "An instrument should contain at least one playable sound",
+    })
+  }
+  if(!name||!category||!subCategory){
+    res.json({
+      message: "One or several fields are missing",
+    })
   }
   try {
     const newInstrument = await Instrument.create({
