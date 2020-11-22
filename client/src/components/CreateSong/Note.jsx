@@ -10,6 +10,7 @@ export const Note = ({
   sounds,
   highlighted,
   animated,
+  pitch,
 }) => {
   const onNoteClick = () => {
     toggleActiveNote(notePosition, linePosition, sounds);
@@ -24,6 +25,8 @@ export const Note = ({
       onClick={onNoteClick}
       clickable={true}
       animated={animated}
-    />
+    >
+    { pitch ? pitch : '' }
+    </StyledNote>
   );
 };

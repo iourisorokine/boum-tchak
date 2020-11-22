@@ -37,6 +37,10 @@ export const StyledNote = styled.div`
   height: 30px;
   width: 30px;
   margin: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   box-shadow: 3px 3px 5px ${(props) => props.color};
   background-color: ${(props) => props.color};
   opacity: ${(props) => (props.highlighted ? 0.7 : 1)};
@@ -51,12 +55,13 @@ export const StyledNote = styled.div`
   animation-iteration-count: 1;
 `;
 
-export const PageSquare = styled.div`
+export const PageCircle = styled.div`
   height: 8px;
   width: 8px;
   margin: 4px;
   border-width: 2px;
   border-style: solid;
+  border-radius: 50%;
   border-color: ${(props) => props.color || "black"};
   background-color: ${(props) =>
     props.selected ? props.color || "black" : "white"};

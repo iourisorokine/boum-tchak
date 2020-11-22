@@ -21,15 +21,25 @@ export const prepareInstruments = (instruments) => {
 
 export const prepareOneInstrument = (instrument) => {
   const lineSounds = [];
+  const linePitches = [];
   instrument.sounds.forEach((el) => {
-    if(!el) lineSounds.push({ name: "default", url: "" });
-    if (el.url) lineSounds.push(new Audio(el.url));
-    else lineSounds.push(null);
+    if(!el) {
+      lineSounds.push({ name: "default", url: "" });
+      linePitches.push('');
+    }
+    if (el.url) {
+      lineSounds.push(new Audio(el.url));
+      linePitches.push(el.pitch || '');
+    } else {
+      lineSounds.push(null);
+      linePitches.push('');
+    }
   });
   return {
     id: instrument._id,
     label: instrument.name,
     colors: instrument.colors,
     sounds: lineSounds,
+    pitches: linePitches,
   };
 };

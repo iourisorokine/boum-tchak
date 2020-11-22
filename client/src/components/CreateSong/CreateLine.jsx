@@ -9,6 +9,7 @@ export const CreateLine = ({
   noteColors,
   toggleActiveNote,
   sounds,
+  pitches,
   highlightedNote,
   label,
   animatedNotes,
@@ -32,6 +33,7 @@ export const CreateLine = ({
               toggleActiveNote={toggleActiveNote}
               linePosition={linePosition}
               sounds={sounds}
+              pitch={pitches[n]}
               highlighted={highlightedNote === i}
               animated={animatedNotes.includes(i)}
             />

@@ -11,6 +11,7 @@ export const Button = styled.button`
   font-size: 16px;
   box-shadow: 3px 3px 5px #bbb;
   cursor: pointer;
+  transition: background-color 0.7s, color 0.7s;
   &:hover {
     background-color: ${(props) => props.hoverColor || "black"};
     color: white;
@@ -41,6 +42,7 @@ export const MenuButton = styled.div`
   color: #000;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 0.7s, color 0.7s;
   &:hover {
     background-color: black;
     color: white;
@@ -89,7 +91,7 @@ export const IconButton = styled.button`
 `;
 
 export const SmallEditBtn = styled.button`
-  color: #aaa;
+  color: ${(props)=> props.color || '#aaa'};
   border: 1px solid #aaa;
   margin: 4px 4px 4px 8px;
   background-color: #fff;
@@ -97,6 +99,21 @@ export const SmallEditBtn = styled.button`
   font-size: 12px;
   &:hover {
     background-color: #aaa;
+    color: #fff;
+  }
+`;
+
+export const AverageEditBtn = styled.button`
+  color: ${(props)=> props.color || '#888'};
+  border: 1px solid #aaa;
+  margin: ${(props)=> props.margin || '4px 4px 4px 0px'};
+  padding: ${(props)=> props.padding || 'default'};
+  background-color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.5s, color 0.5s;
+  &:hover {
+    background-color: #888;
     color: #fff;
   }
 `;

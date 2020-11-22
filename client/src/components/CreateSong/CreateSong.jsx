@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CreateLine } from "./CreateLine";
-import { MusicGrid, ExpandedMenuItem, Button, SmallEditBtn } from "../../ui-kit";
-import { PageSquares } from "../Shared/PageSquares";
+import { MusicGrid, ExpandedMenuItem, AverageEditBtn } from "../../ui-kit";
+import { PageCircles } from "../Shared/PageCircles";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
@@ -214,7 +214,7 @@ export const CreateSong = (props) => {
           <p>{bottomMessage}</p>
         </ExpandedMenuItem>
       )}
-      <PageSquares
+      <PageCircles
         pages={pages}
         selectPage={setCurrentPage}
         currentPage={currentPage}
@@ -236,30 +236,32 @@ export const CreateSong = (props) => {
             currentPage={currentPage}
           />
           {instruments.length ? (
-            instruments.map((instrument, i) => {
-              return (
-                <CreateLine
-                  key={i}
-                  linePosition={i}
-                  label={instrument.label}
-                  notes={partition[i]}
-                  noteColors={instrument.colors}
-                  toggleActiveNote={toggleActiveNote}
-                  sounds={instrument.sounds}
-                  highlightedNote={highlightedNote}
-                  animatedNotes={animatedNotes}
-                  currentPage={currentPage}
-                  lenghtOfPage={lengthOfPage}
-                />
-              );
-            })
+            <React.Fragment>
+              {instruments.map((instrument, i) => {
+                return (
+                  <CreateLine
+                    key={i}
+                    linePosition={i}
+                    label={instrument.label}
+                    notes={partition[i]}
+                    noteColors={instrument.colors}
+                    toggleActiveNote={toggleActiveNote}
+                    sounds={instrument.sounds}
+                    pitches={instrument.pitches}
+                    highlightedNote={highlightedNote}
+                    animatedNotes={animatedNotes}
+                    currentPage={currentPage}
+                    lenghtOfPage={lengthOfPage}
+                  />
+                );
+              })}
+            <AverageEditBtn onClick={toggleIsAddInstrumentVisible}>+ Add</AverageEditBtn>
+          </React.Fragment>
           ) : (
-            <p>
-              No partition to display yet... Click on "Add Instruments" to start
-              composing.
-            </p>
+            <AverageEditBtn padding={'8px 8px 8px 8px'} onClick={toggleIsAddInstrumentVisible}>
+              No partition to display yet... Click here to add your first instrument
+            </AverageEditBtn>
           )}
-          <SmallEditBtn onClick={toggleIsAddInstrumentVisible}>+ Add</SmallEditBtn>
         </MusicGrid>
       </div>
       <PlayControls
