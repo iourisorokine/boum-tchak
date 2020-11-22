@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CreateLine } from "./CreateLine";
-import { MusicGrid, ExpandedMenuItem } from "../../ui-kit";
+import { MusicGrid, ExpandedMenuItem, Button, SmallEditBtn } from "../../ui-kit";
 import { PageSquares } from "../Shared/PageSquares";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
@@ -236,16 +236,16 @@ export const CreateSong = (props) => {
             currentPage={currentPage}
           />
           {instruments.length ? (
-            instruments.map((line, i) => {
+            instruments.map((instrument, i) => {
               return (
                 <CreateLine
                   key={i}
                   linePosition={i}
-                  label={line.label}
+                  label={instrument.label}
                   notes={partition[i]}
-                  noteColors={line.colors}
+                  noteColors={instrument.colors}
                   toggleActiveNote={toggleActiveNote}
-                  sounds={line.sounds}
+                  sounds={instrument.sounds}
                   highlightedNote={highlightedNote}
                   animatedNotes={animatedNotes}
                   currentPage={currentPage}
@@ -259,6 +259,7 @@ export const CreateSong = (props) => {
               composing.
             </p>
           )}
+          <SmallEditBtn onClick={toggleIsAddInstrumentVisible}>+ Add</SmallEditBtn>
         </MusicGrid>
       </div>
       <PlayControls
@@ -269,7 +270,6 @@ export const CreateSong = (props) => {
         numberOfBars={partition[0] ? partition[0].length : 0}
       />
       <AdvControls
-        toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
         toggleIsSaveSongVisible={() => setIsSaveSongVisible(!isSaveSongVisible)}
         user={props.user}
       />

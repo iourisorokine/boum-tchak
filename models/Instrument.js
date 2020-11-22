@@ -9,11 +9,12 @@ const InstrumentSchema = new Schema({
   category: String,
   subCategory: String,
   sounds: [
-    { 
-      name: String, 
-      color: String, 
-      url: String }
-    ],
+    {
+    type: Schema.Types.ObjectId,
+    ref: "Sound",
+  }
+],
+  colors: [String],
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",

@@ -4,6 +4,7 @@ import { InstrumentSoundsList } from "./InstrumentSoundsList";
 import { AddSound } from "./AddSound";
 import { SketchPicker } from "react-color";
 import { gradientBuilder } from "../utils";
+import { config } from '../../config/config';
 import axios from "axios";
 import {
   Row,
@@ -25,14 +26,13 @@ export const CreateInstrument = (props) => {
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [message, setMessage] = useState("");
-  const [sounds, setSounds] = useState([
-    { name: "default", color: "#ddd", url: "" },
-  ]);
+  const [sounds, setSounds] = useState([{id: config.DEFAULT_SOUND_ID}]);
   const [view, setView] = useState(views.OVERVIEW);
   const [loading, setLoading] = useState(false);
   const [availableSounds, setAvailableSounds] = useState([]);
   const [selectedSound, setSelectedSound] = useState(null);
   const [editedColor, setEditedColor] = useState("start");
+  const [colors, setColors] = useState(['#ddd']);
   const [startColor, setStartColor] = useState("#aaaaaa");
   const [endColor, setEndColor] = useState("#555555");
   const [pickerColor, setPickerColor] = useState("#aaaaaa");
@@ -44,8 +44,6 @@ export const CreateInstrument = (props) => {
     } else if (editedColor === "end") {
       setEndColor(color.hex);
     }
-    console.log('Start color:', startColor, 'end color:', endColor);
-
   };
 
   useEffect(()=>{
@@ -53,18 +51,18 @@ export const CreateInstrument = (props) => {
   }, [startColor, endColor])
 
   const updateSoundsColors = () => {
-    const updatedSounds = [...sounds];
-    const l = updatedSounds.length;
+    const updatedColors = [...colors];
+    const l = sounds.length;
     if (l === 1) return;
-    if (l >= 2) updatedSounds[1].color = startColor;
-    if (l >= 3) updatedSounds[l - 1].color = endColor;
+    if (l >= 2) updatedColors[1] = startColor;
+    if (l >= 3) updatedColors[l - 1] = endColor;
     if (l > 3) {
       const gradient = gradientBuilder(startColor, endColor, l - 3);
       for (let i = 2; i < l - 1; i++) {
-        updatedSounds[i].color = gradient[i - 2];
+        updatedColors[i] = gradient[i - 2];
       }
     }
-    setSounds(updatedSounds);
+    setColors(updatedColors);
   };
 
   const openAddSoundSection = async () => {
@@ -94,12 +92,14 @@ export const CreateInstrument = (props) => {
       return;
     }
     const newSound = {
+      id: sound.id,
       name: sound.name,
-      color: sound.color,
       url: sound.url,
+      pitch: sound.pitch || "",
     };
     const updatedSounds = [...sounds, newSound];
     setSounds(updatedSounds);
+    setColors([...colors, '#ddd']);
     setView(views.OVERVIEW);
   };
 
@@ -115,7 +115,7 @@ export const CreateInstrument = (props) => {
     setName("");
     setCategory("");
     setSubCategory("");
-    setSounds([{ name: "default", color: "#ddd", url: "" }]);
+    setSounds([{id: config.DEFAULT_SOUND_ID}]);
   };
 
   const saveInstrument = async () => {
@@ -131,7 +131,8 @@ export const CreateInstrument = (props) => {
       name,
       category,
       subCategory,
-      sounds,
+      sounds: sounds.map(el=> el.id || null),
+      colors: colors,
       creator: props.user._id,
       private: false,
     });
@@ -195,6 +196,7 @@ export const CreateInstrument = (props) => {
                 <Column>
                   <InstrumentSoundsList
                     sounds={sounds}
+                    colors={colors}
                     addSound={openAddSoundSection}
                   />
                 </Column>

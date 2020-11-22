@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 export const AdvControls = ({ toggleIsSaveSongVisible, user }) => {
   const {
     toggleIsRemoveInstrumentVisible,
-    toggleIsAddInstrumentVisible,
   } = useContext(globalContext);
 
   return (
@@ -17,7 +16,6 @@ export const AdvControls = ({ toggleIsSaveSongVisible, user }) => {
           <Button>Load Song</Button>
         </Link>
       )}
-      <Button onClick={toggleIsAddInstrumentVisible}>Add Instrument</Button>
       <Button onClick={toggleIsRemoveInstrumentVisible}>
         Remove Instrument
       </Button>

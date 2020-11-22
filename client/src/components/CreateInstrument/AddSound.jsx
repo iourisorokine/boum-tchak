@@ -31,6 +31,7 @@ export const AddSound = ({
       return;
     }
     addSound({
+      id: selectedSound._id,
       name: selectedSound.name,
       color: "#ddd",
       url: selectedSound.url,

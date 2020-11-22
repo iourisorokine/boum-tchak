@@ -3,4 +3,5 @@ export const config = {
   MAX_PARTITION_LENGTH: 64,
   DEFAULT_TEMPO: 120,
   DEFAULT_TIMEOUT: 60000 / 120 / 4,
+  DEFAULT_SOUND_ID: "5fba8681963aad73cd4ce0b6",
 };

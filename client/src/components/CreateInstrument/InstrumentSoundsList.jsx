@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Column, ColorSquare, Button } from "../../ui-kit";
 
-export const InstrumentSoundsList = ({ sounds, addSound }) => {
+export const InstrumentSoundsList = ({ sounds, colors, addSound }) => {
   const playSound = (url) => {
     new Audio(url).play();
   };
@@ -18,7 +18,7 @@ export const InstrumentSoundsList = ({ sounds, addSound }) => {
                 </p>
               </Column>
               <Column>
-                <ColorSquare backgroundColor={el.color} />
+                <ColorSquare backgroundColor={colors[i]} />
               </Column>
               <Column flex={5}>
                 {el.url ? (
