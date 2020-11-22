@@ -24,6 +24,7 @@
     "saas": "^1.0.0",
     "styled-components": "^5.0.1",
     "svg-loaders-react": "^2.2.1",
+    "tone": "^14.7.58",
     "typescript": "^3.8.3"
   },
   "scripts": {
