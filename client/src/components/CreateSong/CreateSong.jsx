@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CreateLine } from "./CreateLine";
-import { MusicGrid, ExpandedMenuItem, AverageEditBtn } from "../../ui-kit";
+import { MusicGrid, ExpandedMenuItem, AverageEditBtn, Row } from "../../ui-kit";
 import { PageCircles } from "../Shared/PageCircles";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
@@ -8,7 +8,6 @@ import { AddInstrument } from "./AddInstrument";
 import { SaveSong } from "./SaveSong";
 import { ToolsLine } from "./ToolsLine";
 import { config } from "./../../config/config";
-import * as Tone from 'tone';
 import {
   playBeat,
   getRandomName,
@@ -18,15 +17,6 @@ import {
 } from "../utils";
 import axios from "axios";
 import { globalContext } from "../../context/GlobalContext";
-
-const toneJsSynth = {
-  label: "Tone Js Synth",
-  category: "Tone Synth",
-  subCategory: "",
-  sounds: [{},{},{},{}],
-  colors: ['#ddd', '#cdc', '#ada', '#8d8'],
-  pitches: ['','A3','B3', 'C3'],
-}
 
 export const CreateSong = (props) => {
   const [highlightedNote, setHighlightedNote] = useState([-1]);
@@ -52,6 +42,7 @@ export const CreateSong = (props) => {
     isNotePlayedOnClick,
     isAddInstrumentVisible,
     toggleIsAddInstrumentVisible,
+    toggleIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
   } = useContext(globalContext);
@@ -264,7 +255,10 @@ export const CreateSong = (props) => {
                   />
                 );
               })}
-            <AverageEditBtn padding={'2px 12px 2px 12px'} onClick={toggleIsAddInstrumentVisible}>+ Add</AverageEditBtn>
+            <Row padding='16px 0px 0px 0px'>
+              <AverageEditBtn padding='2px 16px 2px 16px' onClick={toggleIsAddInstrumentVisible}>+ Add</AverageEditBtn>
+              <AverageEditBtn padding='2px 8px 2px 8px' onClick={toggleIsRemoveInstrumentVisible}>- Remove</AverageEditBtn>
+            </Row>
           </React.Fragment>
           ) : (
             <AverageEditBtn padding={'8px 8px 8px 8px'} onClick={toggleIsAddInstrumentVisible}>
