@@ -1,7 +1,7 @@
 export const preparePartition = (instruments, length) => {
   if (!instruments) return [];
   const partition = [];
-  instruments.forEach((el) => {
+  instruments.forEach(() => {
     const emptyLine = [];
     for (let i = 1; i <= length; i++) {
       emptyLine.push(0);
@@ -14,10 +14,30 @@ export const preparePartition = (instruments, length) => {
 export const prepareInstruments = (instruments) => {
   if(!instruments.length) return;
   const preparedInstruments = instruments.map((instrument) => {
+    if(instrument.category==="Tone Synth") {
+      return prepareToneJsInstrument(instrument);
+    }
     return prepareOneInstrument(instrument);
   });
   return preparedInstruments;
 };
+
+export const prepareToneJsInstrument = (instrument) => {
+  const { colors, pitches } = instrument;
+  const sounds = [];
+
+  for(let i=0; i<pitches.length;i++){
+    sounds.push({});
+  }
+  return {
+    id: instrument._id,
+    label: instrument.name,
+    isToneJs: true,
+    colors,
+    sounds,
+    pitches,
+  };
+}
 
 export const prepareOneInstrument = (instrument) => {
   const lineSounds = [];
@@ -39,6 +59,7 @@ export const prepareOneInstrument = (instrument) => {
     id: instrument._id,
     label: instrument.name,
     colors: instrument.colors,
+    isToneJs: false,
     sounds: lineSounds,
     pitches: linePitches,
   };

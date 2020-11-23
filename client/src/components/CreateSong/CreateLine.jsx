@@ -29,7 +29,7 @@ export const CreateLine = ({
               key={i}
               status={n}
               notePosition={i}
-              colors={noteColors}
+              color={noteColors[n]}
               toggleActiveNote={toggleActiveNote}
               linePosition={linePosition}
               sounds={sounds}
@@ -45,7 +45,7 @@ export const CreateLine = ({
 
   return (
     <Line>
-      <LineLabel>{label && label}</LineLabel>
+      <LineLabel width={'90px'}>{label && label}</LineLabel>
       {isRemoveInstrumentVisible && (
         <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
       )}

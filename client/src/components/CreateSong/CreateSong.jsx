@@ -8,6 +8,7 @@ import { AddInstrument } from "./AddInstrument";
 import { SaveSong } from "./SaveSong";
 import { ToolsLine } from "./ToolsLine";
 import { config } from "./../../config/config";
+import * as Tone from 'tone';
 import {
   playBeat,
   getRandomName,
@@ -17,6 +18,15 @@ import {
 } from "../utils";
 import axios from "axios";
 import { globalContext } from "../../context/GlobalContext";
+
+const toneJsSynth = {
+  label: "Tone Js Synth",
+  category: "Tone Synth",
+  subCategory: "",
+  sounds: [{},{},{},{}],
+  colors: ['#ddd', '#cdc', '#ada', '#8d8'],
+  pitches: ['','A3','B3', 'C3'],
+}
 
 export const CreateSong = (props) => {
   const [highlightedNote, setHighlightedNote] = useState([-1]);
@@ -42,7 +52,6 @@ export const CreateSong = (props) => {
     isNotePlayedOnClick,
     isAddInstrumentVisible,
     toggleIsAddInstrumentVisible,
-    setIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
   } = useContext(globalContext);
@@ -168,7 +177,7 @@ export const CreateSong = (props) => {
     const depth = sounds.length;
     const newIndex = (updatedPartition[row][col] + 1) % depth;
     updatedPartition[row][col] = newIndex;
-    if (sounds[newIndex] && isNotePlayedOnClick) {
+    if (sounds[newIndex] && sounds[newIndex] instanceof Audio && isNotePlayedOnClick) {
       sounds[newIndex].play();
     }
     setPartition(updatedPartition);
@@ -255,7 +264,7 @@ export const CreateSong = (props) => {
                   />
                 );
               })}
-            <AverageEditBtn onClick={toggleIsAddInstrumentVisible}>+ Add</AverageEditBtn>
+            <AverageEditBtn padding={'2px 12px 2px 12px'} onClick={toggleIsAddInstrumentVisible}>+ Add</AverageEditBtn>
           </React.Fragment>
           ) : (
             <AverageEditBtn padding={'8px 8px 8px 8px'} onClick={toggleIsAddInstrumentVisible}>
