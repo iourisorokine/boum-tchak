@@ -1,7 +1,7 @@
 import React from "react";
-import { Row, Column, PageSquare } from "../../ui-kit";
+import { Row, Column, PageCircle } from "../../ui-kit";
 
-export const PageSquares = ({
+export const PageCircles = ({
   currentPage,
   selectPage,
   pages,
@@ -19,7 +19,7 @@ export const PageSquares = ({
         <Row>
           {pages.map((el, i) => {
             return (
-              <PageSquare
+              <PageCircle
                 key={i}
                 selected={currentPage === i + 1}
                 onClick={clickable ? () => selectPage(i + 1) : null}

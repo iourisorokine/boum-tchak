@@ -22,6 +22,7 @@ export {
   StopButton,
   IconButton,
   SmallEditBtn,
+  AverageEditBtn,
 } from "./buttons";
 export {
   Row,
@@ -49,6 +50,6 @@ export {
   MusicGrid,
   StyledNote,
   Line,
-  PageSquare,
+  PageCircle,
   BarIndicator,
 } from "./musicGrid";

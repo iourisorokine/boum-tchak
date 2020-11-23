@@ -115,8 +115,8 @@ export const AvailableSoundsList = ({
                 onClick={playSound}
               />
             </Column>
-            {["name", "category", "subCategory", "pitch"].map((columnTitle) => {
-              return <Column flex={2}>{el[columnTitle]}</Column>;
+            {["name", "category", "subCategory", "pitch"].map((columnTitle, index) => {
+              return <Column key={index} flex={2}>{el[columnTitle]}</Column>;
             })}
           </SelectableRow>
         );

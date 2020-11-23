@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { DisplayLine } from "./DisplayLine";
-import { PageSquares } from "../Shared/PageSquares";
+import { PageCircles } from "../Shared/PageCircles";
 import { playBeat } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
@@ -95,7 +95,7 @@ export const DisplaySong = (props) => {
         <SongTitle>by {props.creatorName}</SongTitle>
       </SongHeader>
       <Row>
-        <PageSquares
+        <PageCircles
           pages={pages}
           selectPage={props.selectPage}
           currentPage={currentPage}

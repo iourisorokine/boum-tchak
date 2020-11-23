@@ -1,7 +1,7 @@
 export const preparePartition = (instruments, length) => {
   if (!instruments) return [];
   const partition = [];
-  instruments.forEach((el) => {
+  instruments.forEach(() => {
     const emptyLine = [];
     for (let i = 1; i <= length; i++) {
       emptyLine.push(0);
@@ -12,42 +12,62 @@ export const preparePartition = (instruments, length) => {
 };
 
 export const prepareInstruments = (instruments) => {
-  const preparedInstruments = instruments.map((line) => {
-    const lineSounds = [];
-    const lineColors = [];
-    line.sounds.forEach((el) => {
-      if (el.url) {
-        lineSounds.push(new Audio(el.url));
-      } else {
-        lineSounds.push(null);
-      }
-      lineColors.push(el.color);
-    });
-    return {
-      id: line._id,
-      label: line.name,
-      colors: lineColors,
-      sounds: lineSounds,
-    };
+  if(!instruments.length) return;
+  const preparedInstruments = instruments.map((instrument) => {
+    if(instrument.category==="Tone Synth") {
+      return prepareToneJsInstrument(instrument);
+    }
+    return prepareSamplesInstrument(instrument);
   });
   return preparedInstruments;
 };
 
 export const prepareOneInstrument = (instrument) => {
+  if(instrument.category==="Tone Synth") {
+    return prepareToneJsInstrument(instrument);
+  }
+  return prepareSamplesInstrument(instrument);
+}
+
+export const prepareToneJsInstrument = (instrument) => {
+  const { colors, pitches } = instrument;
+  const sounds = [];
+
+  for(let i=0; i<pitches.length;i++){
+    sounds.push({});
+  }
+  return {
+    id: instrument._id,
+    label: instrument.name,
+    isToneJs: true,
+    colors,
+    sounds,
+    pitches,
+  };
+}
+
+export const prepareSamplesInstrument = (instrument) => {
   const lineSounds = [];
-  const lineColors = [];
+  const linePitches = [];
   instrument.sounds.forEach((el) => {
+    if(!el) {
+      lineSounds.push({ name: "default", url: "" });
+      linePitches.push('');
+    }
     if (el.url) {
       lineSounds.push(new Audio(el.url));
+      linePitches.push(el.pitch || '');
     } else {
       lineSounds.push(null);
+      linePitches.push('');
     }
-    lineColors.push(el.color);
   });
   return {
     id: instrument._id,
     label: instrument.name,
-    colors: lineColors,
+    colors: instrument.colors,
+    isToneJs: false,
     sounds: lineSounds,
+    pitches: linePitches,
   };
 };

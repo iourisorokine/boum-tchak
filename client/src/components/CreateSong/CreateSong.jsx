@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CreateLine } from "./CreateLine";
-import { MusicGrid, ExpandedMenuItem } from "../../ui-kit";
-import { PageSquares } from "../Shared/PageSquares";
+import { MusicGrid, ExpandedMenuItem, AverageEditBtn, Row } from "../../ui-kit";
+import { PageCircles } from "../Shared/PageCircles";
 import { PlayControls } from "./PlayControls";
 import { AdvControls } from "./AdvControls";
 import { AddInstrument } from "./AddInstrument";
@@ -42,7 +42,7 @@ export const CreateSong = (props) => {
     isNotePlayedOnClick,
     isAddInstrumentVisible,
     toggleIsAddInstrumentVisible,
-    setIsRemoveInstrumentVisible,
+    toggleIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
   } = useContext(globalContext);
@@ -168,7 +168,7 @@ export const CreateSong = (props) => {
     const depth = sounds.length;
     const newIndex = (updatedPartition[row][col] + 1) % depth;
     updatedPartition[row][col] = newIndex;
-    if (sounds[newIndex] && isNotePlayedOnClick) {
+    if (sounds[newIndex] && sounds[newIndex] instanceof Audio && isNotePlayedOnClick) {
       sounds[newIndex].play();
     }
     setPartition(updatedPartition);
@@ -214,7 +214,7 @@ export const CreateSong = (props) => {
           <p>{bottomMessage}</p>
         </ExpandedMenuItem>
       )}
-      <PageSquares
+      <PageCircles
         pages={pages}
         selectPage={setCurrentPage}
         currentPage={currentPage}
@@ -236,28 +236,34 @@ export const CreateSong = (props) => {
             currentPage={currentPage}
           />
           {instruments.length ? (
-            instruments.map((line, i) => {
-              return (
-                <CreateLine
-                  key={i}
-                  linePosition={i}
-                  label={line.label}
-                  notes={partition[i]}
-                  noteColors={line.colors}
-                  toggleActiveNote={toggleActiveNote}
-                  sounds={line.sounds}
-                  highlightedNote={highlightedNote}
-                  animatedNotes={animatedNotes}
-                  currentPage={currentPage}
-                  lenghtOfPage={lengthOfPage}
-                />
-              );
-            })
+            <React.Fragment>
+              {instruments.map((instrument, i) => {
+                return (
+                  <CreateLine
+                    key={i}
+                    linePosition={i}
+                    label={instrument.label}
+                    notes={partition[i]}
+                    noteColors={instrument.colors}
+                    toggleActiveNote={toggleActiveNote}
+                    sounds={instrument.sounds}
+                    pitches={instrument.pitches}
+                    highlightedNote={highlightedNote}
+                    animatedNotes={animatedNotes}
+                    currentPage={currentPage}
+                    lenghtOfPage={lengthOfPage}
+                  />
+                );
+              })}
+            <Row padding='16px 0px 0px 0px'>
+              <AverageEditBtn padding='2px 16px 2px 16px' onClick={toggleIsAddInstrumentVisible}>+ Add</AverageEditBtn>
+              <AverageEditBtn padding='2px 8px 2px 8px' onClick={toggleIsRemoveInstrumentVisible}>- Remove</AverageEditBtn>
+            </Row>
+          </React.Fragment>
           ) : (
-            <p>
-              No partition to display yet... Click on "Add Instruments" to start
-              composing.
-            </p>
+            <AverageEditBtn padding={'8px 8px 8px 8px'} onClick={toggleIsAddInstrumentVisible}>
+              No partition to display yet... Click here to add your first instrument
+            </AverageEditBtn>
           )}
         </MusicGrid>
       </div>
@@ -269,7 +275,6 @@ export const CreateSong = (props) => {
         numberOfBars={partition[0] ? partition[0].length : 0}
       />
       <AdvControls
-        toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
         toggleIsSaveSongVisible={() => setIsSaveSongVisible(!isSaveSongVisible)}
         user={props.user}
       />

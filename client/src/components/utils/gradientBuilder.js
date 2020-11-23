@@ -104,6 +104,5 @@ export const gradientBuilder = (value1, value2, steps) => {
     colors[i] = ["#", clampedR, clampedG, clampedB].join("");
   }
 
-  console.log(colors);
   return colors;
 };

@@ -6,8 +6,8 @@ router.get("/", async (req, res) => {
   const { category } = req.query || null;
   try {
     const instruments = category
-      ? await Instrument.find({ category })
-      : await Instrument.find();
+      ? await Instrument.find({ category }).populate("sounds")
+      : await Instrument.find().populate("sounds");
     if (!instruments) {
       throw new Error({ message: "could not find any instruments" });
     }
@@ -20,18 +20,15 @@ router.get("/", async (req, res) => {
 
 // builds a basic drumkit at the start of the app
 router.get("/starter", async (req, res) => {
-  console.log('Fetching the instruments')
   try {
     const starterInstruments = await Instrument.find({
       name: { $in: ["Kicks 1", "Snares 1", "Clap 1"] },
-    });
+    }).populate("sounds");
     if (!starterInstruments || !starterInstruments.length) {
-      console.log('could not find the starter instruments...')
       throw new Error({ message: "could not find any instruments" });
     }
     res.json(starterInstruments);
   } catch (error) {
-    console.log('an error ,ocuured when finding the instruments: ', error);
     res.json(error);
   }
 });
@@ -39,7 +36,7 @@ router.get("/starter", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const instrument = await Instrument.findById(id);
+    const instrument = await Instrument.findById(id).populate("sounds");
     if (!instrument) {
       throw new Error({ message: "instrument not found" });
     }
@@ -52,7 +49,7 @@ router.get("/:id", async (req, res) => {
 router.get("/:name", async (req, res) => {
   const name = req.params.name;
   try {
-    const instrument = await Instrument.find({ name });
+    const instrument = await Instrument.find({ name }).populate("sounds");
     if (!instrument) {
       throw new Error({ message: "instrument not found" });
     }
@@ -67,17 +64,27 @@ router.post("/", async (req, res) => {
     name,
     category,
     subCategory,
-    colors,
     sounds,
+    colors,
     creator,
     private,
   } = req.body;
-  const foundSameName = await Instrument.findOne({ name });
+  const foundSameName = await Instrument.findOne({ name }).populate("sounds");
   if (foundSameName) {
     res.json({
       message:
         "An instrument with the same name already exists, please create a unique name",
     });
+  }
+  if(sounds.length<2){
+    res.json({
+      message: "An instrument should contain at least one playable sound",
+    })
+  }
+  if(!name||!category||!subCategory){
+    res.json({
+      message: "One or several fields are missing",
+    })
   }
   try {
     const newInstrument = await Instrument.create({
@@ -85,6 +92,7 @@ router.post("/", async (req, res) => {
       category,
       subCategory,
       sounds,
+      colors,
       creator,
       private,
     });

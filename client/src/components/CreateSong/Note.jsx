@@ -4,18 +4,17 @@ import { StyledNote } from "../../ui-kit";
 export const Note = ({
   notePosition,
   status,
-  colors,
+  color,
   toggleActiveNote,
   linePosition,
   sounds,
   highlighted,
   animated,
+  pitch,
 }) => {
   const onNoteClick = () => {
     toggleActiveNote(notePosition, linePosition, sounds);
   };
-
-  const color = colors[status];
 
   return (
     <StyledNote
@@ -24,6 +23,8 @@ export const Note = ({
       onClick={onNoteClick}
       clickable={true}
       animated={animated}
-    />
+    >
+    { pitch ? pitch : '' }
+    </StyledNote>
   );
 };
