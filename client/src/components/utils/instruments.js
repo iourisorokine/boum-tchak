@@ -17,10 +17,17 @@ export const prepareInstruments = (instruments) => {
     if(instrument.category==="Tone Synth") {
       return prepareToneJsInstrument(instrument);
     }
-    return prepareOneInstrument(instrument);
+    return prepareSamplesInstrument(instrument);
   });
   return preparedInstruments;
 };
+
+export const prepareOneInstrument = (instrument) => {
+  if(instrument.category==="Tone Synth") {
+    return prepareToneJsInstrument(instrument);
+  }
+  return prepareSamplesInstrument(instrument);
+}
 
 export const prepareToneJsInstrument = (instrument) => {
   const { colors, pitches } = instrument;
@@ -39,7 +46,7 @@ export const prepareToneJsInstrument = (instrument) => {
   };
 }
 
-export const prepareOneInstrument = (instrument) => {
+export const prepareSamplesInstrument = (instrument) => {
   const lineSounds = [];
   const linePitches = [];
   instrument.sounds.forEach((el) => {
