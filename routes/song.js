@@ -5,7 +5,13 @@ const User = require("../models/User");
 
 router.get("/", async (req, res) => {
   try {
-    const allSongs = await Song.find().populate("instruments");
+    const allSongs = await Song.find().populate({ 
+      path: "instruments",
+      populate: {
+        path: 'sounds',
+        model: 'Sound'
+      } 
+   });
     if (allSongs) {
       res.json(allSongs);
     }
@@ -17,9 +23,13 @@ router.get("/", async (req, res) => {
 router.get("/creator/:creatorId", async (req, res) => {
   const { creatorId } = req.params;
   try {
-    const songs = await Song.find({ creator: creatorId }).populate(
-      "instruments"
-    );
+    const songs = await Song.find({ creator: creatorId }).populate({ 
+      path: "instruments",
+      populate: {
+        path: 'sounds',
+        model: 'Sound'
+      } 
+   });
     if (songs) {
       res.json(songs);
     }
@@ -38,7 +48,13 @@ router.get("/posted/:page", async (req, res) => {
       .sort({created_at: -1})
       .limit(lastIndex)
       .skip(firstIndex)
-      .populate("instruments");
+      .populate({ 
+        path: "instruments",
+        populate: {
+          path: 'sounds',
+          model: 'Sound'
+        } 
+     });
 
     if(!songs || !songs.length){
       res.json({message: "No songs found..."})
@@ -54,7 +70,13 @@ router.get("/posted/:page", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const song = await Song.findById(id).populate("instruments");
+    const song = await Song.findById(id).populate({ 
+      path: "instruments",
+      populate: {
+        path: 'sounds',
+        model: 'Sound'
+      } 
+   });
     if (song) {
       res.json(song);
     }
@@ -66,7 +88,13 @@ router.get("/:id", async (req, res) => {
 router.get("/:title", async (req, res) => {
   const { title } = req.params;
   try {
-    const song = await Song.find({ title }).populate("instrument");
+    const song = await Song.find({ title }).populate({ 
+      path: "instruments",
+      populate: {
+        path: 'sounds',
+        model: 'Sound'
+      } 
+   });
     if (song) {
       res.json(song);
     }
