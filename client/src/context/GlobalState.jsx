@@ -14,7 +14,6 @@ import {
   SET_PARTITION,
   SET_IS_REMOVE_INSTRUMENT_VISIBLE,
   SET_COPIED_PARTITION_BAR,
-  SET_TONE_JS_PARTITION,
 } from "./types";
 
 export const GlobalState = (props) => {

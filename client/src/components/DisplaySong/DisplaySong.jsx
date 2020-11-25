@@ -24,21 +24,27 @@ const iconsStyle = {
   zIndex: 5,
 };
 
-export const DisplaySong = (props) => {
+export const DisplaySong = ({
+  title,
+  partition,
+  musicLines,
+  tempo,
+  creatorName
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [highlightedNote, setHighlightedNote] = useState(-1);
   const [animatedNotes, setAnimatedNotes] = useState([-1, -1, -1]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState([1]);
 
-  const timeoutTempo = 60000 / props.tempo / 4;
+  const timeoutTempo = 60000 / tempo / 4;
   let intervalId = useRef(null);
 
   const lengthOfPage = window.innerWidth >= 800 ? 16 : 12;
 
   useEffect(() => {
     const updatedPages = [];
-    const numberOfPages = Math.ceil(props.partition[0].length / lengthOfPage);
+    const numberOfPages = Math.ceil(partition[0].length / lengthOfPage);
     for (let i = 1; i <= numberOfPages; i++) {
       updatedPages.push(1);
     }
@@ -77,7 +83,7 @@ export const DisplaySong = (props) => {
     if (isPlaying) {
       stopPlaying();
     } else {
-      playMusic(props.musicLines, props.partition, timeoutTempo);
+      playMusic(musicLines, partition, timeoutTempo);
     }
   };
 
@@ -91,24 +97,23 @@ export const DisplaySong = (props) => {
         )}
       </SongPostPlay>
       <SongHeader>
-        <SongTitle b={true}>{props.title}</SongTitle>
-        <SongTitle>by {props.creatorName}</SongTitle>
+        <SongTitle b={true}>{title}</SongTitle>
+        <SongTitle>by {creatorName}</SongTitle>
       </SongHeader>
       <Row>
         <PageCircles
           pages={pages}
-          selectPage={props.selectPage}
           currentPage={currentPage}
           clickable={false}
         />
       </Row>
       <MusicGrid>
-        {props.musicLines.map((line, i) => {
+        {musicLines.map((line, i) => {
           return (
             <DisplayLine
               key={i}
               linePosition={i}
-              notes={props.partition[i]}
+              notes={partition[i]}
               noteColors={line.colors}
               sounds={line.sounds}
               lengthOfPage={lengthOfPage}
