@@ -1,4 +1,5 @@
 import * as Tone from 'tone';
+const polySynth = new Tone.PolySynth().toDestination();
 /* Plays one beat of the music, 
 each note of the beat being the note on each line corresponding 
 to the selected index */
@@ -19,9 +20,8 @@ export const playBeat = (instruments, partition, beatNumber) => {
           //plays selected sound
           instruments[i].sounds[soundIndex].play();
         }else if(instruments[i].isToneJs){
-          const synth = new Tone.Synth().toDestination();
           const now = Tone.now();
-          synth.triggerAttackRelease(instruments[i].pitches[soundIndex], "8n", now);
+          polySynth.triggerAttackRelease(instruments[i].pitches[soundIndex], "8n", now-0.1);
         }
       }
   });
