@@ -9,6 +9,7 @@ import {
   Button,
   SelectableRow,
   Text,
+  Heading3,
 } from "../../ui-kit";
 import axios from "axios";
 
@@ -57,6 +58,9 @@ export const AddInstrument = ({ addInstrument }) => {
 
   return (
     <ExpandedMenuItem>
+      <Row padding="10px 12px 4px 12px">
+        <Heading3>Add Instrument</Heading3>
+      </Row>
       <Row padding="10px 12px 4px 12px">
         <Column flexDirection="row">
           {uniqueCategories.map((cat) => {

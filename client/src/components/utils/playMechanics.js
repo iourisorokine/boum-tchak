@@ -26,3 +26,8 @@ export const playBeat = (instruments, partition, beatNumber) => {
       }
   });
 };
+
+export const playOneToneJsNote = async (pitch) => {
+  const now = Tone.now();
+  polySynth.triggerAttackRelease(pitch, "8n", now);
+}

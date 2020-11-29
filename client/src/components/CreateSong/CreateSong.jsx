@@ -14,6 +14,7 @@ import {
   preparePartition,
   prepareInstruments,
   prepareOneInstrument,
+  playOneToneJsNote,
 } from "../utils";
 import axios from "axios";
 import { globalContext } from "../../context/GlobalContext";
@@ -163,13 +164,15 @@ export const CreateSong = (props) => {
     setPartition(newPartition);
   };
 
-  const toggleActiveNote = (col, row, sounds) => {
+  const toggleActiveNote = (col, row, sounds, pitches) => {
     const updatedPartition = [...partition];
     const depth = sounds.length;
     const newIndex = (updatedPartition[row][col] + 1) % depth;
     updatedPartition[row][col] = newIndex;
-    if (sounds[newIndex] && sounds[newIndex] instanceof Audio && isNotePlayedOnClick) {
+    if (sounds[newIndex] instanceof Audio && isNotePlayedOnClick) {
       sounds[newIndex].play();
+    } else if (instruments[row].isToneJs && pitches.length) {
+      if (pitches[newIndex]) playOneToneJsNote(pitches[newIndex]);
     }
     setPartition(updatedPartition);
   };

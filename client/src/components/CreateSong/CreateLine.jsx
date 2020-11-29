@@ -33,7 +33,7 @@ export const CreateLine = ({
               toggleActiveNote={toggleActiveNote}
               linePosition={linePosition}
               sounds={sounds}
-              pitch={pitches[n]}
+              pitches={pitches}
               highlighted={highlightedNote === i}
               animated={animatedNotes.includes(i)}
             />
