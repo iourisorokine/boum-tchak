@@ -31,11 +31,15 @@ export const LineLabel = styled.p`
 `;
 
 export const Text = styled.p`
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 14px;
+  line-height: 14px;
   padding: ${(props) => props.padding || 2};
   margin: 0;
 `;
+
+export const TextSpan = styled.span`
+  font-size: 14px;
+`
 
 export const HeaderTitle = styled.h1`
   padding: 0px 50px;

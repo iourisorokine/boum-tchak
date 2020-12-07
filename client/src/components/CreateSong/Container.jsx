@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { CreateLine } from "./CreateLine";
+import { CreateLine } from "./elements/CreateLine";
 import { MusicGrid, ExpandedMenuItem, AverageEditBtn, Row } from "../../ui-kit";
 import { PageCircles } from "../Shared/PageCircles";
-import { PlayControls } from "./PlayControls";
-import { AdvControls } from "./AdvControls";
-import { AddInstrument } from "./AddInstrument";
-import { SaveSong } from "./SaveSong";
-import { ToolsLine } from "./ToolsLine";
-import { config } from "./../../config/config";
+import { PlayControls } from "./elements/PlayControls";
+import { AdvControls } from "./elements/AdvControls";
+import { AddInstrument } from "./modals/AddInstrument";
+import { SaveSong } from "./modals/SaveSong";
+import { ToolsLine } from "./elements/ToolsLine";
+import { config } from "../../config/config";
 import {
   playBeat,
   getRandomName,
@@ -275,9 +275,6 @@ export const CreateSong = (props) => {
         onStopBtnPress={stopPlaying}
         addOneBar={addOneBar}
         removeOneBar={removeOneBar}
-        numberOfBars={partition[0] ? partition[0].length : 0}
-      />
-      <AdvControls
         toggleIsSaveSongVisible={() => setIsSaveSongVisible(!isSaveSongVisible)}
         user={props.user}
       />

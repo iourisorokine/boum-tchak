@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledNote } from "../../ui-kit";
+import { StyledNote } from "../../../ui-kit";
 
 export const Note = ({
   notePosition,

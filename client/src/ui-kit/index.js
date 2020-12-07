@@ -4,7 +4,6 @@ export {
   Input,
   SongPost,
   SongPostPlay,
-  Tempo,
   Form,
   Label,
   Select,
@@ -45,6 +44,7 @@ export {
   SongTitle,
   Alert,
   Text,
+  TextSpan,
 } from "./typography";
 export {
   MusicGrid,

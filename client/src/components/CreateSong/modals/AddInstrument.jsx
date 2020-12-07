@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { globalContext } from "../../context/GlobalContext";
+import { globalContext } from "../../../context/GlobalContext";
 import { Bars } from "svg-loaders-react";
 import {
   CategoryBtn,
@@ -10,7 +10,7 @@ import {
   SelectableRow,
   Text,
   Heading3,
-} from "../../ui-kit";
+} from "../../../ui-kit";
 import axios from "axios";
 
 export const AddInstrument = ({ addInstrument }) => {
