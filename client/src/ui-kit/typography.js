@@ -39,7 +39,7 @@ export const Text = styled.p`
 
 export const HeaderTitle = styled.h1`
   padding: 0px 50px;
-  font-size: 56px;
+  font-size: 36px;
   text-shadow: 4px 4px #7799dd;
 `;
 

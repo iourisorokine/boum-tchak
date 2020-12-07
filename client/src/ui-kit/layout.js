@@ -40,7 +40,7 @@ export const Column = styled.div`
 `;
 
 export const HeaderLayout = styled.div`
-  height: 90px;
+  height: 70px;
   width: 100vw;
   z-index: 10;
   background-color: white;
