@@ -8,7 +8,7 @@ export const Button = styled.button`
   border-radius: 18px;
   border: solid 1px black;
   background-color: ${(props) => props.backgroundColor || "white"};
-  font-size: 16px;
+  font-size: 14px;
   box-shadow: 3px 3px 5px #bbb;
   cursor: pointer;
   transition: background-color 0.7s, color 0.7s;
@@ -36,7 +36,7 @@ export const StopButton = styled(Button)`
 
 export const MenuButton = styled.div`
   margin: 8px;
-  border: solid 2px black;
+  border: solid 1px black;
   border-radius: 5px;
   padding: 6px 12px;
   color: #000;

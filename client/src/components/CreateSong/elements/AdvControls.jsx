@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { globalContext } from "../../context/GlobalContext";
-import { Button, ControlsPad } from "../../ui-kit";
+import { globalContext } from "../../../context/GlobalContext";
+import { Button, ControlsPad } from "../../../ui-kit";
 import { Link } from "react-router-dom";
 
 export const AdvControls = ({ toggleIsSaveSongVisible, user }) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ExpandedMenuItem, Button, Input } from "../../ui-kit";
+import { ExpandedMenuItem, Button, Input } from "../../../ui-kit";
 
 export const SaveSong = ({ saveTheSong, user, toggleIsSaveSongVisible }) => {
   const [title, setTitle] = useState("");

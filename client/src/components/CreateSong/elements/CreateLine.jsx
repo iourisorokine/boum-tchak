@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { globalContext } from "../../context/GlobalContext";
+import { globalContext } from "../../../context/GlobalContext";
 import { Note } from "./Note";
-import { Line, LineLabel, DeleteButton } from "../../ui-kit";
+import { Line, LineLabel, DeleteButton } from "../../../ui-kit";
 
 export const CreateLine = ({
   linePosition,
@@ -33,7 +33,7 @@ export const CreateLine = ({
               toggleActiveNote={toggleActiveNote}
               linePosition={linePosition}
               sounds={sounds}
-              pitch={pitches[n]}
+              pitches={pitches}
               highlighted={highlightedNote === i}
               animated={animatedNotes.includes(i)}
             />

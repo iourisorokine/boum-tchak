@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { LineLabel, Row, SmallEditBtn, BarIndicator } from "../../ui-kit";
-import { globalContext } from "../../context/GlobalContext";
+import { LineLabel, Row, SmallEditBtn, BarIndicator } from "../../../ui-kit";
+import { globalContext } from "../../../context/GlobalContext";
 
 export const ToolsLine = ({
   totalLength,

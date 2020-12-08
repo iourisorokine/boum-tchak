@@ -1,5 +1,5 @@
 import React from "react";
-import { CreateSong } from "./components/CreateSong/CreateSong";
+import { CreateSong } from "./components/CreateSong/Container";
 import { SongsList } from "./components/DisplaySong/SongsList";
 import { LoadSong } from "./components/LoadSong/LoadSong";
 import { Login } from "./components/Auth/Login";

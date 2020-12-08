@@ -37,9 +37,13 @@ export const Text = styled.p`
   margin: 0;
 `;
 
+export const TextSpan = styled.span`
+  font-size: 12px;
+`
+
 export const HeaderTitle = styled.h1`
   padding: 0px 50px;
-  font-size: 56px;
+  font-size: 36px;
   text-shadow: 4px 4px #7799dd;
 `;
 

@@ -1,29 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
-import { CreateLine } from "./CreateLine";
-import { MusicGrid, ExpandedMenuItem, AverageEditBtn, Row } from "../../ui-kit";
+import { ExpandedMenuItem } from "../../ui-kit";
 import { PageCircles } from "../Shared/PageCircles";
-import { PlayControls } from "./PlayControls";
-import { AdvControls } from "./AdvControls";
-import { AddInstrument } from "./AddInstrument";
-import { SaveSong } from "./SaveSong";
-import { ToolsLine } from "./ToolsLine";
-import { config } from "./../../config/config";
+import { PlayControls } from "./elements/PlayControls";
+import { AddInstrument } from "./modals/AddInstrument";
+import { SaveSong } from "./modals/SaveSong";
+import { config } from "../../config/config";
 import {
   playBeat,
   getRandomName,
   preparePartition,
   prepareInstruments,
   prepareOneInstrument,
+  playOneToneJsNote,
 } from "../utils";
 import axios from "axios";
 import { globalContext } from "../../context/GlobalContext";
+import { CreateSong as Component } from './Component';
 
 export const CreateSong = (props) => {
-  const [highlightedNote, setHighlightedNote] = useState([-1]);
-  const [animatedNotes, setAnimatedNotes] = useState([]);
   const [bottomMessage, setBottomMessage] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setPages] = useState([1]);
+  const [highlightedNote, setHighlightedNote] = useState(-1)
 
   let musicPlaying = React.useRef(null);
 
@@ -33,7 +29,6 @@ export const CreateSong = (props) => {
     tempo,
     setTempo,
     setIsPlaying,
-    timeoutTempo,
     instruments,
     setInstruments,
     partition,
@@ -45,6 +40,13 @@ export const CreateSong = (props) => {
     toggleIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
+    animatedNotes,
+    timeoutTempo,
+    setAnimatedNotes,
+    currentPage,
+    setCurrentPage,
+    pages,
+    setPages,
   } = useContext(globalContext);
 
   useEffect(() => {
@@ -135,7 +137,6 @@ export const CreateSong = (props) => {
         setCurrentPage(nextPage);
       }
     };
-
     musicPlaying.current = setInterval(playInterval, tempo);
   };
 
@@ -163,13 +164,15 @@ export const CreateSong = (props) => {
     setPartition(newPartition);
   };
 
-  const toggleActiveNote = (col, row, sounds) => {
+  const toggleActiveNote = (col, row, sounds, pitches) => {
     const updatedPartition = [...partition];
     const depth = sounds.length;
     const newIndex = (updatedPartition[row][col] + 1) % depth;
     updatedPartition[row][col] = newIndex;
-    if (sounds[newIndex] && sounds[newIndex] instanceof Audio && isNotePlayedOnClick) {
+    if (sounds[newIndex] instanceof Audio && isNotePlayedOnClick) {
       sounds[newIndex].play();
+    } else if (instruments[row].isToneJs && pitches.length) {
+      if (pitches[newIndex]) playOneToneJsNote(pitches[newIndex]);
     }
     setPartition(updatedPartition);
   };
@@ -214,68 +217,24 @@ export const CreateSong = (props) => {
           <p>{bottomMessage}</p>
         </ExpandedMenuItem>
       )}
-      <PageCircles
-        pages={pages}
-        selectPage={setCurrentPage}
+      <PageCircles createMode />
+      <Component 
+        partition={partition}
+        lengthOfPage={lengthOfPage}
         currentPage={currentPage}
-        createMode
+        pages={pages}
+        instruments={instruments}
+        toggleActiveNote={toggleActiveNote}
+        highlightedNote={highlightedNote}
+        animatedNotes={animatedNotes}
+        toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
+        toggleIsRemoveInstrumentVisible={toggleIsRemoveInstrumentVisible}
       />
-      <div
-        style={{
-          minHeight: 300,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}>
-        <MusicGrid>
-          <ToolsLine
-            totalLength={partition[0] && partition[0].length}
-            lengthOfPage={lengthOfPage}
-            isLastPage={currentPage === pages.length}
-            currentPage={currentPage}
-          />
-          {instruments.length ? (
-            <React.Fragment>
-              {instruments.map((instrument, i) => {
-                return (
-                  <CreateLine
-                    key={i}
-                    linePosition={i}
-                    label={instrument.label}
-                    notes={partition[i]}
-                    noteColors={instrument.colors}
-                    toggleActiveNote={toggleActiveNote}
-                    sounds={instrument.sounds}
-                    pitches={instrument.pitches}
-                    highlightedNote={highlightedNote}
-                    animatedNotes={animatedNotes}
-                    currentPage={currentPage}
-                    lenghtOfPage={lengthOfPage}
-                  />
-                );
-              })}
-            <Row padding='16px 0px 0px 0px'>
-              <AverageEditBtn padding='2px 16px 2px 16px' onClick={toggleIsAddInstrumentVisible}>+ Add</AverageEditBtn>
-              <AverageEditBtn padding='2px 8px 2px 8px' onClick={toggleIsRemoveInstrumentVisible}>- Remove</AverageEditBtn>
-            </Row>
-          </React.Fragment>
-          ) : (
-            <AverageEditBtn padding={'8px 8px 8px 8px'} onClick={toggleIsAddInstrumentVisible}>
-              No partition to display yet... Click here to add your first instrument
-            </AverageEditBtn>
-          )}
-        </MusicGrid>
-      </div>
       <PlayControls
-        onPlayBtnPress={onPlayBtnPress}
         onStopBtnPress={stopPlaying}
         addOneBar={addOneBar}
+        onPlayBtnPress={onPlayBtnPress}
         removeOneBar={removeOneBar}
-        numberOfBars={partition[0] ? partition[0].length : 0}
-      />
-      <AdvControls
-        toggleIsSaveSongVisible={() => setIsSaveSongVisible(!isSaveSongVisible)}
         user={props.user}
       />
     </React.Fragment>

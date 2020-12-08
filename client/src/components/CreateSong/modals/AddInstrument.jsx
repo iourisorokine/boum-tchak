@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { globalContext } from "../../context/GlobalContext";
+import { globalContext } from "../../../context/GlobalContext";
 import { Bars } from "svg-loaders-react";
 import {
   CategoryBtn,
@@ -9,7 +9,8 @@ import {
   Button,
   SelectableRow,
   Text,
-} from "../../ui-kit";
+  Heading3,
+} from "../../../ui-kit";
 import axios from "axios";
 
 export const AddInstrument = ({ addInstrument }) => {
@@ -57,6 +58,9 @@ export const AddInstrument = ({ addInstrument }) => {
 
   return (
     <ExpandedMenuItem>
+      <Row padding="10px 12px 4px 12px">
+        <Heading3>Add Instrument</Heading3>
+      </Row>
       <Row padding="10px 12px 4px 12px">
         <Column flexDirection="row">
           {uniqueCategories.map((cat) => {

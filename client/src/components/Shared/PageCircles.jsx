@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Column, PageCircle } from "../../ui-kit";
+import { globalContext } from "../../context/GlobalContext";
 
 export const PageCircles = ({
-  currentPage,
-  selectPage,
-  pages,
   clickable = true,
   createMode,
 }) => {
+
+const { currentPage, setCurrentPage, pages } = useContext(globalContext);
+
   if (pages.length < 2 && !createMode) {
     return null;
   }
@@ -22,7 +23,7 @@ export const PageCircles = ({
               <PageCircle
                 key={i}
                 selected={currentPage === i + 1}
-                onClick={clickable ? () => selectPage(i + 1) : null}
+                onClick={clickable ? () => setCurrentPage(i + 1) : null}
               />
             );
           })}

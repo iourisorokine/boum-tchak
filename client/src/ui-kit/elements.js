@@ -4,10 +4,6 @@ export const ControlsPad = styled.div`
   padding: 10px;
 `;
 
-export const Tempo = styled.span`
-  font-size: 16px;
-`;
-
 export const ExpandedMenuItem = styled.div`
   margin: auto;
   min-width: 400px;
