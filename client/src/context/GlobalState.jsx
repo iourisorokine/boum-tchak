@@ -14,6 +14,10 @@ import {
   SET_PARTITION,
   SET_IS_REMOVE_INSTRUMENT_VISIBLE,
   SET_COPIED_PARTITION_BAR,
+  SET_HIGHLIGHTED_NOTE,
+  SET_ANIMATED_NOTES,
+  SET_CURRENT_PAGE,
+  SET_PAGES,
 } from "./types";
 
 export const GlobalState = (props) => {
@@ -30,6 +34,10 @@ export const GlobalState = (props) => {
     isNotePlayedOnClick: true,
     isAddInstrumentVisible: false,
     isSaveSongVisible: false,
+    highlightedNote: [-1],
+    animatedNotes: [],
+    currentPage: 1,
+    pages: [1],
   };
 
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
@@ -72,6 +80,22 @@ export const GlobalState = (props) => {
 
   const setPartition = (value) => {
     dispatch({ type: SET_PARTITION, payload: value });
+  };
+
+  const setHighLightedNote = (value) => {
+    dispatch({ type: SET_HIGHLIGHTED_NOTE, payload: value });
+  };
+
+  const setAnimatedNotes = (value) => {
+    dispatch({ type: SET_ANIMATED_NOTES, payload: value });
+  };
+
+  const setCurrentPage = (value) => {
+    dispatch({ type: SET_CURRENT_PAGE, payload: value });
+  };
+
+  const setPages = (value) => {
+    dispatch({ type: SET_PAGES, payload: value });
   };
 
   const deleteLine = (lineNumber) => {
@@ -132,6 +156,10 @@ export const GlobalState = (props) => {
         isAddInstrumentVisible: state.isAddInstrumentVisible,
         isSaveSongVisible: state.isSaveSongVisible,
         isRemoveInstrumentVisible: state.isRemoveInstrumentVisible,
+        highlightedNote: state.highlightedNote,
+        animatedNotes: state.animatedNotes,
+        currentPage: state.currentPage,
+        pages: state.pages,
         setTempo,
         setIsPlaying,
         setInstruments,
@@ -145,6 +173,10 @@ export const GlobalState = (props) => {
         toggleIsAddInstrumentVisible,
         setIsSaveSongVisible,
         deleteLine,
+        setHighLightedNote,
+        setAnimatedNotes,
+        setCurrentPage,
+        setPages,
       }}>
       {props.children}
     </GlobalContext.Provider>

@@ -9,6 +9,10 @@ import {
   SET_PARTITION,
   SET_IS_REMOVE_INSTRUMENT_VISIBLE,
   SET_COPIED_PARTITION_BAR,
+  SET_HIGHLIGHTED_NOTE,
+  SET_ANIMATED_NOTES,
+  SET_CURRENT_PAGE,
+  SET_PAGES,
 } from "./types";
 
 export default (state, action) => {
@@ -65,6 +69,26 @@ export default (state, action) => {
         ...state,
         copiedPartitionBar: payload,
       };
+    case SET_HIGHLIGHTED_NOTE:
+      return {
+        ...state,
+        highligntedNote: payload,
+      };
+    case SET_ANIMATED_NOTES:
+      return {
+        ...state,
+        animatedNotes: payload,
+      }
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: payload,
+      }
+    case SET_PAGES:
+      return {
+        ...state,
+        pages: payload,
+      }
     default:
       return state;
   }
