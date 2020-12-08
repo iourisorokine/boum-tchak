@@ -8,28 +8,65 @@ import {
   ControlsPad,
   TextSpan,
 } from "../../../ui-kit";
+import { playBeat } from "../../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
 
 const iconStyle = { width: 16, height: 16 };
 
 export const PlayControls = ({
-  onPlayBtnPress,
   onStopBtnPress,
   addOneBar,
   removeOneBar,
   user,
-  toggleIsSaveSongVisible,
 }) => {
+
   const {
     tempo,
     setTempo,
     isPlaying,
+    setIsPlaying,
+    musicPlaying,
     partition,
+    instruments,
+    timeoutTempo,
     setTimeoutTempo,
     isNotePlayedOnClick,
+    isSaveSongVisible,
+    setIsSaveSongVisible,
     setIsNotePlayedOnClick,
+    setCurrentPage,
+    setHighlightedNote,
+    setAnimatedNotes,
   } = useContext(globalContext);
+
+  const lengthOfPage = window.innerWidth >= 800 ? 16 : 12;
+
+  const playMusic = (instruments, partition, tempo) => {
+    if (!partition || !partition.length) return;
+    setIsPlaying(true);
+    setCurrentPage(1);
+    let counter = 0;
+
+    const playInterval = () => {
+      setHighlightedNote(counter);
+      setAnimatedNotes([counter - 1, counter, counter + 1]);
+      playBeat(instruments, partition, counter);
+      counter++;
+      if (counter >= partition[0].length) {
+        counter = 0;
+      }
+      if (counter % lengthOfPage === 1) {
+        const nextPage = Math.ceil(counter / lengthOfPage);
+        setCurrentPage(nextPage);
+      }
+    };
+    musicPlaying.current = setInterval(playInterval, tempo);
+  };
+
+  const onPlayBtnPress = () => {
+    playMusic(instruments, partition, timeoutTempo);
+  };
 
   const numberOfBars = partition[0] ? partition[0].length : 0;
 
@@ -69,7 +106,7 @@ export const PlayControls = ({
       <Button onClick={onMinusTempoPress}>-</Button>
       <TextSpan>Tempo: {tempo}</TextSpan>
       <Button onClick={onPlusTempoPress}>+</Button>
-      <Button onClick={toggleIsSaveSongVisible}>Save</Button>
+      <Button onClick={() => setIsSaveSongVisible(!isSaveSongVisible)}>Save</Button>
       {user && (
         <Link to="/load-song">
           <Button>Load</Button>
