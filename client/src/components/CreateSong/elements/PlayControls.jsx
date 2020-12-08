@@ -18,6 +18,7 @@ export const PlayControls = ({
   onStopBtnPress,
   addOneBar,
   removeOneBar,
+  onPlayBtnPress,
   user,
 }) => {
 
@@ -25,48 +26,13 @@ export const PlayControls = ({
     tempo,
     setTempo,
     isPlaying,
-    setIsPlaying,
-    musicPlaying,
     partition,
-    instruments,
-    timeoutTempo,
     setTimeoutTempo,
     isNotePlayedOnClick,
     isSaveSongVisible,
     setIsSaveSongVisible,
     setIsNotePlayedOnClick,
-    setCurrentPage,
-    setHighlightedNote,
-    setAnimatedNotes,
   } = useContext(globalContext);
-
-  const lengthOfPage = window.innerWidth >= 800 ? 16 : 12;
-
-  const playMusic = (instruments, partition, tempo) => {
-    if (!partition || !partition.length) return;
-    setIsPlaying(true);
-    setCurrentPage(1);
-    let counter = 0;
-
-    const playInterval = () => {
-      setHighlightedNote(counter);
-      setAnimatedNotes([counter - 1, counter, counter + 1]);
-      playBeat(instruments, partition, counter);
-      counter++;
-      if (counter >= partition[0].length) {
-        counter = 0;
-      }
-      if (counter % lengthOfPage === 1) {
-        const nextPage = Math.ceil(counter / lengthOfPage);
-        setCurrentPage(nextPage);
-      }
-    };
-    musicPlaying.current = setInterval(playInterval, tempo);
-  };
-
-  const onPlayBtnPress = () => {
-    playMusic(instruments, partition, timeoutTempo);
-  };
 
   const numberOfBars = partition[0] ? partition[0].length : 0;
 

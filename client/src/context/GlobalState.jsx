@@ -14,7 +14,6 @@ import {
   SET_PARTITION,
   SET_IS_REMOVE_INSTRUMENT_VISIBLE,
   SET_COPIED_PARTITION_BAR,
-  SET_HIGHLIGHTED_NOTE,
   SET_ANIMATED_NOTES,
   SET_CURRENT_PAGE,
   SET_PAGES,
@@ -34,7 +33,6 @@ export const GlobalState = (props) => {
     isNotePlayedOnClick: true,
     isAddInstrumentVisible: false,
     isSaveSongVisible: false,
-    highlightedNote: [-1],
     animatedNotes: [],
     currentPage: 1,
     pages: [1],
@@ -80,10 +78,6 @@ export const GlobalState = (props) => {
 
   const setPartition = (value) => {
     dispatch({ type: SET_PARTITION, payload: value });
-  };
-
-  const setHighLightedNote = (value) => {
-    dispatch({ type: SET_HIGHLIGHTED_NOTE, payload: value });
   };
 
   const setAnimatedNotes = (value) => {
@@ -156,7 +150,6 @@ export const GlobalState = (props) => {
         isAddInstrumentVisible: state.isAddInstrumentVisible,
         isSaveSongVisible: state.isSaveSongVisible,
         isRemoveInstrumentVisible: state.isRemoveInstrumentVisible,
-        highlightedNote: state.highlightedNote,
         animatedNotes: state.animatedNotes,
         currentPage: state.currentPage,
         pages: state.pages,
@@ -173,7 +166,6 @@ export const GlobalState = (props) => {
         toggleIsAddInstrumentVisible,
         setIsSaveSongVisible,
         deleteLine,
-        setHighLightedNote,
         setAnimatedNotes,
         setCurrentPage,
         setPages,

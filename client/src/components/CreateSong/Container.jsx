@@ -6,6 +6,7 @@ import { AddInstrument } from "./modals/AddInstrument";
 import { SaveSong } from "./modals/SaveSong";
 import { config } from "../../config/config";
 import {
+  playBeat,
   getRandomName,
   preparePartition,
   prepareInstruments,
@@ -18,6 +19,7 @@ import { CreateSong as Component } from './Component';
 
 export const CreateSong = (props) => {
   const [bottomMessage, setBottomMessage] = useState("");
+  const [highlightedNote, setHighlightedNote] = useState(-1)
 
   let musicPlaying = React.useRef(null);
 
@@ -38,8 +40,9 @@ export const CreateSong = (props) => {
     toggleIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
-    highlightedNote,
     animatedNotes,
+    timeoutTempo,
+    setAnimatedNotes,
     currentPage,
     setCurrentPage,
     pages,
@@ -113,6 +116,32 @@ export const CreateSong = (props) => {
     setPartition(updatedPartition);
     setPages(pagesUpdate);
     if (currentPage > pagesUpdate.length) setCurrentPage(pagesUpdate.length);
+  };
+
+  const playMusic = (instruments, partition, tempo) => {
+    if (!partition || !partition.length) return;
+    setIsPlaying(true);
+    setCurrentPage(1);
+    let counter = 0;
+
+    const playInterval = () => {
+      setHighlightedNote(counter);
+      setAnimatedNotes([counter - 1, counter, counter + 1]);
+      playBeat(instruments, partition, counter);
+      counter++;
+      if (counter >= partition[0].length) {
+        counter = 0;
+      }
+      if (counter % lengthOfPage === 1) {
+        const nextPage = Math.ceil(counter / lengthOfPage);
+        setCurrentPage(nextPage);
+      }
+    };
+    musicPlaying.current = setInterval(playInterval, tempo);
+  };
+
+  const onPlayBtnPress = () => {
+    playMusic(instruments, partition, timeoutTempo);
   };
 
   const stopPlaying = () => {
@@ -204,6 +233,7 @@ export const CreateSong = (props) => {
       <PlayControls
         onStopBtnPress={stopPlaying}
         addOneBar={addOneBar}
+        onPlayBtnPress={onPlayBtnPress}
         removeOneBar={removeOneBar}
         user={props.user}
       />
