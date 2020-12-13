@@ -4,7 +4,7 @@ import axios from "axios";
 import { DisplaySong } from "./DisplaySong";
 import { prepareInstruments } from "../utils/instruments";
 import { AppIntro } from "../InfoPages/AppIntro";
-import { BlankSpace } from "../../ui-kit";
+import { BlankSpace, MenuButton } from "../../ui-kit";
 
 export const SongsList = ({ isAppIntroDisplayed = false }) => {
   const [songs, setSongs] = useState([]);
@@ -65,7 +65,7 @@ export const SongsList = ({ isAppIntroDisplayed = false }) => {
       ) : message ? (
         <p>{message}</p>
       ) : (
-        <p onClick={loadMore}>loadMore</p>
+        <MenuButton onClick={loadMore}>load more</MenuButton>
       )}
       <BlankSpace height="100px" />
     </React.Fragment>

@@ -52,8 +52,8 @@ export const CreateSong = ({
                 );
               })}
             <Row padding='16px 0px 0px 0px'>
-              <AverageEditBtn padding='2px 16px 2px 16px' onClick={toggleIsAddInstrumentVisible}>+ Add</AverageEditBtn>
-              <AverageEditBtn padding='2px 8px 2px 8px' onClick={toggleIsRemoveInstrumentVisible}>- Remove</AverageEditBtn>
+              <AverageEditBtn padding='2px 16px 2px 16px' onClick={toggleIsAddInstrumentVisible}>+ Add <br/>instrument</AverageEditBtn>
+              <AverageEditBtn padding='2px 16px 2px 16px' onClick={toggleIsRemoveInstrumentVisible}>- Remove <br/>instrument</AverageEditBtn>
             </Row>
           </React.Fragment>
           ) : (
