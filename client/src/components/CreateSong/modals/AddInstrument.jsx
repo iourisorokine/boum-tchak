@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { globalContext } from "../../../context/GlobalContext";
 import { Bars } from "svg-loaders-react";
+import { FixedSizeList } from 'react-window';
 import {
   CategoryBtn,
   ExpandedMenuItem,
@@ -55,6 +56,27 @@ export const AddInstrument = ({ addInstrument }) => {
     fetchInstrumentsData(cat);
     setSearchCategory(cat);
   };
+  
+  const ItemRow = ({index, style}) => {
+    const instrument = newInstruments[index];
+    return(
+      <SelectableRow
+        style={style}
+        bgColor={index % 2 === 0 ? '#eee' : '#fff'}
+        padding="4px 0 4px 0"
+        onClick={() => handleClick(instrument)}>
+        <Column flex={2}>
+          <Text>{instrument.name}</Text>
+        </Column>
+        <Column>
+          <Text>{instrument.category}</Text>
+        </Column>
+        <Column>
+          <Text>{instrument.subCategory}</Text>
+        </Column>
+      </SelectableRow>
+    )
+  }
 
   return (
     <ExpandedMenuItem>
@@ -84,24 +106,9 @@ export const AddInstrument = ({ addInstrument }) => {
       )}
       <Row padding="4px 12px 0 12px">
         <Column>
-          {newInstruments.map((instrument) => {
-            return (
-              <SelectableRow
-                key={instrument.name}
-                padding="4px 0 4px 0"
-                onClick={() => handleClick(instrument)}>
-                <Column flex={2}>
-                  <Text>{instrument.name}</Text>
-                </Column>
-                <Column>
-                  <Text>{instrument.category}</Text>
-                </Column>
-                <Column>
-                  <Text>{instrument.subCategory}</Text>
-                </Column>
-              </SelectableRow>
-            );
-          })}
+          <FixedSizeList height={260} width={380} itemCount={newInstruments.length} itemSize={30}>
+            {ItemRow}
+          </FixedSizeList>
         </Column>
       </Row>
       <Row padding="20px 0 10px 0">
