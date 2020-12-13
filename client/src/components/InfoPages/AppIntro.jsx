@@ -24,13 +24,13 @@ export const AppIntro = () => {
             The app to discover and create nice music loops.
           </p>
           <p style={{ margin: 0, padding: 0 }}>
-            Want to start creating music? It's here >>{" "}
+            Want to start creating music? It's here -{" "}
             <Link to="/create">
               <Button>Create</Button>
             </Link>
           </p>
           <p style={{ margin: 0, padding: 0 }}>
-            Need help? This way >>{" "}
+            Need help? This way -{" "}
             <Link to="/help">
               <Button>Help</Button>
             </Link>
