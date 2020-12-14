@@ -105,6 +105,8 @@ export const CreateSong = (props) => {
   };
 
   const removeOneBar = () => {
+    if( partition[0]?.length < 2 ) return;
+    
     const updatedPartition = [...partition];
     const last = updatedPartition[0].length - 1;
     updatedPartition.forEach((el) => {
@@ -116,6 +118,7 @@ export const CreateSong = (props) => {
     setPartition(updatedPartition);
     setPages(pagesUpdate);
     if (currentPage > pagesUpdate.length) setCurrentPage(pagesUpdate.length);
+    
   };
 
   const playMusic = (instruments, partition, tempo) => {
