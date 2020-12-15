@@ -16,7 +16,7 @@ export const CreateLine = ({
   currentPage,
   lenghtOfPage,
 }) => {
-  const { isRemoveInstrumentVisible, deleteLine } = useContext(globalContext);
+  const { deleteLine } = useContext(globalContext);
 
   const firstIndex = (currentPage - 1) * lenghtOfPage;
   const lastIndex = currentPage * lenghtOfPage;
@@ -45,10 +45,10 @@ export const CreateLine = ({
 
   return (
     <Line>
-      <LineLabel width={'90px'}>{label && label}</LineLabel>
-      {isRemoveInstrumentVisible && (
-        <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
-      )}
+      <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
+      <LineLabel width={'100px'}>
+        {label && label}
+      </LineLabel>
       {displayNotes}
     </Line>
   );

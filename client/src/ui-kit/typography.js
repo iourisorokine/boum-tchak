@@ -50,3 +50,10 @@ export const HeaderTitle = styled.h1`
 export const Alert = styled.p`
   color: red;
 `;
+
+export const Caption = styled.p`
+  color: ${(props)=> props.color || '#888'};
+  margin: ${(props)=> props.margin || '4px 4px 4px 0px'};
+  padding: ${(props)=> props.padding || 'default'};
+  font-size: 14px;
+`

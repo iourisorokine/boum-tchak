@@ -67,16 +67,18 @@ export const CategoryBtn = styled.button`
 `;
 
 export const DeleteButton = styled.p`
-  line-height: 10px;
-  padding: 3px;
-  margin: 5px;
-  font-size: 25px;
-  color: red;
+  color: ${(props)=> props.color || '#888'};
+  border: 1px solid #aaa;
+  margin: ${(props)=> props.margin || '4px 8px 4px 0px'};
+  padding: ${(props)=> props.padding || '2px'};
+  background-color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
   font-weight: bold;
-  cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
   &:hover {
-    background-color: red;
-    color: white;
+    background-color: #f00;
+    color: #fff;
   }
 `;
 

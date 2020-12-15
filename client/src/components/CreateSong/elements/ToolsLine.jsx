@@ -38,7 +38,7 @@ export const ToolsLine = ({
   }
   return (
     <Row>
-      <LineLabel width={'90px'}/>
+      <LineLabel width={'124px'}/>
       {displayBarsLength}
     </Row>
   );

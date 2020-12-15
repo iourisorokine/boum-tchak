@@ -8,7 +8,6 @@ import {
   ControlsPad,
   TextSpan,
 } from "../../../ui-kit";
-import { playBeat } from "../../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
 
@@ -23,34 +22,13 @@ export const PlayControls = ({
 }) => {
 
   const {
-    tempo,
-    setTempo,
     isPlaying,
     partition,
-    setTimeoutTempo,
-    isNotePlayedOnClick,
     isSaveSongVisible,
     setIsSaveSongVisible,
-    setIsNotePlayedOnClick,
   } = useContext(globalContext);
 
   const numberOfBars = partition[0] ? partition[0].length : 0;
-
-  const togglePlayOnClick = () => {
-    setIsNotePlayedOnClick(!isNotePlayedOnClick);
-  };
-
-  const onPlusTempoPress = () => {
-    setTempo(tempo + 5);
-    const newTimeout = 60000 / tempo / 4;
-    setTimeoutTempo(newTimeout);
-  };
-
-  const onMinusTempoPress = () => {
-    setTempo(tempo - 5);
-    const newTimeout = 60000 / tempo / 4;
-    setTimeoutTempo(newTimeout);
-  };
 
   return (
     <ControlsPad>
@@ -63,15 +41,9 @@ export const PlayControls = ({
           <FontAwesomeIcon icon={faPlay} color="white" style={iconStyle} />
         </PlayButton>
       )}
-      <Button onClick={togglePlayOnClick}>
-        Play on click: {isNotePlayedOnClick ? "yes" : "no"}
-      </Button>
       <Button onClick={removeOneBar}>-</Button>
-      <TextSpan>Notes: {numberOfBars}</TextSpan>
+      <TextSpan>Length: {numberOfBars}</TextSpan>
       <Button onClick={addOneBar}>+</Button>
-      <Button onClick={onMinusTempoPress}>-</Button>
-      <TextSpan>Tempo: {tempo}</TextSpan>
-      <Button onClick={onPlusTempoPress}>+</Button>
       <Button onClick={() => setIsSaveSongVisible(!isSaveSongVisible)}>Save</Button>
       {user && (
         <Link to="/load-song">

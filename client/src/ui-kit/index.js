@@ -45,6 +45,7 @@ export {
   Alert,
   Text,
   TextSpan,
+  Caption,
 } from "./typography";
 export {
   MusicGrid,
