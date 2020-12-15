@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { DisplayLine } from "./DisplayLine";
-import { PageCircles } from "../Shared/PageCircles";
 import { playBeat } from "../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
@@ -100,13 +99,6 @@ export const DisplaySong = ({
         <SongTitle b={true}>{title}</SongTitle>
         <SongTitle>by {creatorName}</SongTitle>
       </SongHeader>
-      <Row>
-        <PageCircles
-          pages={pages}
-          currentPage={currentPage}
-          clickable={false}
-        />
-      </Row>
       <MusicGrid>
         {musicLines.map((line, i) => {
           return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ExpandedMenuItem } from "../../ui-kit";
-import { PageCircles } from "../Shared/PageCircles";
+import { ExpandedMenuItem, Row } from "../../ui-kit";
+import { TopMenu } from "./elements/TopMenu";
 import { PlayControls } from "./elements/PlayControls";
 import { AddInstrument } from "./modals/AddInstrument";
 import { SaveSong } from "./modals/SaveSong";
@@ -37,7 +37,6 @@ export const CreateSong = (props) => {
     isNotePlayedOnClick,
     isAddInstrumentVisible,
     toggleIsAddInstrumentVisible,
-    toggleIsRemoveInstrumentVisible,
     isSaveSongVisible,
     setIsSaveSongVisible,
     animatedNotes,
@@ -105,6 +104,8 @@ export const CreateSong = (props) => {
   };
 
   const removeOneBar = () => {
+    if( partition[0]?.length < 2 ) return;
+    
     const updatedPartition = [...partition];
     const last = updatedPartition[0].length - 1;
     updatedPartition.forEach((el) => {
@@ -116,6 +117,7 @@ export const CreateSong = (props) => {
     setPartition(updatedPartition);
     setPages(pagesUpdate);
     if (currentPage > pagesUpdate.length) setCurrentPage(pagesUpdate.length);
+    
   };
 
   const playMusic = (instruments, partition, tempo) => {
@@ -217,7 +219,7 @@ export const CreateSong = (props) => {
           <p>{bottomMessage}</p>
         </ExpandedMenuItem>
       )}
-      <PageCircles createMode />
+      <TopMenu />
       <Component 
         partition={partition}
         lengthOfPage={lengthOfPage}
@@ -228,12 +230,11 @@ export const CreateSong = (props) => {
         highlightedNote={highlightedNote}
         animatedNotes={animatedNotes}
         toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
-        toggleIsRemoveInstrumentVisible={toggleIsRemoveInstrumentVisible}
       />
       <PlayControls
+        onPlayBtnPress={onPlayBtnPress}
         onStopBtnPress={stopPlaying}
         addOneBar={addOneBar}
-        onPlayBtnPress={onPlayBtnPress}
         removeOneBar={removeOneBar}
         user={props.user}
       />

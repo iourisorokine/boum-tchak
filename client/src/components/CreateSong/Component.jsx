@@ -1,6 +1,6 @@
 import React from 'react';
 import { CreateLine } from "./elements/CreateLine";
-import { MusicGrid, AverageEditBtn, Row } from "../../ui-kit";
+import { MusicGrid, AverageEditBtn, Row, LineLabel, Line, SmallEditBtn } from "../../ui-kit";
 import { ToolsLine } from "./elements/ToolsLine";
 
 export const CreateSong = ({
@@ -13,7 +13,6 @@ export const CreateSong = ({
     highlightedNote,
     animatedNotes,
     toggleIsAddInstrumentVisible,
-    toggleIsRemoveInstrumentVisible,
 }) => {
     return (
         <div
@@ -51,10 +50,11 @@ export const CreateSong = ({
                   />
                 );
               })}
-            <Row padding='16px 0px 0px 0px'>
-              <AverageEditBtn padding='2px 16px 2px 16px' onClick={toggleIsAddInstrumentVisible}>+ Add <br/>instrument</AverageEditBtn>
-              <AverageEditBtn padding='2px 16px 2px 16px' onClick={toggleIsRemoveInstrumentVisible}>- Remove <br/>instrument</AverageEditBtn>
-            </Row>
+              <Line>
+                <LineLabel width={'124px'}>
+                  <AverageEditBtn onClick={toggleIsAddInstrumentVisible}>+ Add instrument</AverageEditBtn>
+                </LineLabel>
+              </Line>
           </React.Fragment>
           ) : (
             <AverageEditBtn padding={'8px 8px 8px 8px'} onClick={toggleIsAddInstrumentVisible}>

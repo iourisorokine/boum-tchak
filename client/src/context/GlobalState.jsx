@@ -12,7 +12,6 @@ import {
   SET_IS_PLAYING,
   SET_INSTRUMENTS,
   SET_PARTITION,
-  SET_IS_REMOVE_INSTRUMENT_VISIBLE,
   SET_COPIED_PARTITION_BAR,
   SET_ANIMATED_NOTES,
   SET_CURRENT_PAGE,
@@ -25,7 +24,6 @@ export const GlobalState = (props) => {
     instruments: [],
     partition: [],
     copiedPartitionBar: null,
-    isRemoveInstrumentVisible: false,
     partitionLength: config.START_PARTITION_LENGTH,
     maxPartitionLength: config.MAX_PARTITION_LENGTH,
     tempo: config.DEFAULT_TEMPO,
@@ -59,15 +57,6 @@ export const GlobalState = (props) => {
     dispatch({ type: SET_IS_SAVE_SONG_VISIBLE, payload: value });
   };
 
-  const setIsRemoveInstrumentVisible = (value) => {
-    dispatch({ type: SET_IS_REMOVE_INSTRUMENT_VISIBLE, payload: value });
-  };
-
-  const toggleIsRemoveInstrumentVisible = () => {
-    const newValue = !state.isRemoveInstrumentVisible;
-    dispatch({ type: SET_IS_REMOVE_INSTRUMENT_VISIBLE, payload: newValue });
-  };
-
   const setIsPlaying = (value) => {
     dispatch({ type: SET_IS_PLAYING, payload: value });
   };
@@ -99,7 +88,6 @@ export const GlobalState = (props) => {
     updatedInstruments.splice(lineNumber, 1);
     setPartition(updatedPartition);
     setInstruments(updatedInstruments);
-    setIsRemoveInstrumentVisible(!setIsRemoveInstrumentVisible);
   };
 
   const copyOneBar = (barIndex) => {
@@ -149,7 +137,6 @@ export const GlobalState = (props) => {
         isNotePlayedOnClick: state.isNotePlayedOnClick,
         isAddInstrumentVisible: state.isAddInstrumentVisible,
         isSaveSongVisible: state.isSaveSongVisible,
-        isRemoveInstrumentVisible: state.isRemoveInstrumentVisible,
         animatedNotes: state.animatedNotes,
         currentPage: state.currentPage,
         pages: state.pages,
@@ -159,8 +146,6 @@ export const GlobalState = (props) => {
         setPartition,
         copyOneBar,
         pasteOneBar,
-        setIsRemoveInstrumentVisible,
-        toggleIsRemoveInstrumentVisible,
         setTimeoutTempo,
         setIsNotePlayedOnClick,
         toggleIsAddInstrumentVisible,
