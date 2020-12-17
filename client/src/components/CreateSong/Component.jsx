@@ -19,6 +19,7 @@ export const CreateSong = ({
         style={{
           minHeight: 300,
           display: "flex",
+          flex: 1,
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",

@@ -15,8 +15,6 @@ const iconStyle = { width: 16, height: 16 };
 
 export const PlayControls = ({
   onStopBtnPress,
-  addOneBar,
-  removeOneBar,
   onPlayBtnPress,
   user,
 }) => {
@@ -41,9 +39,6 @@ export const PlayControls = ({
           <FontAwesomeIcon icon={faPlay} color="white" style={iconStyle} />
         </PlayButton>
       )}
-      <Button onClick={removeOneBar}>-</Button>
-      <TextSpan>Length: {numberOfBars}</TextSpan>
-      <Button onClick={addOneBar}>+</Button>
       <Button onClick={() => setIsSaveSongVisible(!isSaveSongVisible)}>Save</Button>
       {user && (
         <Link to="/load-song">

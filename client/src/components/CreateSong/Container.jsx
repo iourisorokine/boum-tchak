@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ExpandedMenuItem, Row } from "../../ui-kit";
+import { ExpandedMenuItem, AverageEditBtn, Row } from "../../ui-kit";
 import { TopMenu } from "./elements/TopMenu";
 import { PlayControls } from "./elements/PlayControls";
 import { AddInstrument } from "./modals/AddInstrument";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { SaveSong } from "./modals/SaveSong";
 import { config } from "../../config/config";
 import {
@@ -220,22 +222,30 @@ export const CreateSong = (props) => {
         </ExpandedMenuItem>
       )}
       <TopMenu />
-      <Component 
-        partition={partition}
-        lengthOfPage={lengthOfPage}
-        currentPage={currentPage}
-        pages={pages}
-        instruments={instruments}
-        toggleActiveNote={toggleActiveNote}
-        highlightedNote={highlightedNote}
-        animatedNotes={animatedNotes}
-        toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
-      />
+      <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", minWidth: 800}}>
+        <Component 
+          partition={partition}
+          lengthOfPage={lengthOfPage}
+          currentPage={currentPage}
+          pages={pages}
+          instruments={instruments}
+          toggleActiveNote={toggleActiveNote}
+          highlightedNote={highlightedNote}
+          animatedNotes={animatedNotes}
+          toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
+        />
+        <div style={{display: "flex"}}>
+        <AverageEditBtn height='160px' onClick={removeOneBar}>
+          <FontAwesomeIcon icon={faChevronLeft}/>
+        </AverageEditBtn>
+        <AverageEditBtn height='160px' onClick={addOneBar}>
+          <FontAwesomeIcon icon={faChevronRight}/>
+        </AverageEditBtn>
+        </div>
+      </div>
       <PlayControls
         onPlayBtnPress={onPlayBtnPress}
         onStopBtnPress={stopPlaying}
-        addOneBar={addOneBar}
-        removeOneBar={removeOneBar}
         user={props.user}
       />
     </React.Fragment>

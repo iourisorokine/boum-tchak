@@ -110,6 +110,7 @@ export const AverageEditBtn = styled.button`
   border: 1px solid #aaa;
   margin: ${(props)=> props.margin || '4px 4px 4px 0px'};
   padding: ${(props)=> props.padding || 'default'};
+  height: ${(props)=> props.height || 'default' };
   background-color: #fff;
   border-radius: 4px;
   font-size: 14px;
