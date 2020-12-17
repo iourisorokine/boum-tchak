@@ -1,6 +1,8 @@
 import React from 'react';
 import { CreateLine } from "./elements/CreateLine";
-import { MusicGrid, AverageEditBtn, Row, LineLabel, Line, SmallEditBtn } from "../../ui-kit";
+import { MusicGrid, AverageEditBtn, LineLabel, Line } from "../../ui-kit";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { ToolsLine } from "./elements/ToolsLine";
 
 export const CreateSong = ({
@@ -12,26 +14,30 @@ export const CreateSong = ({
     toggleActiveNote,
     highlightedNote,
     animatedNotes,
+    addOneBar,
+    removeOneBar,
     toggleIsAddInstrumentVisible,
 }) => {
     return (
+      <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", minWidth: 800}}>
         <div
         style={{
           minHeight: 300,
           display: "flex",
+          flex: 1,
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
         }}>
         <MusicGrid>
-          <ToolsLine
-            totalLength={partition[0] && partition[0].length}
-            lengthOfPage={lengthOfPage}
-            isLastPage={currentPage === pages.length}
-            currentPage={currentPage}
-          />
           {instruments.length ? (
             <React.Fragment>
+              <ToolsLine
+                totalLength={partition[0] && partition[0].length}
+                lengthOfPage={lengthOfPage}
+                isLastPage={currentPage === pages.length}
+                currentPage={currentPage}
+              />
               {instruments.map((instrument, i) => {
                 return (
                   <CreateLine
@@ -62,6 +68,17 @@ export const CreateSong = ({
             </AverageEditBtn>
           )}
         </MusicGrid>
+      </div>
+      {!!instruments?.length &&(
+        <div style={{display: "flex"}}>
+          <AverageEditBtn height='160px' onClick={removeOneBar}>
+            <FontAwesomeIcon icon={faChevronLeft}/>
+          </AverageEditBtn>
+          <AverageEditBtn height='160px' onClick={addOneBar}>
+            <FontAwesomeIcon icon={faChevronRight}/>
+          </AverageEditBtn>
+        </div>
+      )}
       </div>
     );
 }

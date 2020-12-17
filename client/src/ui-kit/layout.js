@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Row = styled.div`
   padding: ${(props) => props.padding || 0};
   display: flex;
+  align-items: ${(props)=> props.alignItems || 'center'};
+  justify-content: ${(props)=> props.justifyContent || 'center'};
   width: 100%;
 `;
 
@@ -31,7 +33,6 @@ export const AppIntroLayout = styled.div`
 export const Column = styled.div`
   display: flex;
   flex-direction: ${(props) => props.flexDirection || "column"};
-  justify-content: center;
   min-height: 20px;
   padding: ${(props) => props.padding || 0};
   align-items: ${(props) => props.alignItems || "flex-start"};

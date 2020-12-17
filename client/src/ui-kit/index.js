@@ -1,5 +1,4 @@
 export {
-  ControlsPad,
   ExpandedMenuItem,
   Input,
   SongPost,

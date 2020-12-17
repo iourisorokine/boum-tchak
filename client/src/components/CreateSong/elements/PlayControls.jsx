@@ -2,11 +2,8 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { globalContext } from "../../../context/GlobalContext";
 import {
-  Button,
-  PlayButton,
-  StopButton,
-  ControlsPad,
-  TextSpan,
+  MenuButton,
+  Row,
 } from "../../../ui-kit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
@@ -15,41 +12,33 @@ const iconStyle = { width: 16, height: 16 };
 
 export const PlayControls = ({
   onStopBtnPress,
-  addOneBar,
-  removeOneBar,
   onPlayBtnPress,
   user,
 }) => {
 
   const {
     isPlaying,
-    partition,
     isSaveSongVisible,
     setIsSaveSongVisible,
   } = useContext(globalContext);
 
-  const numberOfBars = partition[0] ? partition[0].length : 0;
-
   return (
-    <ControlsPad>
+    <Row justifyContent="center">
       {isPlaying ? (
-        <StopButton onClick={onStopBtnPress}>
+        <MenuButton onClick={onStopBtnPress} backgroundColor="#f00">
           <FontAwesomeIcon icon={faStop} color="white" style={iconStyle} />
-        </StopButton>
+        </MenuButton>
       ) : (
-        <PlayButton onClick={onPlayBtnPress}>
+        <MenuButton onClick={onPlayBtnPress} backgroundColor="#0f0">
           <FontAwesomeIcon icon={faPlay} color="white" style={iconStyle} />
-        </PlayButton>
+        </MenuButton>
       )}
-      <Button onClick={removeOneBar}>-</Button>
-      <TextSpan>Length: {numberOfBars}</TextSpan>
-      <Button onClick={addOneBar}>+</Button>
-      <Button onClick={() => setIsSaveSongVisible(!isSaveSongVisible)}>Save</Button>
+      <MenuButton onClick={() => setIsSaveSongVisible(!isSaveSongVisible)}>Save</MenuButton>
       {user && (
         <Link to="/load-song">
-          <Button>Load</Button>
+          <MenuButton>Load</MenuButton>
         </Link>
       )}
-    </ControlsPad>
+    </Row>
   );
 };

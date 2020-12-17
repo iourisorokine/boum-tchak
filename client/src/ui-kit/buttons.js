@@ -36,6 +36,7 @@ export const StopButton = styled(Button)`
 
 export const MenuButton = styled.div`
   margin: 8px;
+  background-color: ${(props)=> props.backgroundColor || 'white'};
   border: solid 1px black;
   border-radius: 5px;
   padding: 6px 12px;
@@ -110,6 +111,7 @@ export const AverageEditBtn = styled.button`
   border: 1px solid #aaa;
   margin: ${(props)=> props.margin || '4px 4px 4px 0px'};
   padding: ${(props)=> props.padding || 'default'};
+  height: ${(props)=> props.height || 'default' };
   background-color: #fff;
   border-radius: 4px;
   font-size: 14px;

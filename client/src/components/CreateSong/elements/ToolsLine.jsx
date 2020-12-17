@@ -35,6 +35,14 @@ export const ToolsLine = ({
         </BarIndicator>
       );
     }
+    if(isLastPage && totalLength % 4 !== 0 ){
+      displayBarsLength.push(
+        <BarIndicator 
+          width={ `${((totalLength % 4) * 33).toString()}px` } 
+          height="26px"
+        />
+      )
+    }
   }
   return (
     <Row>

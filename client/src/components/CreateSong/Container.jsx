@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ExpandedMenuItem, Row } from "../../ui-kit";
+import { ExpandedMenuItem } from "../../ui-kit";
 import { TopMenu } from "./elements/TopMenu";
 import { PlayControls } from "./elements/PlayControls";
 import { AddInstrument } from "./modals/AddInstrument";
@@ -220,22 +220,23 @@ export const CreateSong = (props) => {
         </ExpandedMenuItem>
       )}
       <TopMenu />
-      <Component 
-        partition={partition}
-        lengthOfPage={lengthOfPage}
-        currentPage={currentPage}
-        pages={pages}
-        instruments={instruments}
-        toggleActiveNote={toggleActiveNote}
-        highlightedNote={highlightedNote}
-        animatedNotes={animatedNotes}
-        toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
-      />
+     
+        <Component 
+          partition={partition}
+          lengthOfPage={lengthOfPage}
+          currentPage={currentPage}
+          pages={pages}
+          instruments={instruments}
+          toggleActiveNote={toggleActiveNote}
+          highlightedNote={highlightedNote}
+          animatedNotes={animatedNotes}
+          toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
+          addOneBar={addOneBar}
+          removeOneBar={removeOneBar}
+        />
       <PlayControls
         onPlayBtnPress={onPlayBtnPress}
         onStopBtnPress={stopPlaying}
-        addOneBar={addOneBar}
-        removeOneBar={removeOneBar}
         user={props.user}
       />
     </React.Fragment>
