@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const ControlsPad = styled.div`
-  padding: 10px;
-`;
-
 export const ExpandedMenuItem = styled.div`
   margin: auto;
   min-width: 400px;

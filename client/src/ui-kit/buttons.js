@@ -36,6 +36,7 @@ export const StopButton = styled(Button)`
 
 export const MenuButton = styled.div`
   margin: 8px;
+  background-color: ${(props)=> props.backgroundColor || 'white'};
   border: solid 1px black;
   border-radius: 5px;
   padding: 6px 12px;

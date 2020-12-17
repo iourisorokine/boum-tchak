@@ -70,7 +70,8 @@ export const PageCircle = styled.div`
 
 export const BarIndicator = styled.div`
   border-bottom: 1px solid #aaa;
-  width: 138px;
+  width: ${(props) => props.width || '138px'};
+  height: ${(props) => props.height || 'default'};
   margin: 0px 3px 12px 3px;
   font-size: 10px;
   color: #aaa;
