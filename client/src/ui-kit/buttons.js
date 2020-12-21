@@ -36,7 +36,7 @@ export const StopButton = styled(Button)`
 
 export const MenuButton = styled.div`
   margin: 8px;
-  background-color: ${(props)=> props.backgroundColor || 'white'};
+  background-color: ${(props) => props.backgroundColor || "white"};
   border: solid 1px black;
   border-radius: 5px;
   padding: 6px 12px;
@@ -68,10 +68,10 @@ export const CategoryBtn = styled.button`
 `;
 
 export const DeleteButton = styled.p`
-  color: ${(props)=> props.color || '#888'};
+  color: ${(props) => props.color || "#888"};
   border: 1px solid #aaa;
-  margin: ${(props)=> props.margin || '4px 8px 4px 0px'};
-  padding: ${(props)=> props.padding || '2px'};
+  margin: ${(props) => props.margin || "4px 8px 4px 0px"};
+  padding: ${(props) => props.padding || "2px"};
   background-color: #fff;
   border-radius: 4px;
   font-size: 14px;
@@ -85,16 +85,16 @@ export const DeleteButton = styled.p`
 
 export const IconButton = styled.button`
   color: black;
-  backgroundcolor: white;
+  background-color: white;
   padding: 6px;
-  bordercolor: black;
+  border-color: black;
   border: 1px solid black;
   border-radius: 50%;
   cursor: pointer;
 `;
 
 export const SmallEditBtn = styled.button`
-  color: ${(props)=> props.color || '#aaa'};
+  color: ${(props) => props.color || "#aaa"};
   border: 1px solid #aaa;
   margin: 4px 4px 4px 8px;
   background-color: #fff;
@@ -107,11 +107,11 @@ export const SmallEditBtn = styled.button`
 `;
 
 export const AverageEditBtn = styled.button`
-  color: ${(props)=> props.color || '#888'};
+  color: ${(props) => props.color || "#888"};
   border: 1px solid #aaa;
-  margin: ${(props)=> props.margin || '4px 4px 4px 0px'};
-  padding: ${(props)=> props.padding || 'default'};
-  height: ${(props)=> props.height || 'default' };
+  margin: ${(props) => props.margin || "4px 4px 4px 0px"};
+  padding: ${(props) => props.padding || "default"};
+  height: ${(props) => props.height || "default"};
   background-color: #fff;
   border-radius: 4px;
   font-size: 14px;

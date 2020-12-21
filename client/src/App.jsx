@@ -1,16 +1,16 @@
 import React from "react";
-import { CreateSong } from "./components/CreateSong/Container";
-import { SongsList } from "./components/DisplaySong/SongsList";
-import { LoadSong } from "./components/LoadSong/LoadSong";
-import { Login } from "./components/Auth/Login";
-import { Signup } from "./components/Auth/Signup";
-import { Profile } from "./components/Auth/Profile";
-import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
-import { CreateInstrument } from "./components/CreateInstrument/CreateInstrument";
-import { Help } from "./components/InfoPages/Help";
+import { CreateSong } from "./modules/CreateSong/Container";
+import { SongsList } from "./modules/DisplaySong/SongsList";
+import { LoadSong } from "./modules/LoadSong/LoadSong";
+import { Login } from "./modules/Auth/Login";
+import { Signup } from "./modules/Auth/Signup";
+import { Profile } from "./modules/Auth/Profile";
+import { ProtectedRoute } from "./modules/Auth/ProtectedRoute";
+import { CreateInstrument } from "./modules/CreateInstrument/CreateInstrument";
+import { Help } from "./modules/InfoPages/Help";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
-import { Header } from "./components/Header/Header";
+import { Header } from "./modules/Header/Header";
 import "./App.css";
 
 class App extends React.Component {
