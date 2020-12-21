@@ -66,17 +66,17 @@ export default (state, action) => {
       return {
         ...state,
         animatedNotes: payload,
-      }
+      };
     case SET_CURRENT_PAGE:
       return {
         ...state,
         currentPage: payload,
-      }
+      };
     case SET_PAGES:
       return {
         ...state,
         pages: payload,
-      }
+      };
     default:
       return state;
   }
