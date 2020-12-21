@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { globalContext } from "../../../context/GlobalContext";
+import { globalContext } from "../context/GlobalContext";
 import {
   MenuButton,
   Row,

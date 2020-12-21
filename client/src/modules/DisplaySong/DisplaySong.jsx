@@ -9,7 +9,6 @@ import {
   SongPostPlay,
   SongHeader,
   SongTitle,
-  Row,
 } from "../../ui-kit";
 
 const iconsStyle = {
@@ -28,13 +27,13 @@ export const DisplaySong = ({
   partition,
   musicLines,
   tempo,
-  creatorName
+  creatorName,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [highlightedNote, setHighlightedNote] = useState(-1);
   const [animatedNotes, setAnimatedNotes] = useState([-1, -1, -1]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setPages] = useState([1]);
+  const [setPages] = useState([1]);
 
   const timeoutTempo = 60000 / tempo / 4;
   let intervalId = useRef(null);

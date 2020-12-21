@@ -14,7 +14,7 @@ import {
   playOneToneJsNote,
 } from "../utils";
 import axios from "axios";
-import { globalContext } from "../../context/GlobalContext";
+import { globalContext } from "./context/GlobalContext";
 import { CreateSong as Component } from './Component';
 
 export const CreateSong = (props) => {

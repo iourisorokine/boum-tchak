@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { globalContext } from "../../../context/GlobalContext";
+import { globalContext } from "../context/GlobalContext";
 import { Note } from "./Note";
 import { Line, LineLabel, DeleteButton } from "../../../ui-kit";
 

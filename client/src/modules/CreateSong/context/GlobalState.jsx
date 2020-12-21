@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { config } from "../config/config";
+import { config } from "../../../config/config";
 
 import GlobalContext from "./GlobalContext";
 import GlobalReducer from "./GlobalReducer";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { globalContext } from "../../../context/GlobalContext";
+import { globalContext } from "../context/GlobalContext";
 import { Bars } from "svg-loaders-react";
 import { FixedSizeList } from 'react-window';
 import {

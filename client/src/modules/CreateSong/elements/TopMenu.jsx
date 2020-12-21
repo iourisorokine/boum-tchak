@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Row, Column, PageCircle, Caption, AverageEditBtn } from "../../../ui-kit";
 import { Switch } from '@material-ui/core';
-import { globalContext } from "../../../context/GlobalContext";
+import { globalContext } from "../context/GlobalContext";
 
 export const TopMenu = ({
   clickable = true,
