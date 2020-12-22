@@ -13,7 +13,7 @@ import {
   SET_PAGES,
 } from "./types";
 
-export default (state, action) => {
+export const globalReducer = (state, action) => {
   const { payload, type } = action;
 
   switch (type) {

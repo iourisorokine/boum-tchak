@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import { config } from "../../../config/config";
 
 import GlobalContext from "./GlobalContext";
-import GlobalReducer from "./GlobalReducer";
+import { globalReducer } from "./GlobalReducer";
 import {
   SET_TEMPO,
   SET_TIMEOUT_TEMPO,
@@ -36,7 +36,7 @@ export const GlobalState = (props) => {
     pages: [1],
   };
 
-  const [state, dispatch] = useReducer(GlobalReducer, initialState);
+  const [state, dispatch] = useReducer(globalReducer, initialState);
 
   const setTempo = (value) => {
     dispatch({ type: SET_TEMPO, payload: value });
