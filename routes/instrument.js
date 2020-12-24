@@ -2,11 +2,17 @@ const express = require("express");
 const router = express.Router();
 const Instrument = require("../models/Instrument");
 
+//
 router.get("/", async (req, res) => {
   const { category } = req.query || null;
+  const { names } = req.query || null;
   try {
     const instruments = category
       ? await Instrument.find({ category }).populate("sounds")
+      : names
+      ? await Instrument.find({
+          name: { $in: names },
+        }).populate("sounds")
       : await Instrument.find().populate("sounds");
     if (!instruments) {
       throw new Error({ message: "could not find any instruments" });
@@ -76,15 +82,15 @@ router.post("/", async (req, res) => {
         "An instrument with the same name already exists, please create a unique name",
     });
   }
-  if(sounds.length<2){
+  if (sounds.length < 2) {
     res.json({
       message: "An instrument should contain at least one playable sound",
-    })
+    });
   }
-  if(!name||!category||!subCategory){
+  if (!name || !category || !subCategory) {
     res.json({
       message: "One or several fields are missing",
-    })
+    });
   }
   try {
     const newInstrument = await Instrument.create({
