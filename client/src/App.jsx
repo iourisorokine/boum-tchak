@@ -7,6 +7,8 @@ import { Signup } from "./modules/Auth/Signup";
 import { Profile } from "./modules/Auth/Profile";
 import { ProtectedRoute } from "./modules/Auth/ProtectedRoute";
 import { CreateInstrument } from "./modules/CreateInstrument/CreateInstrument";
+import { DJMode } from "./modules/DJMode/Container";
+import { DjState } from "./modules/DJMode/context/DjState";
 import { Help } from "./modules/InfoPages/Help";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
@@ -105,6 +107,17 @@ class App extends React.Component {
                 } else {
                   return <Redirect to="/" />;
                 }
+              }}
+            />
+            <Route
+              exact
+              path="/dj-mode"
+              render={(props) => {
+                return (
+                  <DjState>
+                    <DJMode />
+                  </DjState>
+                );
               }}
             />
           </Switch>

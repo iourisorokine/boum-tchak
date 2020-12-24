@@ -95,7 +95,7 @@ export const DisplaySong = ({
         )}
       </SongPostPlay>
       <SongHeader>
-        <SongTitle b={true}>{title}</SongTitle>
+        <SongTitle b>{title}</SongTitle>
         <SongTitle>by {creatorName}</SongTitle>
       </SongHeader>
       <MusicGrid>

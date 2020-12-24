@@ -36,9 +36,3 @@ export const playOneToneJsNote = async (pitch) => {
   const now = Tone.now();
   polySynth.triggerAttackRelease(pitch, "8n", now);
 };
-
-export const playBeatSync = (instruments, partition, beatNumber, isActive) => {
-  if (isActive) {
-    playBeat(instruments, partition, beatNumber);
-  }
-};
