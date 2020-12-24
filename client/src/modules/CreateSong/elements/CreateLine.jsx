@@ -35,7 +35,7 @@ export const CreateLine = ({
               sounds={sounds}
               pitches={pitches}
               highlighted={highlightedNote === i}
-              animated={animatedNotes.includes(i)}
+              animated={animatedNotes?.includes(i)}
             />
           );
         }
@@ -46,9 +46,7 @@ export const CreateLine = ({
   return (
     <Line>
       <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
-      <LineLabel width={'100px'}>
-        {label && label}
-      </LineLabel>
+      <LineLabel width={"100px"}>{label && label}</LineLabel>
       {displayNotes}
     </Line>
   );
