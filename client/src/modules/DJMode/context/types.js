@@ -4,3 +4,4 @@ export const SET_HIGHLIGHTED_NOTE = "SET_HIGHLIGHTED_NOTE";
 export const SET_BEAT_COUNTER = "SET_BEAT_COUNTER";
 export const SET_IS_PLAYING = "SET_IS_PLAYING";
 export const SET_LOOP_ACTIVE = "SET_LOOP_ACTIVE";
+export const SET_TEMPO = "SET_TEMPO";

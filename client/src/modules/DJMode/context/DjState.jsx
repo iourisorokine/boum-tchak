@@ -8,6 +8,7 @@ import {
   SET_BEAT_COUNTER,
   SET_IS_PLAYING,
   SET_LOOP_ACTIVE,
+  SET_TEMPO,
 } from "./types";
 
 export const DjState = (props) => {
@@ -15,6 +16,8 @@ export const DjState = (props) => {
     beatCounter: 0,
     highlightedNote: -1,
     isPlaying: false,
+    tempo: 120,
+    complexity: "pro",
     loop1: {
       name: "loop1",
       instruments: [],
@@ -67,16 +70,22 @@ export const DjState = (props) => {
     dispatch({ type: SET_IS_PLAYING, payload: value });
   };
 
+  const setTempo = (value) => {
+    dispatch({ type: SET_TEMPO, payload: value });
+  };
+
   return (
     <DjContext.Provider
       value={{
         beatCounter: state.beatCounter,
         highlightedNote: state.highlightedNote,
+        isPlaying: state.isPlaying,
+        tempo: state.tempo,
         loop1: state.loop1,
         loop2: state.loop2,
         loop3: state.loop3,
         loop4: state.loop4,
-        isPlaying: state.isPlaying,
+        setTempo,
         setIsPlaying,
         setLoopActive,
         setHighlightedNote,

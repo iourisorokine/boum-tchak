@@ -5,6 +5,7 @@ import {
   SET_BEAT_COUNTER,
   SET_IS_PLAYING,
   SET_LOOP_ACTIVE,
+  SET_TEMPO,
 } from "./types";
 
 export const djReducer = (state, action) => {
@@ -51,6 +52,11 @@ export const djReducer = (state, action) => {
       return {
         ...state,
         isPlaying: payload,
+      };
+    case SET_TEMPO:
+      return {
+        ...state,
+        tempo: payload,
       };
     default:
       return state;

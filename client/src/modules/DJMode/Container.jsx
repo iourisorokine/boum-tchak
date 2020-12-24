@@ -18,6 +18,8 @@ export const DJMode = (props) => {
     loop2,
     loop3,
     loop4,
+    tempo,
+    setTempo,
     isPlaying,
     setIsPlaying,
     setLoopActive,
@@ -36,36 +38,12 @@ export const DJMode = (props) => {
     ]);
   }, []);
 
-  const toggleActiveNote = (col, row, sounds, pitches) => {
-    const updatedPartition = [...loop1.partition];
+  const toggleActiveNote = (col, row, sounds, pitches, loop) => {
+    const updatedPartition = [...loop.partition];
     const depth = sounds.length;
     const newIndex = (updatedPartition[row][col] + 1) % depth;
     updatedPartition[row][col] = newIndex;
-    setPartition(updatedPartition, "loop1");
-  };
-
-  const toggleActiveNote2 = (col, row, sounds, pitches) => {
-    const updatedPartition = [...loop2.partition];
-    const depth = sounds.length;
-    const newIndex = (updatedPartition[row][col] + 1) % depth;
-    updatedPartition[row][col] = newIndex;
-    setPartition(updatedPartition, "loop2");
-  };
-
-  const toggleActiveNote3 = (col, row, sounds, pitches) => {
-    const updatedPartition = [...loop3.partition];
-    const depth = sounds.length;
-    const newIndex = (updatedPartition[row][col] + 1) % depth;
-    updatedPartition[row][col] = newIndex;
-    setPartition(updatedPartition, "loop3");
-  };
-
-  const toggleActiveNote4 = (col, row, sounds, pitches) => {
-    const updatedPartition = [...loop4.partition];
-    const depth = sounds.length;
-    const newIndex = (updatedPartition[row][col] + 1) % depth;
-    updatedPartition[row][col] = newIndex;
-    setPartition(updatedPartition, "loop4");
+    setPartition(updatedPartition, loop.name);
   };
 
   const toggleLoopActive = (loop) => {
@@ -75,9 +53,19 @@ export const DJMode = (props) => {
     setLoopActive(updatedStatus, loop.name);
   };
 
+  const resetPartition = (loop) => {
+    const updatedPartition = [...loop.partition];
+    updatedPartition.forEach((line) => {
+      line.forEach((note, index) => {
+        line[index] = 0;
+      });
+    });
+    setPartition(updatedPartition, loop.name);
+  };
+
   const prepareLoop = async (loopName, instruments) => {
     setLoading(true);
-    const length = loopName === "loop3" || loopName === "loop4" ? 8 : 4;
+    const length = loopName === "loop3" || loopName === "loop4" ? 16 : 8;
     const { data } = await axios.get("/api/instrument", {
       params: { names: instruments },
     });
@@ -90,10 +78,11 @@ export const DJMode = (props) => {
 
   const playMusic = () => {
     setIsPlaying(true);
+    const timeoutTempo = 60000 / tempo / 4;
     counter = 0;
 
     const playInterval = () => {
-      setHighlightedNote(counter % 8);
+      setHighlightedNote(counter);
       [loop1, loop2, loop3, loop4].forEach((loop) => {
         if (loop.status[0][0] === 1) {
           playBeat(
@@ -106,7 +95,7 @@ export const DJMode = (props) => {
       counter++;
     };
 
-    musicPlaying.current = setInterval(playInterval, 200);
+    musicPlaying.current = setInterval(playInterval, timeoutTempo);
   };
 
   const onPlayBtnPress = () => {
@@ -115,6 +104,13 @@ export const DJMode = (props) => {
   const onStopBtnPress = () => {
     setIsPlaying(false);
     clearInterval(musicPlaying.current);
+  };
+
+  const onMinusTempoPress = () => {
+    setTempo(tempo - 5);
+  };
+  const onPlusTempoPress = () => {
+    setTempo(tempo + 5);
   };
 
   if (loading) {
@@ -130,12 +126,13 @@ export const DJMode = (props) => {
       onPlayBtnPress={onPlayBtnPress}
       onStopBtnPress={onStopBtnPress}
       toggleLoopActive={toggleLoopActive}
+      resetPartition={resetPartition}
       isPlaying={isPlaying}
+      tempo={tempo}
+      onMinusTempoPress={onMinusTempoPress}
+      onPlusTempoPress={onPlusTempoPress}
       setLoopActive={setLoopActive}
       toggleActiveNote={toggleActiveNote}
-      toggleActiveNote2={toggleActiveNote2}
-      toggleActiveNote3={toggleActiveNote3}
-      toggleActiveNote4={toggleActiveNote4}
       highlightedNote={highlightedNote}
     />
   );

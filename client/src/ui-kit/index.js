@@ -33,6 +33,7 @@ export {
   PageLayout,
   BlankSpace,
   AppIntroLayout,
+  Section,
 } from "./layout";
 export {
   Heading2,
