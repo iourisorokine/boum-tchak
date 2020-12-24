@@ -16,16 +16,25 @@ export const DjState = (props) => {
     highlightedNote: -1,
     isPlaying: false,
     loop1: {
+      name: "loop1",
       instruments: [],
       partition: [],
       status: [[1]],
     },
     loop2: {
+      name: "loop2",
       instruments: [],
       partition: [],
       status: [[1]],
     },
     loop3: {
+      name: "loop3",
+      instruments: [],
+      partition: [],
+      status: [[1]],
+    },
+    loop4: {
+      name: "loop4",
       instruments: [],
       partition: [],
       status: [[1]],
@@ -66,6 +75,7 @@ export const DjState = (props) => {
         loop1: state.loop1,
         loop2: state.loop2,
         loop3: state.loop3,
+        loop4: state.loop4,
         isPlaying: state.isPlaying,
         setIsPlaying,
         setLoopActive,

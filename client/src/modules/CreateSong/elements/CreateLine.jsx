@@ -15,6 +15,7 @@ export const CreateLine = ({
   animatedNotes,
   currentPage,
   lenghtOfPage,
+  hasDeleteButton = true,
 }) => {
   const { deleteLine } = useContext(globalContext);
 
@@ -45,7 +46,9 @@ export const CreateLine = ({
 
   return (
     <Line>
-      <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
+      {hasDeleteButton && (
+        <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
+      )}
       <LineLabel width={"100px"}>{label && label}</LineLabel>
       {displayNotes}
     </Line>

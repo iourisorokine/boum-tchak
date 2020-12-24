@@ -1,21 +1,10 @@
 import React from "react";
-import { CreateLine } from "../CreateSong/elements/CreateLine";
-import { MenuButton, Caption } from "../../ui-kit";
-import { Switch } from "@material-ui/core";
+import { MenuButton } from "../../ui-kit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
+import { Loop } from "./elements/Loop";
 
 const LENGTH_OF_PAGE = 8;
-
-const sectionStyle = {
-  margin: 10,
-  padding: 20,
-  border: "solid #888 1px",
-  borderRadius: 8,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-};
 
 const iconStyle = { width: 16, height: 16 };
 
@@ -23,15 +12,15 @@ export const DJMode = ({
   loop1,
   loop2,
   loop3,
+  loop4,
   isPlaying,
   onPlayBtnPress,
   onStopBtnPress,
-  toggleLoop1Active,
-  toggleLoop2Active,
-  toggleLoop3Active,
+  toggleLoopActive,
   toggleActiveNote,
   toggleActiveNote2,
   toggleActiveNote3,
+  toggleActiveNote4,
   highlightedNote,
 }) => {
   return (
@@ -53,78 +42,34 @@ export const DJMode = ({
         </div>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <div style={sectionStyle}>
-          {loop1.instruments.map((instrument, i) => {
-            return (
-              <CreateLine
-                key={i}
-                linePosition={i}
-                label={instrument.label}
-                notes={loop1.partition[i]}
-                noteColors={instrument.colors}
-                toggleActiveNote={toggleActiveNote}
-                sounds={instrument.sounds}
-                pitches={instrument.pitches}
-                highlightedNote={highlightedNote}
-                currentPage={1}
-                lenghtOfPage={LENGTH_OF_PAGE}
-              />
-            );
-          })}
-          <div
-            style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}>
-            <Switch onChange={toggleLoop1Active} checked={loop1.status[0][0]} />
-            <Caption>On</Caption>
-          </div>
-        </div>
-        <div style={sectionStyle}>
-          {loop2.instruments.map((instrument, i) => {
-            return (
-              <CreateLine
-                key={i}
-                linePosition={i}
-                label={instrument.label}
-                notes={loop2.partition[i]}
-                noteColors={instrument.colors}
-                toggleActiveNote={toggleActiveNote2}
-                sounds={instrument.sounds}
-                pitches={instrument.pitches}
-                highlightedNote={highlightedNote}
-                currentPage={1}
-                lenghtOfPage={LENGTH_OF_PAGE}
-              />
-            );
-          })}
-          <div
-            style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}>
-            <Switch onChange={toggleLoop2Active} checked={loop2.status[0][0]} />
-            <Caption>On</Caption>
-          </div>
-        </div>
-        <div style={sectionStyle}>
-          {loop3.instruments.map((instrument, i) => {
-            return (
-              <CreateLine
-                key={i}
-                linePosition={i}
-                label={instrument.label}
-                notes={loop3.partition[i]}
-                noteColors={instrument.colors}
-                toggleActiveNote={toggleActiveNote3}
-                sounds={instrument.sounds}
-                pitches={instrument.pitches}
-                highlightedNote={highlightedNote}
-                currentPage={1}
-                lenghtOfPage={LENGTH_OF_PAGE}
-              />
-            );
-          })}
-          <div
-            style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}>
-            <Switch onChange={toggleLoop3Active} checked={loop3.status[0][0]} />
-            <Caption>On</Caption>
-          </div>
-        </div>
+        <Loop
+          data={loop1}
+          toggleActiveNote={toggleActiveNote}
+          highlightedNote={highlightedNote}
+          lengthOfPage={LENGTH_OF_PAGE}
+          toggleLoopActive={toggleLoopActive}
+        />
+        <Loop
+          data={loop2}
+          toggleActiveNote={toggleActiveNote2}
+          highlightedNote={highlightedNote}
+          lengthOfPage={LENGTH_OF_PAGE}
+          toggleLoopActive={toggleLoopActive}
+        />
+        <Loop
+          data={loop3}
+          toggleActiveNote={toggleActiveNote3}
+          highlightedNote={highlightedNote}
+          lengthOfPage={LENGTH_OF_PAGE}
+          toggleLoopActive={toggleLoopActive}
+        />
+        <Loop
+          data={loop4}
+          toggleActiveNote={toggleActiveNote4}
+          highlightedNote={highlightedNote}
+          lengthOfPage={LENGTH_OF_PAGE}
+          toggleLoopActive={toggleLoopActive}
+        />
       </div>
     </div>
   );

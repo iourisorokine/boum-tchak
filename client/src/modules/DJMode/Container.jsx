@@ -3,12 +3,7 @@ import { djContext } from "./context/DjContext";
 import axios from "axios";
 import { Bars } from "svg-loaders-react";
 import { DJMode as Component } from "./Component";
-import {
-  preparePartition,
-  prepareInstruments,
-  playBeat,
-  playBeatSync,
-} from "../utils";
+import { preparePartition, prepareInstruments, playBeat } from "../utils";
 
 let counter;
 
@@ -22,19 +17,23 @@ export const DJMode = (props) => {
     loop1,
     loop2,
     loop3,
+    loop4,
     isPlaying,
     setIsPlaying,
     setLoopActive,
-    beatCounter,
-    setBeatCounter,
   } = useContext(djContext);
 
-  let musicPlaying = React.useRef(null);
+  let musicPlaying = useRef(null);
 
   useEffect(() => {
-    prepareLoop("loop1", ["Kicks 1", "E-Hi-Hats 1"]);
-    prepareLoop("loop2", ["Tone Bass Synth Am"]);
-    prepareLoop("loop3", ["Pizzicato C-Maj"]);
+    prepareLoop("loop1", ["E-Kicks 1", "E-Hi-Hats 1", "E-Cymbals"]);
+    prepareLoop("loop2", ["Vinyls 1", "Congas", "Clap 1"]);
+    prepareLoop("loop3", ["Tone Bass Synth Am", "Tone Bass Synth Em"]);
+    prepareLoop("loop4", [
+      "Tone Synth Am Hi",
+      "Tone Synth Chromatic",
+      "Pizzicato C-Maj",
+    ]);
   }, []);
 
   const toggleActiveNote = (col, row, sounds, pitches) => {
@@ -61,46 +60,41 @@ export const DJMode = (props) => {
     setPartition(updatedPartition, "loop3");
   };
 
-  const toggleLoop1Active = () => {
-    const updatedStatus = [...loop1.status];
-    const u = updatedStatus[0][0];
-    updatedStatus[0][0] = u === 1 ? 0 : 1;
-    setLoopActive(updatedStatus, "loop1");
-  };
-  const toggleLoop2Active = () => {
-    const updatedStatus = [...loop2.status];
-    const u = updatedStatus[0][0];
-    updatedStatus[0][0] = u === 1 ? 0 : 1;
-    setLoopActive(updatedStatus, "loop2");
-  };
-  const toggleLoop3Active = () => {
-    const updatedStatus = [...loop3.status];
-    const u = updatedStatus[0][0];
-    updatedStatus[0][0] = u === 1 ? 0 : 1;
-    setLoopActive(updatedStatus, "loop3");
+  const toggleActiveNote4 = (col, row, sounds, pitches) => {
+    const updatedPartition = [...loop4.partition];
+    const depth = sounds.length;
+    const newIndex = (updatedPartition[row][col] + 1) % depth;
+    updatedPartition[row][col] = newIndex;
+    setPartition(updatedPartition, "loop4");
   };
 
-  const prepareLoop = async (loop, instruments) => {
+  const toggleLoopActive = (loop) => {
+    const updatedStatus = [...loop.status];
+    const u = updatedStatus[0][0];
+    updatedStatus[0][0] = u === 1 ? 0 : 1;
+    setLoopActive(updatedStatus, loop.name);
+  };
+
+  const prepareLoop = async (loopName, instruments) => {
     setLoading(true);
-    const length = loop === "loop3" ? 8 : 4;
+    const length = loopName === "loop3" || loopName === "loop4" ? 8 : 4;
     const { data } = await axios.get("/api/instrument", {
       params: { names: instruments },
     });
     const preparedInstruments = prepareInstruments(data);
     const newPartition = preparePartition(preparedInstruments, length);
-    setInstruments(preparedInstruments, loop);
-    setPartition(newPartition, loop);
+    setInstruments(preparedInstruments, loopName);
+    setPartition(newPartition, loopName);
     setLoading(false);
   };
 
   const playMusic = () => {
-    // if (!partition || !partition.length) return;
     setIsPlaying(true);
     counter = 0;
 
     const playInterval = () => {
       setHighlightedNote(counter % 8);
-      [loop1, loop2, loop3].forEach((loop) => {
+      [loop1, loop2, loop3, loop4].forEach((loop) => {
         if (loop.status[0][0] === 1) {
           playBeat(
             loop.instruments,
@@ -132,16 +126,16 @@ export const DJMode = (props) => {
       loop1={loop1}
       loop2={loop2}
       loop3={loop3}
+      loop4={loop4}
       onPlayBtnPress={onPlayBtnPress}
       onStopBtnPress={onStopBtnPress}
-      toggleLoop1Active={toggleLoop1Active}
-      toggleLoop2Active={toggleLoop2Active}
-      toggleLoop3Active={toggleLoop3Active}
+      toggleLoopActive={toggleLoopActive}
       isPlaying={isPlaying}
       setLoopActive={setLoopActive}
       toggleActiveNote={toggleActiveNote}
       toggleActiveNote2={toggleActiveNote2}
       toggleActiveNote3={toggleActiveNote3}
+      toggleActiveNote4={toggleActiveNote4}
       highlightedNote={highlightedNote}
     />
   );
