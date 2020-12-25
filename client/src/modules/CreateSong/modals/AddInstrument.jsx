@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { globalContext } from "../context/GlobalContext";
 import { Bars } from "svg-loaders-react";
-import { FixedSizeList } from 'react-window';
+import { FixedSizeList } from "react-window";
 import {
   CategoryBtn,
   ExpandedMenuItem,
@@ -20,9 +20,7 @@ export const AddInstrument = ({ addInstrument }) => {
   const [loading, setLoading] = useState(false);
   const [uniqueCategories, setUniqueCategories] = useState([]);
 
-  const {
-    toggleIsAddInstrumentVisible,
-  } = useContext(globalContext);
+  const { toggleIsAddInstrumentVisible } = useContext(globalContext);
 
   const fetchInstrumentsData = async (searchCat, shouldCreateBtns) => {
     const searchParams = searchCat && {
@@ -56,13 +54,13 @@ export const AddInstrument = ({ addInstrument }) => {
     fetchInstrumentsData(cat);
     setSearchCategory(cat);
   };
-  
-  const ItemRow = ({index, style}) => {
+
+  const ItemRow = ({ index, style }) => {
     const instrument = newInstruments[index];
-    return(
+    return (
       <SelectableRow
         style={style}
-        bgColor={index % 2 === 0 ? '#eee' : '#fff'}
+        bgColor={index % 2 === 0 ? "#eee" : "#fff"}
         padding="4px 0 4px 0"
         onClick={() => handleClick(instrument)}>
         <Column flex={2}>
@@ -75,8 +73,8 @@ export const AddInstrument = ({ addInstrument }) => {
           <Text>{instrument.subCategory}</Text>
         </Column>
       </SelectableRow>
-    )
-  }
+    );
+  };
 
   return (
     <ExpandedMenuItem>
@@ -106,16 +104,18 @@ export const AddInstrument = ({ addInstrument }) => {
       )}
       <Row padding="4px 12px 0 12px">
         <Column>
-          <FixedSizeList height={260} width={380} itemCount={newInstruments.length} itemSize={30}>
+          <FixedSizeList
+            height={260}
+            width={380}
+            itemCount={newInstruments.length}
+            itemSize={30}>
             {ItemRow}
           </FixedSizeList>
         </Column>
       </Row>
       <Row padding="20px 0 10px 0">
         <Column alignItems="center">
-          <Button
-            hoverColor="red"
-            onClick={toggleIsAddInstrumentVisible}>
+          <Button hoverColor="red" onClick={toggleIsAddInstrumentVisible}>
             Cancel
           </Button>
         </Column>

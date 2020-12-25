@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { djContext } from "./context/DjContext";
 import axios from "axios";
 import { Bars } from "svg-loaders-react";
-import { DJMode as Component } from "./Component";
+import { MixMode as Component } from "./Component";
 import { preparePartition, prepareInstruments, playBeat } from "../utils";
 
 let counter;
 
-export const DJMode = (props) => {
+export const MixMode = (props) => {
   const [loading, setLoading] = useState(false);
   const {
     setPartition,

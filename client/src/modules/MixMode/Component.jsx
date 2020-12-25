@@ -3,7 +3,7 @@ import { Loop } from "./elements/Loop";
 import { Section, Heading2 } from "../../ui-kit";
 import { Controls } from "./elements/Controls";
 
-export const DJMode = ({
+export const MixMode = ({
   loop1,
   loop2,
   loop3,
