@@ -19,8 +19,6 @@ export const DJMode = (props) => {
     loop3,
     loop4,
     tempo,
-    setTempo,
-    isPlaying,
     setIsPlaying,
     setLoopActive,
   } = useContext(djContext);
@@ -53,19 +51,9 @@ export const DJMode = (props) => {
     setLoopActive(updatedStatus, loop.name);
   };
 
-  const resetPartition = (loop) => {
-    const updatedPartition = [...loop.partition];
-    updatedPartition.forEach((line) => {
-      line.forEach((note, index) => {
-        line[index] = 0;
-      });
-    });
-    setPartition(updatedPartition, loop.name);
-  };
-
   const prepareLoop = async (loopName, instruments) => {
     setLoading(true);
-    const length = loopName === "loop3" || loopName === "loop4" ? 16 : 8;
+    const length = loopName === "loop3" || loopName === "loop4" ? 8 : 4;
     const { data } = await axios.get("/api/instrument", {
       params: { names: instruments },
     });
@@ -78,7 +66,7 @@ export const DJMode = (props) => {
 
   const playMusic = () => {
     setIsPlaying(true);
-    const timeoutTempo = 60000 / tempo / 4;
+    const timeoutTempo = 60000 / tempo / 2;
     counter = 0;
 
     const playInterval = () => {
@@ -106,13 +94,6 @@ export const DJMode = (props) => {
     clearInterval(musicPlaying.current);
   };
 
-  const onMinusTempoPress = () => {
-    setTempo(tempo - 5);
-  };
-  const onPlusTempoPress = () => {
-    setTempo(tempo + 5);
-  };
-
   if (loading) {
     return <Bars width={100} height={50} fill="#000" stroke="#000" />;
   }
@@ -126,11 +107,6 @@ export const DJMode = (props) => {
       onPlayBtnPress={onPlayBtnPress}
       onStopBtnPress={onStopBtnPress}
       toggleLoopActive={toggleLoopActive}
-      resetPartition={resetPartition}
-      isPlaying={isPlaying}
-      tempo={tempo}
-      onMinusTempoPress={onMinusTempoPress}
-      onPlusTempoPress={onPlusTempoPress}
       setLoopActive={setLoopActive}
       toggleActiveNote={toggleActiveNote}
       highlightedNote={highlightedNote}

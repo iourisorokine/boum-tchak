@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const Heading2 = styled.h2`
-  padding: 10px 0;
-  margin: 0 0 10px 0;
+  padding: 8px 0;
+  margin: 0 0 8px 0;
 `;
 
 export const Heading3 = styled.h3`
-  padding: 10px 0;
+  padding: 8px 0;
   margin: 0 0 4px 0;
 `;
 
@@ -27,7 +27,7 @@ export const SongTitle = styled.p`
 export const LineLabel = styled.p`
   font-size: 10px;
   line-height: 10px;
-  width: ${(props) => (props.width || "70px")};
+  width: ${(props) => props.width || "70px"};
 `;
 
 export const Text = styled.p`
@@ -39,7 +39,7 @@ export const Text = styled.p`
 
 export const TextSpan = styled.span`
   font-size: 12px;
-`
+`;
 
 export const HeaderTitle = styled.h1`
   padding: 0px 50px;
@@ -52,8 +52,8 @@ export const Alert = styled.p`
 `;
 
 export const Caption = styled.p`
-  color: ${(props)=> props.color || '#888'};
-  margin: ${(props)=> props.margin || '4px 4px 4px 0px'};
-  padding: ${(props)=> props.padding || 'default'};
+  color: ${(props) => props.color || "#888"};
+  margin: ${(props) => props.margin || "4px 4px 4px 0px"};
+  padding: ${(props) => props.padding || "default"};
   font-size: 14px;
-`
+`;

@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import { CreateLine } from "../../CreateSong/elements/CreateLine";
 import { Caption, Section, AverageEditBtn } from "../../../ui-kit";
+import { getRandomLoop } from "../utils/randomLoops";
 import { Switch } from "@material-ui/core";
+import { djContext } from "../context/DjContext";
 
 export const Loop = ({
   data,
   toggleActiveNote,
   highlightedNote,
-  lengthOfPage,
   toggleLoopActive,
-  resetPartition,
 }) => {
+  const { setPartition } = useContext(djContext);
+
+  const resetPartition = (loop) => {
+    const updatedPartition = [...loop.partition];
+    updatedPartition.forEach((line) => {
+      line.forEach((note, index) => {
+        line[index] = 0;
+      });
+    });
+    setPartition(updatedPartition, loop.name);
+  };
+
+  const setRandomLoop = (loop) => {
+    const randomLoop = getRandomLoop(loop.name, "short");
+    const updatedPartition = [...loop.partition];
+    updatedPartition.forEach((line, lineIndex) => {
+      line.forEach((note, noteIndex) => {
+        line[noteIndex] = randomLoop[lineIndex][noteIndex];
+      });
+    });
+    setPartition(updatedPartition, loop.name);
+  };
+
   const onToggleActivePress = () => {
     toggleLoopActive(data);
   };
@@ -19,6 +42,9 @@ export const Loop = ({
   };
   const onResetClick = () => {
     resetPartition(data);
+  };
+  const onRandomBtnClick = () => {
+    setRandomLoop(data);
   };
   return (
     <Section flexDirection="column">
@@ -36,7 +62,7 @@ export const Loop = ({
               pitches={instrument.pitches}
               highlightedNote={highlightedNote % data?.partition[i]?.length}
               currentPage={1}
-              lenghtOfPage={lengthOfPage}
+              lengthOfPage={32}
               hasDeleteButton={false}
             />
           );
@@ -49,13 +75,13 @@ export const Loop = ({
           flexWrap: "wrap",
           alignItems: "center",
         }}>
-        <Switch onChange={onToggleActivePress} checked={data.status[0][0]} />
+        <Switch onChange={onToggleActivePress} checked={!!data.status[0][0]} />
         <Caption>On</Caption>
         <div style={{ padding: "0 0 0 16px" }}>
           <AverageEditBtn onClick={onResetClick}>Reset</AverageEditBtn>
         </div>
         <div style={{ padding: "0 0 0 16px" }}>
-          <AverageEditBtn>Random</AverageEditBtn>
+          <AverageEditBtn onClick={onRandomBtnClick}>Random</AverageEditBtn>
         </div>
       </div>
     </Section>

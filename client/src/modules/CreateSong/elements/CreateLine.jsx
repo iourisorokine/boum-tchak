@@ -14,13 +14,13 @@ export const CreateLine = ({
   label,
   animatedNotes,
   currentPage,
-  lenghtOfPage,
+  lengthOfPage,
   hasDeleteButton = true,
 }) => {
   const { deleteLine } = useContext(globalContext);
 
-  const firstIndex = (currentPage - 1) * lenghtOfPage;
-  const lastIndex = currentPage * lenghtOfPage;
+  const firstIndex = (currentPage - 1) * lengthOfPage;
+  const lastIndex = currentPage * lengthOfPage;
 
   const displayNotes = notes?.length
     ? notes.map((n, i) => {
