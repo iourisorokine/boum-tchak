@@ -53,7 +53,7 @@ export const MixMode = (props) => {
 
   const prepareLoop = async (loopName, instruments) => {
     setLoading(true);
-    const length = loopName === "loop3" || loopName === "loop4" ? 8 : 4;
+    const length = loopName === "loop3" || loopName === "loop4" ? 16 : 8;
     const { data } = await axios.get("/api/instrument", {
       params: { names: instruments },
     });
@@ -66,7 +66,7 @@ export const MixMode = (props) => {
 
   const playMusic = () => {
     setIsPlaying(true);
-    const timeoutTempo = 60000 / tempo / 2;
+    const timeoutTempo = 60000 / tempo / 4;
     counter = 0;
 
     const playInterval = () => {

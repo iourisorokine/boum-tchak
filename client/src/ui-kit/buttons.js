@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  height: 36px;
-  min-width: 36px;
+  height: ${(props) => (props.variant === "big" ? "48px" : "36px")};
+  min-width: ${(props) => (props.variant === "big" ? "60px" : "36px")};
   margin: 8px;
   padding: 0px 10px;
   border-radius: 18px;
@@ -16,22 +16,6 @@ export const Button = styled.button`
     background-color: ${(props) => props.hoverColor || "black"};
     color: white;
   }
-`;
-
-export const PlayButton = styled(Button)`
-  width: 60px;
-  background-color: #0f0;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-`;
-
-export const StopButton = styled(Button)`
-  width: 60px;
-  background-color: #f00;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
 `;
 
 export const MenuButton = styled.div`

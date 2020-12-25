@@ -24,6 +24,14 @@ export const MixMode = ({
           onPlayBtnPress={onPlayBtnPress}
           onStopBtnPress={onStopBtnPress}
         />
+        <Section>
+          <img
+            src="images/cassetteRemix.svg"
+            alt="Cassette"
+            width="100"
+            height="auto"
+          />
+        </Section>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <Loop

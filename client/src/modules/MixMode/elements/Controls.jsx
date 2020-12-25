@@ -4,7 +4,7 @@ import { MenuButton, Section, AverageEditBtn, Caption } from "../../../ui-kit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
 
-const iconStyle = { width: 16, height: 16 };
+const iconStyle = { width: 28, height: 28 };
 
 export const Controls = ({ onPlayBtnPress, onStopBtnPress }) => {
   const { tempo, setTempo, isPlaying } = useContext(djContext);
@@ -19,11 +19,17 @@ export const Controls = ({ onPlayBtnPress, onStopBtnPress }) => {
   return (
     <Section>
       {isPlaying ? (
-        <MenuButton onClick={onStopBtnPress} backgroundColor="#f00">
+        <MenuButton
+          variant="big"
+          onClick={onStopBtnPress}
+          backgroundColor="#f00">
           <FontAwesomeIcon icon={faStop} color="white" style={iconStyle} />
         </MenuButton>
       ) : (
-        <MenuButton onClick={onPlayBtnPress} backgroundColor="#0f0">
+        <MenuButton
+          variant="big"
+          onClick={onPlayBtnPress}
+          backgroundColor="#0f0">
           <FontAwesomeIcon icon={faPlay} color="white" style={iconStyle} />
         </MenuButton>
       )}
@@ -32,6 +38,7 @@ export const Controls = ({ onPlayBtnPress, onStopBtnPress }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          padding: "0 18px",
         }}>
         <AverageEditBtn onClick={onMinusTempoPress}>-</AverageEditBtn>
         <Caption>tempo: {tempo}</Caption>

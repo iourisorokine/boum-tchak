@@ -16,8 +16,6 @@ export {
   MenuButton,
   DeleteButton,
   CategoryBtn,
-  PlayButton,
-  StopButton,
   IconButton,
   SmallEditBtn,
   AverageEditBtn,
