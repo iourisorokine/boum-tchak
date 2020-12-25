@@ -26,7 +26,7 @@ export const MixMode = ({
         />
         <Section>
           <img
-            src="images/cassetteRemix.svg"
+            src="images/CassetteRemix.svg"
             alt="Cassette"
             width="100"
             height="auto"
