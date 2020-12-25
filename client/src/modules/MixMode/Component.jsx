@@ -25,7 +25,7 @@ export const MixMode = ({
           onStopBtnPress={onStopBtnPress}
         />
         <Section>
-          <Img
+          <img
             src="images/CassetteRemix.svg"
             alt="Cassette"
             width="100"
