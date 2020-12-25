@@ -24,7 +24,7 @@ export const Loop = ({
   };
 
   const setRandomLoop = (loop) => {
-    const randomLoop = getRandomLoop(loop.name, "short");
+    const randomLoop = getRandomLoop(loop.name, loop.partition[0].length);
     const updatedPartition = [...loop.partition];
     updatedPartition.forEach((line, lineIndex) => {
       line.forEach((note, noteIndex) => {
