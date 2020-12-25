@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Row = styled.div`
   padding: ${(props) => props.padding || 0};
   display: flex;
-  align-items: ${(props)=> props.alignItems || 'center'};
-  justify-content: ${(props)=> props.justifyContent || 'center'};
+  align-items: ${(props) => props.alignItems || "center"};
+  justify-content: ${(props) => props.justifyContent || "center"};
   width: 100%;
 `;
 
@@ -12,7 +12,8 @@ export const SelectableRow = styled(Row)`
   padding: ${(props) => props.padding || 0};
   cursor: pointer;
   color: ${(props) => (props.selected ? "white" : "black")};
-  background-color: ${(props) => (props.selected ? "black" : props.bgColor || "white")};
+  background-color: ${(props) =>
+    props.selected ? "black" : props.bgColor || "white"};
   &:hover {
     background-color: ${(props) =>
       props.noHoverHighlight && !props.selected ? "white" : "black"};
@@ -81,4 +82,14 @@ export const PageLayout = styled.div`
 
 export const BlankSpace = styled.div`
   height: ${(props) => props.height || "20px"};
+`;
+
+export const Section = styled.div`
+  margin: 10px;
+  padding: 20px;
+  border: solid #888 1px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: ${(props) => props.flexDirection || "row"};
+  justify-content: space-between;
 `;

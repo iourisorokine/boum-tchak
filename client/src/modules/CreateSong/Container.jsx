@@ -14,12 +14,12 @@ import {
   playOneToneJsNote,
 } from "../utils";
 import axios from "axios";
-import { globalContext } from "../../context/GlobalContext";
-import { CreateSong as Component } from './Component';
+import { globalContext } from "./context/GlobalContext";
+import { CreateSong as Component } from "./Component";
 
 export const CreateSong = (props) => {
   const [bottomMessage, setBottomMessage] = useState("");
-  const [highlightedNote, setHighlightedNote] = useState(-1)
+  const [highlightedNote, setHighlightedNote] = useState(-1);
 
   let musicPlaying = React.useRef(null);
 
@@ -104,8 +104,8 @@ export const CreateSong = (props) => {
   };
 
   const removeOneBar = () => {
-    if( partition[0]?.length < 2 ) return;
-    
+    if (partition[0]?.length < 2) return;
+
     const updatedPartition = [...partition];
     const last = updatedPartition[0].length - 1;
     updatedPartition.forEach((el) => {
@@ -117,7 +117,6 @@ export const CreateSong = (props) => {
     setPartition(updatedPartition);
     setPages(pagesUpdate);
     if (currentPage > pagesUpdate.length) setCurrentPage(pagesUpdate.length);
-    
   };
 
   const playMusic = (instruments, partition, tempo) => {
@@ -220,20 +219,20 @@ export const CreateSong = (props) => {
         </ExpandedMenuItem>
       )}
       <TopMenu />
-     
-        <Component 
-          partition={partition}
-          lengthOfPage={lengthOfPage}
-          currentPage={currentPage}
-          pages={pages}
-          instruments={instruments}
-          toggleActiveNote={toggleActiveNote}
-          highlightedNote={highlightedNote}
-          animatedNotes={animatedNotes}
-          toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
-          addOneBar={addOneBar}
-          removeOneBar={removeOneBar}
-        />
+
+      <Component
+        partition={partition}
+        lengthOfPage={lengthOfPage}
+        currentPage={currentPage}
+        pages={pages}
+        instruments={instruments}
+        toggleActiveNote={toggleActiveNote}
+        highlightedNote={highlightedNote}
+        animatedNotes={animatedNotes}
+        toggleIsAddInstrumentVisible={toggleIsAddInstrumentVisible}
+        addOneBar={addOneBar}
+        removeOneBar={removeOneBar}
+      />
       <PlayControls
         onPlayBtnPress={onPlayBtnPress}
         onStopBtnPress={stopPlaying}

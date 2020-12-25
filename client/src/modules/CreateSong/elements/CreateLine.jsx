@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { globalContext } from "../../../context/GlobalContext";
+import { globalContext } from "../context/GlobalContext";
 import { Note } from "./Note";
 import { Line, LineLabel, DeleteButton } from "../../../ui-kit";
 
@@ -14,12 +14,13 @@ export const CreateLine = ({
   label,
   animatedNotes,
   currentPage,
-  lenghtOfPage,
+  lengthOfPage,
+  hasDeleteButton = true,
 }) => {
   const { deleteLine } = useContext(globalContext);
 
-  const firstIndex = (currentPage - 1) * lenghtOfPage;
-  const lastIndex = currentPage * lenghtOfPage;
+  const firstIndex = (currentPage - 1) * lengthOfPage;
+  const lastIndex = currentPage * lengthOfPage;
 
   const displayNotes = notes?.length
     ? notes.map((n, i) => {
@@ -35,7 +36,7 @@ export const CreateLine = ({
               sounds={sounds}
               pitches={pitches}
               highlighted={highlightedNote === i}
-              animated={animatedNotes.includes(i)}
+              animated={animatedNotes?.includes(i)}
             />
           );
         }
@@ -45,10 +46,10 @@ export const CreateLine = ({
 
   return (
     <Line>
-      <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
-      <LineLabel width={'100px'}>
-        {label && label}
-      </LineLabel>
+      {hasDeleteButton && (
+        <DeleteButton onClick={() => deleteLine(linePosition)}>x</DeleteButton>
+      )}
+      <LineLabel width={"100px"}>{label && label}</LineLabel>
       {displayNotes}
     </Line>
   );

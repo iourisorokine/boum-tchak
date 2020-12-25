@@ -28,6 +28,9 @@ export const Header = (props) => {
           <Link style={linkStyle} to="/create">
             <MenuButton>Create</MenuButton>
           </Link>
+          <Link style={linkStyle} to="/mix">
+            <MenuButton>Mix</MenuButton>
+          </Link>
           {props.user ? (
             <Link style={linkStyle} to="/profile">
               <MenuButton>Profile</MenuButton>

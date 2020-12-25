@@ -1,26 +1,35 @@
-import React from 'react';
+import React from "react";
 import { CreateLine } from "./elements/CreateLine";
 import { MusicGrid, AverageEditBtn, LineLabel, Line } from "../../ui-kit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { ToolsLine } from "./elements/ToolsLine";
 
 export const CreateSong = ({
-    partition,
-    lengthOfPage,
-    currentPage,
-    pages,
-    instruments,
-    toggleActiveNote,
-    highlightedNote,
-    animatedNotes,
-    addOneBar,
-    removeOneBar,
-    toggleIsAddInstrumentVisible,
+  partition,
+  lengthOfPage,
+  currentPage,
+  pages,
+  instruments,
+  toggleActiveNote,
+  highlightedNote,
+  animatedNotes,
+  addOneBar,
+  removeOneBar,
+  toggleIsAddInstrumentVisible,
 }) => {
-    return (
-      <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", minWidth: 800}}>
-        <div
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        minWidth: 800,
+      }}>
+      <div
         style={{
           minHeight: 300,
           display: "flex",
@@ -52,33 +61,38 @@ export const CreateSong = ({
                     highlightedNote={highlightedNote}
                     animatedNotes={animatedNotes}
                     currentPage={currentPage}
-                    lenghtOfPage={lengthOfPage}
+                    lengthOfPage={lengthOfPage}
                   />
                 );
               })}
               <Line>
-                <LineLabel width={'124px'}>
-                  <AverageEditBtn onClick={toggleIsAddInstrumentVisible}>+ Add instrument</AverageEditBtn>
+                <LineLabel width={"124px"}>
+                  <AverageEditBtn onClick={toggleIsAddInstrumentVisible}>
+                    + Add instrument
+                  </AverageEditBtn>
                 </LineLabel>
               </Line>
-          </React.Fragment>
+            </React.Fragment>
           ) : (
-            <AverageEditBtn padding={'8px 8px 8px 8px'} onClick={toggleIsAddInstrumentVisible}>
-              No partition to display yet... Click here to add your first instrument
+            <AverageEditBtn
+              padding={"8px 8px 8px 8px"}
+              onClick={toggleIsAddInstrumentVisible}>
+              No partition to display yet... Click here to add your first
+              instrument
             </AverageEditBtn>
           )}
         </MusicGrid>
       </div>
-      {!!instruments?.length &&(
-        <div style={{display: "flex"}}>
-          <AverageEditBtn height='160px' onClick={removeOneBar}>
-            <FontAwesomeIcon icon={faChevronLeft}/>
+      {!!instruments?.length && (
+        <div style={{ display: "flex" }}>
+          <AverageEditBtn height="160px" onClick={removeOneBar}>
+            <FontAwesomeIcon icon={faChevronLeft} />
           </AverageEditBtn>
-          <AverageEditBtn height='160px' onClick={addOneBar}>
-            <FontAwesomeIcon icon={faChevronRight}/>
+          <AverageEditBtn height="160px" onClick={addOneBar}>
+            <FontAwesomeIcon icon={faChevronRight} />
           </AverageEditBtn>
         </div>
       )}
-      </div>
-    );
-}
+    </div>
+  );
+};

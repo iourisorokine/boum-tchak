@@ -16,8 +16,6 @@ export {
   MenuButton,
   DeleteButton,
   CategoryBtn,
-  PlayButton,
-  StopButton,
   IconButton,
   SmallEditBtn,
   AverageEditBtn,
@@ -33,6 +31,7 @@ export {
   PageLayout,
   BlankSpace,
   AppIntroLayout,
+  Section,
 } from "./layout";
 export {
   Heading2,

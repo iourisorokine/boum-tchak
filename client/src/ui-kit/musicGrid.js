@@ -43,7 +43,7 @@ export const StyledNote = styled.div`
   color: white;
   box-shadow: 3px 3px 5px ${(props) => props.color};
   background-color: ${(props) => props.color};
-  opacity: ${(props) => (props.highlighted ? 0.7 : 1)};
+  opacity: ${(props) => (props.highlighted ? 0.5 : 1)};
   cursor: pointer;
   &:hover {
     height: ${(props) => (props.clickable ? "24px" : "30px")};
@@ -70,8 +70,8 @@ export const PageCircle = styled.div`
 
 export const BarIndicator = styled.div`
   border-bottom: 1px solid #aaa;
-  width: ${(props) => props.width || '138px'};
-  height: ${(props) => props.height || 'default'};
+  width: ${(props) => props.width || "138px"};
+  height: ${(props) => props.height || "default"};
   margin: 0px 3px 12px 3px;
   font-size: 10px;
   color: #aaa;

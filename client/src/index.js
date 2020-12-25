@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import { GlobalState } from "./context/GlobalState";
+import { GlobalState } from "./modules/CreateSong/context/GlobalState";
 import axios from "axios";
 
 const renderApp = async () => {

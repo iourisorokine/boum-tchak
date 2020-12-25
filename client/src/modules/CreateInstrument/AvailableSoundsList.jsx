@@ -6,7 +6,6 @@ import { getCategories, getSubCategories } from "../utils";
 import {
   Row,
   Column,
-  SelectableText,
   Heading3,
   Select,
   Option,
@@ -115,9 +114,15 @@ export const AvailableSoundsList = ({
                 onClick={playSound}
               />
             </Column>
-            {["name", "category", "subCategory", "pitch"].map((columnTitle, index) => {
-              return <Column key={index} flex={2}>{el[columnTitle]}</Column>;
-            })}
+            {["name", "category", "subCategory", "pitch"].map(
+              (columnTitle, index) => {
+                return (
+                  <Column key={index} flex={2}>
+                    {el[columnTitle]}
+                  </Column>
+                );
+              }
+            )}
           </SelectableRow>
         );
       })}

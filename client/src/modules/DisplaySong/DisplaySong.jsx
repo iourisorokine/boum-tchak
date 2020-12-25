@@ -9,7 +9,6 @@ import {
   SongPostPlay,
   SongHeader,
   SongTitle,
-  Row,
 } from "../../ui-kit";
 
 const iconsStyle = {
@@ -28,7 +27,7 @@ export const DisplaySong = ({
   partition,
   musicLines,
   tempo,
-  creatorName
+  creatorName,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [highlightedNote, setHighlightedNote] = useState(-1);
@@ -96,7 +95,7 @@ export const DisplaySong = ({
         )}
       </SongPostPlay>
       <SongHeader>
-        <SongTitle b={true}>{title}</SongTitle>
+        <SongTitle b>{title}</SongTitle>
         <SongTitle>by {creatorName}</SongTitle>
       </SongHeader>
       <MusicGrid>

@@ -13,7 +13,7 @@ import {
   SET_PAGES,
 } from "./types";
 
-export default (state, action) => {
+export const globalReducer = (state, action) => {
   const { payload, type } = action;
 
   switch (type) {
@@ -66,17 +66,17 @@ export default (state, action) => {
       return {
         ...state,
         animatedNotes: payload,
-      }
+      };
     case SET_CURRENT_PAGE:
       return {
         ...state,
         currentPage: payload,
-      }
+      };
     case SET_PAGES:
       return {
         ...state,
         pages: payload,
-      }
+      };
     default:
       return state;
   }
