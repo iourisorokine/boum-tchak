@@ -39,7 +39,7 @@ export {
   HeaderTitle,
   LineLabel,
   SongHeader,
-  SongTitle,
+  SmallTitle,
   Alert,
   Text,
   TextSpan,
