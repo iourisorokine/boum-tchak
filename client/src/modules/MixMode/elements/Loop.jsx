@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CreateLine } from "../../CreateSong/elements/CreateLine";
-import { Caption, Section, AverageEditBtn } from "../../../ui-kit";
+import { Caption, Section, AverageEditBtn, SmallTitle } from "../../../ui-kit";
 import { getRandomLoop } from "../utils/randomLoops";
 import { Switch } from "@material-ui/core";
 import { djContext } from "../context/DjContext";
@@ -48,6 +48,7 @@ export const Loop = ({
   };
   return (
     <Section flexDirection="column">
+      <SmallTitle b style={{margin: "-8px 0 8px -10px"}}>{data.name}</SmallTitle>
       <div>
         {data.instruments.map((instrument, i) => {
           return (
