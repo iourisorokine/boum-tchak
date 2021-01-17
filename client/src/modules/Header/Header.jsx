@@ -36,14 +36,9 @@ export const Header = (props) => {
               <MenuButton>Profile</MenuButton>
             </Link>
           ) : (
-            <React.Fragment>
-              <Link style={linkStyle} to="/signup">
-                <MenuButton>Signup</MenuButton>
-              </Link>
-              <Link style={textLinkStyle} to="/login">
-                Login
-              </Link>
-            </React.Fragment>
+            <Link style={textLinkStyle} to="/login">
+              Login
+            </Link>
           )}
           <Link style={textLinkStyle} to="/help">
             Help

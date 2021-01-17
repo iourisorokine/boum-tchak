@@ -1,9 +1,9 @@
 /*
     These random loops are solely adapted to the following instruments collection:
-    loop1: ["E-Kicks 1", "E-Hi-Hats 1", "E-Cymbals"]
-    loop2: ["Vinyls 1", "Congas", "Clap 1"]
-    loop3: ["Tone Bass Synth Am", "Tone Bass Synth Em"]
-    loop4: [
+    Drums: ["E-Kicks 1", "E-Hi-Hats 1", "E-Cymbals"]
+    Percussion: ["Vinyls 1", "Congas", "Clap 1"]
+    Bass: ["Tone Bass Synth Am", "Tone Bass Synth Em"]
+    Melody: [
       "Tone Synth Am Hi",
       "Tone Synth Chromatic",
       "Pizzicato C-Maj",
@@ -12,7 +12,7 @@
 */
 
 export const randomLoops = {
-  loop1: {
+  Drums: {
     4: [
       [
         [1, 0, 1, 0],
@@ -78,7 +78,7 @@ export const randomLoops = {
       ],
     ],
   },
-  loop2: {
+  Percussion: {
     4: [
       [
         [1, 2, 2, 1],
@@ -109,7 +109,7 @@ export const randomLoops = {
       ],
     ],
   },
-  loop3: {
+  Bass: {
     8: [
       [
         [1, 0, 0, 0, 1, 0, 0, 0],
@@ -131,7 +131,7 @@ export const randomLoops = {
       ],
     ],
   },
-  loop4: {
+  Melody: {
     8: [
       [
         [1, 0, 0, 0, 1, 0, 0, 0],

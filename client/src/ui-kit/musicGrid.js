@@ -34,8 +34,8 @@ const notesPlayingAnimation = keyframes`
 `;
 
 export const StyledNote = styled.div`
-  height: 30px;
-  width: 30px;
+  height: 28px;
+  width: 28px;
   margin: 3px;
   display: flex;
   align-items: center;
@@ -46,8 +46,8 @@ export const StyledNote = styled.div`
   opacity: ${(props) => (props.highlighted ? 0.5 : 1)};
   cursor: pointer;
   &:hover {
-    height: ${(props) => (props.clickable ? "24px" : "30px")};
-    width: ${(props) => (props.clickable ? "24px" : "30px")};
+    height: ${(props) => (props.clickable ? "22px" : "28px")};
+    width: ${(props) => (props.clickable ? "22px" : "28px")};
     margin: ${(props) => (props.clickable ? "6px" : "3px")};
   }
   animation-name: ${(props) => props.animated && notesPlayingAnimation};

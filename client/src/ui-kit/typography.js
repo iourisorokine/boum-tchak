@@ -17,7 +17,7 @@ export const SongHeader = styled.div`
   justify-content: space-between;
 `;
 
-export const SongTitle = styled.p`
+export const SmallTitle = styled.p`
   padding: 0px 10px;
   background-color: white;
   font-weight: ${(props) => (props.b ? "bold" : "regular")};

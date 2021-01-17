@@ -8,7 +8,7 @@ import {
   SongPost,
   SongPostPlay,
   SongHeader,
-  SongTitle,
+  SmallTitle,
 } from "../../ui-kit";
 
 const iconsStyle = {
@@ -95,8 +95,8 @@ export const DisplaySong = ({
         )}
       </SongPostPlay>
       <SongHeader>
-        <SongTitle b>{title}</SongTitle>
-        <SongTitle>by {creatorName}</SongTitle>
+        <SmallTitle b>{title}</SmallTitle>
+        <SmallTitle>by {creatorName}</SmallTitle>
       </SongHeader>
       <MusicGrid>
         {musicLines.map((line, i) => {

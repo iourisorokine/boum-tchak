@@ -1,19 +1,19 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  height: ${(props) => (props.variant === "big" ? "48px" : "36px")};
+  height: ${(props) => (props.variant === "big" ? "48px" : "32px")};
   min-width: ${(props) => (props.variant === "big" ? "60px" : "36px")};
   margin: 8px;
   padding: 0px 10px;
-  border-radius: 18px;
-  border: solid 1px black;
+  border-radius: 5px;
+  border: solid 1px #555;
+  color: #333;
   background-color: ${(props) => props.backgroundColor || "white"};
   font-size: 14px;
-  box-shadow: 3px 3px 5px #bbb;
   cursor: pointer;
   transition: background-color 0.7s, color 0.7s;
   &:hover {
-    background-color: ${(props) => props.hoverColor || "black"};
+    background-color: ${(props) => props.hoverColor || "#555"};
     color: white;
   }
 `;

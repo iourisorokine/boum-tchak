@@ -163,6 +163,7 @@ export const CreateSong = (props) => {
     newPartition.push(newPartitionRow);
     setInstruments(newInstruments);
     setPartition(newPartition);
+    stopPlaying();
   };
 
   const toggleActiveNote = (col, row, sounds, pitches) => {
