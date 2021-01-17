@@ -85,8 +85,8 @@ export const BlankSpace = styled.div`
 `;
 
 export const Section = styled.div`
-  margin: 10px;
-  padding: 16px;
+  margin: 4px;
+  padding: 12px;
   border: solid #888 1px;
   border-radius: 8px;
   display: flex;

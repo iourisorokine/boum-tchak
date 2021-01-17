@@ -61,9 +61,10 @@ export const Loop = ({
     setRandomLoop(data);
   };
   return (
-    <Section flexDirection="column">
-      <SmallTitle b style={{margin: "-4px 0 8px -10px"}}>{data.name}</SmallTitle>
+    <Section>
+      <div style={{display: 'flex'}}>
       <div>
+      <SmallTitle b style={{margin: "-4px 0 8px -10px"}}>{data.name}</SmallTitle>
         {data.instruments.map((instrument, i) => {
           return (
             <CreateLine
@@ -86,18 +87,19 @@ export const Loop = ({
       <div
         style={{
           paddingTop: 12,
-          display: "flex",
-          flexWrap: "wrap",
           alignItems: "center",
         }}>
+        <div style={{display: 'flex', alignItems: 'center'}}>
         <Switch onChange={onToggleActivePress} checked={!!data.status[0][0]} />
         <Caption>On</Caption>
+        </div>
         <div style={{ padding: "0 0 0 12px" }}>
           <AverageEditBtn onClick={onResetClick}>Reset</AverageEditBtn>
         </div>
         <div style={{ padding: "0 0 0 12px" }}>
           <AverageEditBtn onClick={onRandomBtnClick}>Random</AverageEditBtn>
         </div>
+      </div>
       </div>
     </Section>
   );
