@@ -92,4 +92,7 @@ export const Section = styled.div`
   display: flex;
   flex-direction: ${(props) => props.flexDirection || "row"};
   justify-content: space-between;
+  &:hover {
+    background-color: ${(props) => props.clickable ? '#aaa' : 'default'};
+  }
 `;
