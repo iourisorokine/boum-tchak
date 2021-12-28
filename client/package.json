@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "@boum-tchak/client",
+  "version": "1.0.0",
   "proxy": "http://localhost:5555",
   "private": true,
   "dependencies": {
