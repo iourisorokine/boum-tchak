@@ -56,7 +56,7 @@ app.use(
 
 console.log("#### dir name", __dirname);
 
-app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 // ADD SESSION SETTINGS HERE:
 
@@ -103,7 +103,7 @@ app.use("/api/sound", soundRoutes);
 
 // If no routes match, react html is sent
 app.use((req, res) => {
-  res.sendFile(__dirname + "../client/public/index.html");
+  res.sendFile(__dirname + "/client/public/index.html");
 });
 
 module.exports = app;
