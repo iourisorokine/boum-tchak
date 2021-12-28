@@ -8,6 +8,8 @@
     "dev-windows": "nodemon ./bin/www"
   },
   "nodemonConfig": {
-    "ignore": ["client/*"]
+    "ignore": [
+      "client/*"
+    ]
   }
 }
