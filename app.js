@@ -10,7 +10,7 @@ const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
 
-require("./configs/passport");
+require("./server/configs/passport");
 
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/boum-tchak", {
@@ -25,7 +25,7 @@ mongoose
     console.error("Error connecting to mongo", err);
   });
 
-const app_name = require("../package.json").name;
+const app_name = require("./package.json").name;
 const debug = require("debug")(
   `${app_name}:${path.basename(__filename).split(".")[0]}`
 );
@@ -54,7 +54,9 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "/client/build")));
+console.log("#### dir name", __dirname);
+
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 // ADD SESSION SETTINGS HERE:
 
@@ -80,28 +82,28 @@ app.locals.title = "Express React app";
 
 // ROUTES MIDDLEWARE STARTS HERE:
 
-const index = require("./routes/index");
+const index = require("./server/routes/index");
 app.use("/", index);
 
-const userRoutes = require("./routes/user");
+const userRoutes = require("./server/routes/user");
 app.use("/api/user", userRoutes);
 
-const authRoutes = require("./routes/auth");
+const authRoutes = require("./server/routes/auth");
 app.use("/api/auth", authRoutes);
 
-const instrumentRoutes = require("./routes/instrument");
+const instrumentRoutes = require("./server/routes/instrument");
 app.use("/api/instrument", instrumentRoutes);
 
-const songRoutes = require("./routes/song");
+const songRoutes = require("./server/routes/song");
 app.use("/api/song", songRoutes);
 app.use("/create/api/song", songRoutes);
 
-const soundRoutes = require("./routes/sound");
+const soundRoutes = require("./server/routes/sound");
 app.use("/api/sound", soundRoutes);
 
 // If no routes match, react html is sent
 app.use((req, res) => {
-  res.sendFile(__dirname + "/client/public/index.html");
+  res.sendFile(__dirname + "../client/public/index.html");
 });
 
 module.exports = app;
