@@ -54,8 +54,6 @@ app.use(
   })
 );
 
-console.log("#### dir name", __dirname);
-
 app.use(express.static(path.join(__dirname, "/client/build")));
 
 // ADD SESSION SETTINGS HERE:
