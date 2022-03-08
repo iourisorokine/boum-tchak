@@ -1,6 +1,6 @@
 {
-  "name": "boum-tchak",
-  "version": "0.0.0",
+  "name": "@boum-tchak/server",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -33,7 +33,7 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "client/*"
+      "../client/*"
     ]
   }
 }
