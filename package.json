@@ -23,7 +23,7 @@
     "morgan": "^1.9.0",
     "multer": "^1.4.4",
     "multer-storage-cloudinary": "^2.2.1",
-    "node-sass-middleware": "^0.11.0",
+    "node-sass-middleware": "1.0.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0"
@@ -31,8 +31,8 @@
   "devDependencies": {
     "nodemon": "^2.0.15"
   },
-  "engines" : { 
-    "node" : "16.x"
+  "engines" : {
+    "node":"16.x"
   },
   "nodemonConfig": {
     "ignore": [
