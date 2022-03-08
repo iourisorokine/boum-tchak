@@ -31,6 +31,10 @@
   "devDependencies": {
     "nodemon": "^2.0.15"
   },
+  "engines" : { 
+    "npm" : ">=7.0.0",
+    "node" : ">=16.0.0"
+  },
   "nodemonConfig": {
     "ignore": [
       "../client/*"
