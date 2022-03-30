@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { CreateSong } from "./modules/CreateSong/Container";
 import { SongsList } from "./modules/DisplaySong/SongsList";
 import { LoadSong } from "./modules/LoadSong/LoadSong";
@@ -15,21 +15,12 @@ import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
 import { Header } from "./modules/Header/Header";
 import "./App.css";
 
-class App extends React.Component {
-  state = {
-    user: this.props.user,
-  };
+export const App = ({user}) => {
+  const [currentUser, setCurrentUser] = useState(user)
 
-  setUser = (user) => {
-    this.setState({
-      user: user,
-    });
-  };
-
-  render() {
     return (
       <MainScreen>
-        <Header user={this.state.user} />
+        <Header user={currentUser} />
         <Wrapper>
           <BackHeader />
           <Switch>
@@ -37,7 +28,7 @@ class App extends React.Component {
               exact
               path="/create"
               render={(props) => (
-                <CreateSong user={this.state.user} {...props} />
+                <CreateSong user={currentUser} {...props} />
               )}
             />
             <Route exact path="/help" render={(props) => <Help {...props} />} />
@@ -45,15 +36,15 @@ class App extends React.Component {
               exact
               path="/create/:id"
               render={(props) => (
-                <CreateSong user={this.state.user} {...props} />
+                <CreateSong user={currentUser} {...props} />
               )}
             />
             <Route
               exact
               path="/login"
               render={(props) => {
-                if (!this.state.user) {
-                  return <Login setUser={this.setUser} {...props} />;
+                if (!currentUser) {
+                  return <Login setUser={setCurrentUser} {...props} />;
                 } else {
                   return <Redirect to="/" />;
                 }
@@ -63,8 +54,8 @@ class App extends React.Component {
               exact
               path="/signup"
               render={(props) => {
-                if (!this.state.user) {
-                  return <Signup setUser={this.setUser} {...props} />;
+                if (!currentUser) {
+                  return <Signup setUser={setCurrentUser} {...props} />;
                 } else {
                   return <Redirect to="/" />;
                 }
@@ -73,15 +64,15 @@ class App extends React.Component {
             <ProtectedRoute
               exact
               path="/profile"
-              user={this.state.user}
-              setUser={this.setUser}
+              user={currentUser}
+              setUser={setCurrentUser}
               component={Profile}
             />
             <ProtectedRoute
               exact
               path="/create-instrument"
-              user={this.state.user}
-              setUser={this.setUser}
+              user={currentUser}
+              setUser={setCurrentUser}
               component={CreateInstrument}
             />
             <Route
@@ -102,8 +93,8 @@ class App extends React.Component {
               exact
               path="/load-song"
               render={(props) => {
-                if (this.state.user) {
-                  return <LoadSong user={this.state.user} {...props} />;
+                if (currentUser) {
+                  return <LoadSong user={currentUser} {...props} />;
                 } else {
                   return <Redirect to="/" />;
                 }
@@ -124,7 +115,4 @@ class App extends React.Component {
         </Wrapper>
       </MainScreen>
     );
-  }
 }
-
-export default App;
