@@ -34,10 +34,7 @@
     "eject": "react-scripts eject"
   },
   "engines": {
-    "node": "14.x"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "node": "16.x"
   },
   "browserslist": {
     "production": [
