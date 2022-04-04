@@ -1,39 +1,63 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
+import { login, signup } from "./utils";
+import { Link } from "react-router-dom";
 import {
   Input,
   Button,
+  PageLayout,
   Label,
   Row,
   Column,
   Alert,
-  PageLayout,
-  BlankSpace,
   Heading2,
+  BlankSpace,
 } from "../../ui-kit";
-import { Link } from "react-router-dom";
-import { signup } from "./utils";
 
-export const Signup = (props) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+export enum Variant {
+  login = "login",
+  signup = "signup",
+}
+
+export interface LoginProps {
+  setUser: any;
+  history: any;
+  variant: Variant;
+}
+
+export const Auth: FC<LoginProps> = ({setUser, history, variant}) => {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const linkStyle = {
     textDecoration: "none",
     color: "black",
   };
 
-  const handleSignup = async (e) => {
+  const handleLogin = async () => {
+    const data = await login(username, password);
+    if (data.message) {
+      setMessage(data.message);
+    } else {
+      setUser(data);
+      history.push("/");
+    }
+  };
+
+  const handleSignup = async (e: any) => {
     const data = await signup(username, password);
     if (data.message) {
       setMessage(data.message);
     } else {
-      props.setUser(data);
-      props.history.push("/");
+      setUser(data);
+      history.push("/");
     }
   };
 
-  const handleChange = (e) => {
+  const handleCta = variant === Variant.login ? handleLogin : handleSignup;
+  const ctaLabel = variant === Variant.login? "Login" : "Signup";
+
+  const handleChange = (e: any) => {
     if (e.target.name === "username") {
       setUsername(e.target.value);
     }
@@ -47,7 +71,7 @@ export const Signup = (props) => {
       <Row>
         <Column />
         <Column flex={1}>
-          <Heading2>Signup</Heading2>
+          <Heading2>Login</Heading2>
           <Row>
             <Column>
               <Label htmlFor="username">Username:</Label>
@@ -82,10 +106,10 @@ export const Signup = (props) => {
           <Row>
             <Column alignItems={"center"}>
               {message && <Alert>{message}</Alert>}
-              <Button onClick={handleSignup}>Submit</Button>
-              <p>Already have a profile?</p>
-              <Link to="/login" style={linkStyle}>
-                login
+              <Button onClick={handleCta}>{ctaLabel}</Button>
+              <p>No profile yet?</p>
+              <Link to="/signup" style={linkStyle}>
+                signup
               </Link>
             </Column>
           </Row>
