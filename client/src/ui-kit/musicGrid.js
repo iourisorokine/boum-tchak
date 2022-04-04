@@ -12,31 +12,31 @@ export const Line = styled.div`
 
 const notesPlayingAnimation = keyframes`
  0% { 
-   height: 30px; 
-   width: 30px;
+   height: 26px; 
+   width: 26px;
    margin: 3px; 
   }
   20% { 
-   height: 24px; 
-   width: 24px;
+   height: 20px; 
+   width: 20px;
    margin: 6px; 
     }
  30% { 
-   height: 32px; 
-    width: 32px;  
+   height: 28px; 
+    width: 28px;  
     margin: 2px;
 }
  100% { 
-   height: 30px; 
-   width: 30px;
+   height: 26px; 
+   width: 26px;
    margin: 3px; 
  }
 `;
 
 export const StyledNote = styled.div`
-  height: 28px;
-  width: 28px;
-  margin: 3px;
+  height: 24px;
+  width: 24px;
+  margin: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,8 +46,8 @@ export const StyledNote = styled.div`
   opacity: ${(props) => (props.highlighted ? 0.5 : 1)};
   cursor: pointer;
   &:hover {
-    height: ${(props) => (props.clickable ? "22px" : "28px")};
-    width: ${(props) => (props.clickable ? "22px" : "28px")};
+    height: ${(props) => (props.clickable ? "18px" : "24px")};
+    width: ${(props) => (props.clickable ? "18px" : "24px")};
     margin: ${(props) => (props.clickable ? "6px" : "3px")};
   }
   animation-name: ${(props) => props.animated && notesPlayingAnimation};

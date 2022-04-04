@@ -11,7 +11,7 @@ export const Heading3 = styled.h3`
 `;
 
 export const SongHeader = styled.div`
-  margin-top: -32px;
+  margin-top: -16px;
   padding: 0px 12px;
   display: flex;
   justify-content: space-between;
@@ -19,7 +19,6 @@ export const SongHeader = styled.div`
 
 export const SmallTitle = styled.p`
   padding: 0px 10px;
-  background-color: white;
   font-weight: ${(props) => (props.b ? "bold" : "regular")};
   font-size: 12px;
 `;
