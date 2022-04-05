@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "./utils";
 import {
@@ -9,20 +9,26 @@ import {
   ProfilePic,
   Heading2,
 } from "../../ui-kit";
+import { User } from '../../types';
 
-export const Profile = (props) => {
+export interface ProfileProps {
+  user: User;
+  setUser: (user: User | null) => void;
+  history: any;
+}
+
+export const Profile: FC<ProfileProps> = ({user, setUser, history}) => {
   const [message, setMessage] = useState("");
 
   const onLogoutBtnClick = async () => {
     await logout();
-    props.setUser(null);
-    props.history.push("/");
+    setUser(null);
+    history.push("/");
   };
 
   const onCreateInstrumentBtnClick = () => {
-    const isUserAdmin = props.user && props.user.admin === true;
-    if (isUserAdmin) {
-      props.history.push("/create-instrument");
+    if (user?.admin) {
+      history.push("/create-instrument");
     } else {
       setMessage("Coming soon, stay tuned...");
       setInterval(() => {
@@ -31,7 +37,7 @@ export const Profile = (props) => {
     }
   };
 
-  if (!props.user) {
+  if (!user) {
     return (
       <PageLayout>
         <Heading2>No Profile...</Heading2>
@@ -58,7 +64,7 @@ export const Profile = (props) => {
           />
         </Column>
         <Column justifyContent="flex-start" flex={3}>
-          <h3>Hello, {props.user.username}</h3>
+          <h3>Hello, {user.username}</h3>
           <p>Are you ready to create some funky beats today?</p>
           <Row>
             <Link to="/load-song">
