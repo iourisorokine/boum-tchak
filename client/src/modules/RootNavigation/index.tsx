@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { User } from '../../types';
 import { CreateSong } from '../CreateSong/Container';
-import { SongsList } from '../DisplaySong/SongsList';
+import { SongsList } from '../SongsList';
 import { LoadSong } from '../LoadSong/LoadSong';
 import { Auth, Variant } from '../Auth';
 import { Profile } from '../Auth/Profile';
