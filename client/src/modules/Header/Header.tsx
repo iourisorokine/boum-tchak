@@ -1,6 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { HeaderLayout, HeaderTitle, MenuButton, Wrapper } from "../../ui-kit";
+import { User } from '../../types';
 
 const linkStyle = {
   textDecoration: "none",
@@ -13,7 +14,11 @@ const textLinkStyle = {
   padding: "0 8px",
 };
 
-export const Header = (props) => {
+export interface HeaderProps {
+  user: User;
+}
+
+export const Header: FC<HeaderProps> = ({ user }) => {
   return (
     <HeaderLayout>
       <Wrapper flexDirection="row" justifyContent="space-between">
@@ -31,7 +36,7 @@ export const Header = (props) => {
           <Link style={linkStyle} to="/mix">
             <MenuButton>Mix</MenuButton>
           </Link>
-          {props.user ? (
+          {user ? (
             <Link style={linkStyle} to="/profile">
               <MenuButton>Profile</MenuButton>
             </Link>

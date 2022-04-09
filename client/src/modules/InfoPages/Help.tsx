@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { Row, Column, PageLayout, Heading2, Heading3 } from "../../ui-kit";
 
-export const Help = () => {
+export const Help: FC = () => {
   return (
     <PageLayout>
       <Row>

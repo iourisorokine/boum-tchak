@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +11,7 @@ import {
   Heading3
 } from "../../ui-kit";
 
-export const AppIntro = () => {
+export const AppIntro: FC = () => {
   const chevronStyle = {
     padding: 4,
     paddingTop: 32,
@@ -80,16 +80,19 @@ export const AppIntro = () => {
       <Row>
         <Column flexDirection="row" justifyContent="center" alignItems="center">
           <FontAwesomeIcon
+          // @ts-ignore:next-line
             icon={faChevronDown}
             style={chevronStyle}
             color="black"
           />
           <FontAwesomeIcon
+          // @ts-ignore:next-line
             icon={faChevronDown}
             style={chevronStyle}
             color="black"
           />
           <FontAwesomeIcon
+          // @ts-ignore:next-line
             icon={faChevronDown}
             style={chevronStyle}
             color="black"
