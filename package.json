@@ -29,9 +29,7 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
-    "prettier": "^2.6.1",
-    "prettierrc": "^0.0.0-5"
+    "nodemon": "^2.0.15"
   },
   "engines": {
     "node": "16.x"
