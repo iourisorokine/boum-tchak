@@ -4,6 +4,10 @@ const Song = require("../models/Song");
 const User = require("../models/User");
 
 router.get("/", async (req, res) => {
+  console.log('Songs request status code:', req.statusCode)
+  const randomNumber = Math.ceil(Math.random() * 1000);
+  console.log(`Generating random number... ${randomNumber}`)
+  console.log('Response status code:', res.statusCode, res.statusMessage)
   try {
     const allSongs = await Song.find().populate({ 
       path: "instruments",
@@ -39,6 +43,10 @@ router.get("/creator/:creatorId", async (req, res) => {
 });
 
 router.get("/posted/:page", async (req, res) => {
+  console.log('Songs porsted page 1 request status code:', req.statusCode)
+  const randomNumber = Math.ceil(Math.random() * 1000);
+  console.log(`Generating random number... ${randomNumber}`)
+  console.log('Response status code:', res.statusCode, res.statusMessage)
   const { page } = req.params;
   const lengthOfPage = 5;
   const firstIndex = (page - 1) * lengthOfPage;
@@ -58,6 +66,9 @@ router.get("/posted/:page", async (req, res) => {
 
     if(!songs || !songs.length){
       res.json({message: "No songs found..."})
+    }
+    if(res.statusCode === 304){
+      console.log(' Status code 304 generate after responding to songs posted...')
     }
     if (songs) {
       res.json(songs);
