@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const signup = (username, password) => {
+export const signup = (username: string, password: string) => {
   return axios
     .post("/api/auth/signup", { username, password })
     .then((response) => {
@@ -11,7 +11,7 @@ export const signup = (username, password) => {
     });
 };
 
-export const login = (username, password) => {
+export const login = (username: string, password: string) => {
   return axios
     .post("/api/auth/login", { username, password })
     .then((response) => {

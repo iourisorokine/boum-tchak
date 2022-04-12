@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+// @ts-ignore:next-line
 import { Bars } from "svg-loaders-react";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { DisplaySong } from "./components";
 import { prepareInstruments } from "../utils/instruments";
 import { AppIntro } from "../InfoPages/AppIntro";
 import { BlankSpace, MenuButton } from "../../ui-kit";
+import { Song } from '../../types';
 
 export const SongsList = ({ isAppIntroDisplayed = false }) => {
-  const [songs, setSongs] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [message, setMessage] = useState("");
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [message, setMessage] = useState<string>("");
 
   const loadSongs = async () => {
     setLoading(true);
@@ -18,7 +20,7 @@ export const SongsList = ({ isAppIntroDisplayed = false }) => {
       `/api/song/posted/${currentPage}`,
       {
         page: 1,
-      }
+      } as AxiosRequestConfig<any>
     );
     if (!loadedSongs.length) {
       setMessage("no more songs to load...");
@@ -28,7 +30,7 @@ export const SongsList = ({ isAppIntroDisplayed = false }) => {
       }, 2000);
       return;
     }
-    loadedSongs.forEach((song) => {
+    loadedSongs.forEach((song: Song) => {
       const preparedInstruments = prepareInstruments(song.instruments);
       song.instruments = preparedInstruments;
     });

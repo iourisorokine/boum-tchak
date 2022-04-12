@@ -18,3 +18,13 @@ export type MusicLine = {
   pitches: string [];
   sounds: (HTMLAudioElement | null)[];
 }
+
+export interface Song {
+  _id: string;
+  title: string;
+  creatorName: string;
+  tempo: number;
+  partition: number[][];
+  musicLines: MusicLine[];
+  instruments: any[];
+}

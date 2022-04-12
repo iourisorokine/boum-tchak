@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
+import axios from "axios";
+// @ts-ignore:next-line
 import { Bars } from "svg-loaders-react";
 import {
   PageLayout,
@@ -8,17 +10,21 @@ import {
   Column,
 } from "../../ui-kit";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { User, Song } from '../../types';
 
-export const LoadSong = (props) => {
+export interface LoadSongProps {
+  user: User;
+}
+
+export const LoadSong: FC<LoadSongProps> = ({ user }) => {
   const [songsList, setSongsList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [selectedSong, setSelectedSong] = useState(null);
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [selectedSong, setSelectedSong] = useState<string | null>(null);
+  const [message, setMessage] = useState<string>("");
 
   const fetchData = async () => {
     setLoading(true);
-    const { data } = await axios.get(`/api/song/creator/${props.user._id}`);
+    const { data } = await axios.get(`/api/song/creator/${user._id}`);
     if (data) {
       setSongsList(data);
       setLoading(false);
@@ -29,9 +35,9 @@ export const LoadSong = (props) => {
     fetchData();
   }, []);
 
-  const deleteSong = async (songId) => {
-    const response = await axios.delete(`/api/song/${songId}`);
-    setMessage(response.message);
+  const deleteSong = async (songId: string) => {
+    const response: any = await axios.delete(`/api/song/${songId}`);
+    setMessage(response?.message);
     fetchData();
     setTimeout(() => {
       setMessage("");
@@ -46,7 +52,7 @@ export const LoadSong = (props) => {
           <Bars width={100} height={50} fill="#000" stroke="#000" />
         </Column>
       )}
-      {songsList.map((el) => {
+      {songsList.map((el: Song) => {
         return (
           <SelectableText
             key={el._id}
