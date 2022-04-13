@@ -28,3 +28,23 @@ export interface Song {
   musicLines: MusicLine[];
   instruments: any[];
 }
+
+export interface Instrument {
+  _id: string;
+  name: string;
+  category: string;
+  subCategory: string;
+  creator: string;
+  sounds: Sound[];
+  colors: string[];
+  private: boolean;
+}
+
+export interface Sound {
+  _id: string;
+  name: string;
+  category: string;
+  subCategory: string;
+  pitch?: string;
+  url: string;
+}
