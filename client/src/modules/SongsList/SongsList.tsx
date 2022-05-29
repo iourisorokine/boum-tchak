@@ -4,7 +4,7 @@ import { Bars } from "svg-loaders-react";
 import axios, { AxiosRequestConfig } from "axios";
 import { DisplaySong } from "./components";
 import { prepareInstruments } from "../utils/instruments";
-import { AppIntro } from "../InfoPages/AppIntro";
+import { AppIntro } from "./components/AppIntro";
 import { BlankSpace, MenuButton } from "../../ui-kit";
 import { Song } from '../../types';
 

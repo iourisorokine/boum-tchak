@@ -9,7 +9,7 @@ import {
   AppIntroLayout, 
   Section, 
   Heading3
-} from "../../ui-kit";
+} from "../../../ui-kit";
 
 export const AppIntro: FC = () => {
   const chevronStyle = {

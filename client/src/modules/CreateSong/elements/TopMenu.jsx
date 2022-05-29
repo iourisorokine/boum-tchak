@@ -36,13 +36,14 @@ const onMinusTempoPress = () => {
 
   return (
     <Row padding="0 0 24px 0">
-      <Column flexDirection="row" alignItems="center" justifyContent="flex-end">
+      <Column />
+      <Column flexDirection="row" alignItems="center" justifyContent="left">
         <Caption>
           Play on click
         </Caption>
         <Switch onChange={togglePlayOnClick} checked={isNotePlayedOnClick}/>
       </Column>
-      <Column flexDirection="row" alignItems="center" justifyContent="center">
+      <Column flexDirection="row" alignItems="center" justifyContent="left">
         <AverageEditBtn onClick={onMinusTempoPress}>-</AverageEditBtn>
         <Caption>tempo: {tempo}</Caption>
         <AverageEditBtn onClick={onPlusTempoPress}>+</AverageEditBtn>

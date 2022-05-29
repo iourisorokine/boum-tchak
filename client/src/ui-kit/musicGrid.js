@@ -48,7 +48,7 @@ export const StyledNote = styled.div`
   &:hover {
     height: ${(props) => (props.clickable ? "18px" : "24px")};
     width: ${(props) => (props.clickable ? "18px" : "24px")};
-    margin: ${(props) => (props.clickable ? "6px" : "3px")};
+    margin: ${(props) => (props.clickable ? "7px" : "3px")};
   }
   animation-name: ${(props) => props.animated && notesPlayingAnimation};
   animation-duration: 0.8s;

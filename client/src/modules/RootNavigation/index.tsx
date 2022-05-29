@@ -11,7 +11,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { CreateInstrument } from '../CreateInstrument/CreateInstrument';
 import { MixMode } from '../MixMode/Container';
 import { DjState } from '../MixMode/context/DjState';
-import { Help } from '../InfoPages/Help';
+import { Help } from '../HelpSection';
 
 export interface RootNavigationProps {
   user: User;
@@ -20,7 +20,14 @@ export interface RootNavigationProps {
 
 export const RootNavigation: FC<RootNavigationProps> = ({ user, setUser }) => {
     return (
-        <Switch>
+      <Switch>       
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <SongsList isAppIntroDisplayed {...props} />
+          )}
+        />
         <Route
           exact
           path="/create"
@@ -71,13 +78,6 @@ export const RootNavigation: FC<RootNavigationProps> = ({ user, setUser }) => {
           user={user}
           setUser={setUser}
           component={CreateInstrument}
-        />
-        <Route
-          exact
-          path="/"
-          render={(props) => (
-            <SongsList isAppIntroDisplayed {...props} />
-          )}
         />
         <Route
           exact

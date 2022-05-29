@@ -80,10 +80,10 @@ export const IconButton = styled.button`
 export const SmallEditBtn = styled.button`
   color: ${(props) => props.color || "#aaa"};
   border: 1px solid #aaa;
-  margin: 4px 4px 4px 8px;
+  margin: 4px 4px 4px 4px;
   background-color: #fff;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 11px;
   &:hover {
     background-color: #aaa;
     color: #fff;

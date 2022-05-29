@@ -27,7 +27,7 @@ export const CreateSong = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        minWidth: 800,
+        minWidth: 760,
       }}>
       <div
         style={{
@@ -35,7 +35,7 @@ export const CreateSong = ({
           display: "flex",
           flex: 1,
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "center",
         }}>
         <MusicGrid>
