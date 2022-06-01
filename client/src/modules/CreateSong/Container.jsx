@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ExpandedMenuItem } from "../../ui-kit";
+import {
+  AppIntroLayout,
+  ExpandedMenuItem,
+  Heading2,
+  Row,
+  Column,
+} from "../../ui-kit";
 import { TopMenu } from "./elements/TopMenu";
 import { PlayControls } from "./elements/PlayControls";
 import { AddInstrument } from "./modals/AddInstrument";
@@ -202,6 +208,19 @@ export const CreateSong = (props) => {
 
   return (
     <React.Fragment>
+      <AppIntroLayout>
+        <Row>
+          <Column>
+            <Heading2>Create</Heading2>
+          </Column>
+          <Column justifyContent="center" alignItems="center">
+            <p>
+              In this section you can compose by clicking on the squares and
+              place sounds in the rhythmic grid
+            </p>
+          </Column>
+        </Row>
+      </AppIntroLayout>
       {isAddInstrumentVisible && (
         <AddInstrument addInstrument={addInstrument} />
       )}

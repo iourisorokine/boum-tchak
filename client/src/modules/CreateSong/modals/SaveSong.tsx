@@ -26,7 +26,7 @@ export const SaveSong: FC<SaveSongProps> = ({ saveTheSong, user, toggleIsSaveSon
           ) : (
             <p style={{ margin: 10 }}>
               You don't have a user account yet, therefore your song <br />
-              will be published as annonymous... to bad!
+              will be published as annonymous... too bad!
               <br />
               Please create a user profile before saving next time <br />
               Name your song:

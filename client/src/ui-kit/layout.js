@@ -24,7 +24,9 @@ export const SelectableRow = styled(Row)`
 `;
 
 export const AppIntroLayout = styled.div`
-  min-height: 60vh;
+  padding: 12px;
+  background-color: #eeeffc;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,6 +95,6 @@ export const Section = styled.div`
   flex-direction: ${(props) => props.flexDirection || "row"};
   justify-content: space-between;
   &:hover {
-    background-color: ${(props) => props.clickable ? '#aaa' : 'default'};
+    background-color: ${(props) => (props.clickable ? "#aaa" : "default")};
   }
 `;

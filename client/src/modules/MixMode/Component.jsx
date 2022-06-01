@@ -1,6 +1,6 @@
 import React from "react";
 import { Loop } from "./elements/Loop";
-import { Section, Heading2 } from "../../ui-kit";
+import { Section, Heading2, Row, Column, AppIntroLayout } from "../../ui-kit";
 import { Controls } from "./elements/Controls";
 
 export const MixMode = ({
@@ -17,21 +17,36 @@ export const MixMode = ({
   return (
     <div>
       <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}>
-        <Section>
-          <Heading2>Mix</Heading2>
-        </Section>
+        <AppIntroLayout>
+          <Row>
+            <Column>
+              <Row>
+                <Column>
+                  <Heading2>Mix</Heading2>
+                </Column>
+                <Column>
+                  <img
+                    src="images/CassetteRemix.svg"
+                    alt="Cassette"
+                    width="100"
+                    height="auto"
+                  />
+                </Column>
+              </Row>
+            </Column>
+            <Column>
+              <p>
+                This is where you can play live by overlapping different loops.
+                Each loop can be edited manually or randomly generated
+              </p>
+            </Column>
+          </Row>
+        </AppIntroLayout>
+
         <Controls
           onPlayBtnPress={onPlayBtnPress}
           onStopBtnPress={onStopBtnPress}
         />
-        <Section>
-          <img
-            src="images/CassetteRemix.svg"
-            alt="Cassette"
-            width="100"
-            height="auto"
-          />
-        </Section>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <Loop
