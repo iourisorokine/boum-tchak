@@ -4,18 +4,18 @@ const Song = require("../models/Song");
 const User = require("../models/User");
 
 router.get("/", async (req, res) => {
-  console.log('Songs request status code:', req.statusCode)
+  console.log("Songs request status code:", req.statusCode);
   const randomNumber = Math.ceil(Math.random() * 1000);
-  console.log(`Generating random number... ${randomNumber}`)
-  console.log('Response status code:', res.statusCode, res.statusMessage)
+  console.log(`Generating random number... ${randomNumber}`);
+  console.log("Response status code:", res.statusCode, res.statusMessage);
   try {
-    const allSongs = await Song.find().populate({ 
+    const allSongs = await Song.find().populate({
       path: "instruments",
       populate: {
-        path: 'sounds',
-        model: 'Sound'
-      } 
-   });
+        path: "sounds",
+        model: "Sound",
+      },
+    });
     if (allSongs) {
       res.json(allSongs);
     }
@@ -27,13 +27,13 @@ router.get("/", async (req, res) => {
 router.get("/creator/:creatorId", async (req, res) => {
   const { creatorId } = req.params;
   try {
-    const songs = await Song.find({ creator: creatorId }).populate({ 
+    const songs = await Song.find({ creator: creatorId }).populate({
       path: "instruments",
       populate: {
-        path: 'sounds',
-        model: 'Sound'
-      } 
-   });
+        path: "sounds",
+        model: "Sound",
+      },
+    });
     if (songs) {
       res.json(songs);
     }
@@ -43,32 +43,34 @@ router.get("/creator/:creatorId", async (req, res) => {
 });
 
 router.get("/posted/:page", async (req, res) => {
-  console.log('Songs porsted page 1 request status code:', req.statusCode)
+  console.log("Songs porsted page 1 request status code:", req.statusCode);
   const randomNumber = Math.ceil(Math.random() * 1000);
-  console.log(`Generating random number... ${randomNumber}`)
-  console.log('Response status code:', res.statusCode, res.statusMessage)
+  console.log(`Generating random number... ${randomNumber}`);
+  console.log("Response status code:", res.statusCode, res.statusMessage);
   const { page } = req.params;
-  const lengthOfPage = 5;
+  const lengthOfPage = 7;
   const firstIndex = (page - 1) * lengthOfPage;
   const lastIndex = page * lengthOfPage;
   try {
     const songs = await Song.find({ posted: true })
-      .sort({created_at: -1})
+      .sort({ created_at: -1 })
       .limit(lastIndex)
       .skip(firstIndex)
-      .populate({ 
+      .populate({
         path: "instruments",
         populate: {
-          path: 'sounds',
-          model: 'Sound'
-        } 
-     });
+          path: "sounds",
+          model: "Sound",
+        },
+      });
 
-    if(!songs || !songs.length){
-      res.json({message: "No songs found..."})
+    if (!songs || !songs.length) {
+      res.json({ message: "No songs found..." });
     }
-    if(res.statusCode === 304){
-      console.log(' Status code 304 generate after responding to songs posted...')
+    if (res.statusCode === 304) {
+      console.log(
+        " Status code 304 generate after responding to songs posted..."
+      );
     }
     if (songs) {
       res.json(songs);
@@ -81,13 +83,13 @@ router.get("/posted/:page", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const song = await Song.findById(id).populate({ 
+    const song = await Song.findById(id).populate({
       path: "instruments",
       populate: {
-        path: 'sounds',
-        model: 'Sound'
-      } 
-   });
+        path: "sounds",
+        model: "Sound",
+      },
+    });
     if (song) {
       res.json(song);
     }
@@ -99,13 +101,13 @@ router.get("/:id", async (req, res) => {
 router.get("/:title", async (req, res) => {
   const { title } = req.params;
   try {
-    const song = await Song.find({ title }).populate({ 
+    const song = await Song.find({ title }).populate({
       path: "instruments",
       populate: {
-        path: 'sounds',
-        model: 'Sound'
-      } 
-   });
+        path: "sounds",
+        model: "Sound",
+      },
+    });
     if (song) {
       res.json(song);
     }
@@ -115,15 +117,8 @@ router.get("/:title", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const {
-    title,
-    partition,
-    instruments,
-    tempo,
-    creator,
-    creatorName,
-    posted,
-  } = req.body;
+  const { title, partition, instruments, tempo, creator, creatorName, posted } =
+    req.body;
   try {
     const newSong = await Song.create({
       title,
