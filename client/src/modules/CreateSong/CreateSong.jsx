@@ -6,8 +6,8 @@ import {
   Row,
   Column,
 } from "../../ui-kit";
-import { TopMenu } from "./elements/TopMenu";
-import { PlayControls } from "./elements/PlayControls";
+import { TopMenu } from "./components/TopMenu";
+import { PlayControls } from "./components/PlayControls";
 import { AddInstrument } from "./modals/AddInstrument";
 import { SaveSong } from "./modals/SaveSong";
 import { config } from "../../config/config";
@@ -21,7 +21,7 @@ import {
 } from "../utils";
 import axios from "axios";
 import { globalContext } from "./context/GlobalContext";
-import { CreateSong as Component } from "./Component";
+import { PartitionGrid } from "./components/PartitionGrid";
 
 export const CreateSong = (props) => {
   const [bottomMessage, setBottomMessage] = useState("");
@@ -240,7 +240,7 @@ export const CreateSong = (props) => {
       )}
       <TopMenu />
 
-      <Component
+      <PartitionGrid
         partition={partition}
         lengthOfPage={lengthOfPage}
         currentPage={currentPage}

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { MainScreen, Wrapper, BackHeader } from './ui-kit';
-import { Header } from './modules/Header/Header';
-import { User } from './types';
-import { RootNavigation } from './modules/RootNavigation';
-import './App.css';
+import { MainScreen, Wrapper, BackHeader } from "./ui-kit";
+import { Header } from "./modules/Header";
+import { User } from "./types";
+import { RootNavigation } from "./modules/RootNavigation";
+import "./App.css";
 
 export interface AppProps {
   user: User;
@@ -18,7 +18,7 @@ export const App: React.FC<AppProps> = ({ user }) => {
       <Header user={currentUser} />
       <Wrapper>
         <BackHeader />
-        <RootNavigation user={currentUser} setUser={setCurrentUser}/>
+        <RootNavigation user={currentUser} setUser={setCurrentUser} />
       </Wrapper>
     </MainScreen>
   );

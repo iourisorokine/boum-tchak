@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Column, ColorSquare, Button } from "../../ui-kit";
+import { Row, Column, ColorSquare, Button } from "../../../ui-kit";
 
 export const InstrumentSoundsList = ({ sounds, colors, addSound }) => {
   const playSound = (url) => {

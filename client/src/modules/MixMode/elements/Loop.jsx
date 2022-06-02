@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { CreateLine } from "../../CreateSong/elements/CreateLine";
+import { CreateLine } from "../../CreateSong/components/CreateLine";
 import { Caption, Section, AverageEditBtn, SmallTitle } from "../../../ui-kit";
 import { getRandomLoop } from "../utils/randomLoops";
 import { getRandomSequence } from "../utils/loopsGenerator";

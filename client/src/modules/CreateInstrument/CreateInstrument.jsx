@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Characteristics } from "./Characteristics";
-import { InstrumentSoundsList } from "./InstrumentSoundsList";
-import { AddSound } from "./AddSound";
+import { Characteristics } from "./components/Characteristics";
+import { InstrumentSoundsList } from "./components/InstrumentSoundsList";
+import { AddSound } from "./components/AddSound";
 import { SketchPicker } from "react-color";
 import { gradientBuilder } from "../utils";
-import { config } from '../../config/config';
+import { config } from "../../config/config";
 import axios from "axios";
 import {
   Row,
@@ -26,13 +26,13 @@ export const CreateInstrument = (props) => {
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [message, setMessage] = useState("");
-  const [sounds, setSounds] = useState([{id: config.DEFAULT_SOUND_ID}]);
+  const [sounds, setSounds] = useState([{ id: config.DEFAULT_SOUND_ID }]);
   const [view, setView] = useState(views.OVERVIEW);
   const [loading, setLoading] = useState(false);
   const [availableSounds, setAvailableSounds] = useState([]);
   const [selectedSound, setSelectedSound] = useState(null);
   const [editedColor, setEditedColor] = useState("start");
-  const [colors, setColors] = useState(['#ddd']);
+  const [colors, setColors] = useState(["#ddd"]);
   const [startColor, setStartColor] = useState("#aaaaaa");
   const [endColor, setEndColor] = useState("#555555");
   const [pickerColor, setPickerColor] = useState("#aaaaaa");
@@ -46,9 +46,9 @@ export const CreateInstrument = (props) => {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     updateSoundsColors();
-  }, [startColor, endColor])
+  }, [startColor, endColor]);
 
   const updateSoundsColors = () => {
     const updatedColors = [...colors];
@@ -99,7 +99,7 @@ export const CreateInstrument = (props) => {
     };
     const updatedSounds = [...sounds, newSound];
     setSounds(updatedSounds);
-    setColors([...colors, '#ddd']);
+    setColors([...colors, "#ddd"]);
     setView(views.OVERVIEW);
   };
 
@@ -115,12 +115,16 @@ export const CreateInstrument = (props) => {
     setName("");
     setCategory("");
     setSubCategory("");
-    setSounds([{id: config.DEFAULT_SOUND_ID}]);
+    setSounds([{ id: config.DEFAULT_SOUND_ID }]);
   };
 
   const saveInstrument = async () => {
     if (!name || !category || !subCategory) {
-      displayMessage(`Please enter the fields: ${!name?'Name':''} ${!category?'Category':''} ${!subCategory?'Sub-category':''}`);
+      displayMessage(
+        `Please enter the fields: ${!name ? "Name" : ""} ${
+          !category ? "Category" : ""
+        } ${!subCategory ? "Sub-category" : ""}`
+      );
       return;
     }
     if (sounds.length < 2) {
@@ -131,7 +135,7 @@ export const CreateInstrument = (props) => {
       name,
       category,
       subCategory,
-      sounds: sounds.map(el=> el.id || null),
+      sounds: sounds.map((el) => el.id || null),
       colors: colors,
       creator: props.user._id,
       private: false,
@@ -171,7 +175,8 @@ export const CreateInstrument = (props) => {
               flex={2}
               flexDirection="row"
               alignItems="flex-end"
-              justifyContent="flex-end">
+              justifyContent="flex-end"
+            >
               <Button onClick={saveInstrument}>Save Instrument</Button>
               <Button onClick={resetInstrument}>Reset</Button>
               <Button onClick={toggleHelp}>Help</Button>
@@ -211,15 +216,18 @@ export const CreateInstrument = (props) => {
                 <Column
                   flexDirection="row"
                   alignItems="center"
-                  justifyContent="flex-start">
+                  justifyContent="flex-start"
+                >
                   <CategoryBtn
                     selected={editedColor === "start"}
-                    onClick={() => setEditedColor("start")}>
+                    onClick={() => setEditedColor("start")}
+                  >
                     Pick start color
                   </CategoryBtn>
                   <CategoryBtn
                     selected={editedColor === "end"}
-                    onClick={() => setEditedColor("end")}>
+                    onClick={() => setEditedColor("end")}
+                  >
                     Pick end color
                   </CategoryBtn>
                 </Column>

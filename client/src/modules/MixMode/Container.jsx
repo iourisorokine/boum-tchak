@@ -7,7 +7,7 @@ import { preparePartition, prepareInstruments, playBeat } from "../utils";
 
 let counter;
 
-export const MixMode = (props) => {
+export const MixMode = () => {
   const [loading, setLoading] = useState(false);
   const {
     setPartition,

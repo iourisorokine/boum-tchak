@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Row, Button, Column, Heading2, Input } from "../../../ui-kit";
 import { AvailableSoundsList } from "./AvailableSoundsList";
 import { CreateSound } from "./CreateSound";
-import { Row, Button, Column, Heading2, Input } from "../../ui-kit";
 
 const views = {
   ADD: "ADD",
@@ -64,7 +64,8 @@ export const AddSound = ({
             <Button
               onClick={() => {
                 setView(views.UPLOAD);
-              }}>
+              }}
+            >
               Upload own sound
             </Button>
           )}
@@ -72,7 +73,8 @@ export const AddSound = ({
             <Button
               onClick={() => {
                 setView(views.ADD);
-              }}>
+              }}
+            >
               Search sound
             </Button>
           )}

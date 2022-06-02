@@ -1,14 +1,14 @@
 import React from "react";
-import { CreateLine } from "./elements/CreateLine";
-import { MusicGrid, AverageEditBtn, LineLabel, Line } from "../../ui-kit";
+import { CreateLine } from "./CreateLine";
+import { MusicGrid, AverageEditBtn, LineLabel, Line } from "../../../ui-kit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { ToolsLine } from "./elements/ToolsLine";
+import { ToolsLine } from "./ToolsLine";
 
-export const CreateSong = ({
+export const PartitionGrid = ({
   partition,
   lengthOfPage,
   currentPage,
@@ -28,7 +28,8 @@ export const CreateSong = ({
         alignItems: "center",
         justifyContent: "space-between",
         minWidth: 760,
-      }}>
+      }}
+    >
       <div
         style={{
           minHeight: 300,
@@ -37,7 +38,8 @@ export const CreateSong = ({
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "center",
-        }}>
+        }}
+      >
         <MusicGrid>
           {instruments.length ? (
             <React.Fragment>
@@ -76,7 +78,8 @@ export const CreateSong = ({
           ) : (
             <AverageEditBtn
               padding={"8px 8px 8px 8px"}
-              onClick={toggleIsAddInstrumentVisible}>
+              onClick={toggleIsAddInstrumentVisible}
+            >
               No partition to display yet... Click here to add your first
               instrument
             </AverageEditBtn>

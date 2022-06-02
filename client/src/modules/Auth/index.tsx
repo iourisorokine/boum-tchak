@@ -24,7 +24,7 @@ export interface LoginProps {
   variant: Variant;
 }
 
-export const Auth: FC<LoginProps> = ({setUser, history, variant}) => {
+export const Auth: FC<LoginProps> = ({ setUser, history, variant }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
@@ -55,7 +55,7 @@ export const Auth: FC<LoginProps> = ({setUser, history, variant}) => {
   };
 
   const handleCta = variant === Variant.login ? handleLogin : handleSignup;
-  const ctaLabel = variant === Variant.login? "Login" : "Signup";
+  const ctaLabel = variant === Variant.login ? "Login" : "Signup";
 
   const handleChange = (e: any) => {
     if (e.target.name === "username") {

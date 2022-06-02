@@ -1,6 +1,6 @@
 import React from "react";
-import { getCategories, getSubCategories } from "../utils";
-import { Row, Column, Input, Select, Option } from "../../ui-kit";
+import { Row, Column, Input, Select, Option } from "../../../ui-kit";
+import { getCategories, getSubCategories } from "../../utils";
 
 export const Characteristics = ({
   name,
@@ -32,7 +32,8 @@ export const Characteristics = ({
             name="category"
             width="170px"
             value={category}
-            onChange={(e) => setCategory(e.target.value)}>
+            onChange={(e) => setCategory(e.target.value)}
+          >
             {instrumentCategories.map((cat, i) => {
               return (
                 <Option key={i} value={cat}>
@@ -50,7 +51,8 @@ export const Characteristics = ({
             name="sub-category"
             width="170px"
             value={subCategory}
-            onChange={(e) => setSubCategory(e.target.value)}>
+            onChange={(e) => setSubCategory(e.target.value)}
+          >
             {getSubCategories(category).map((subCat, i) => {
               return (
                 <Option key={i} value={subCat}>

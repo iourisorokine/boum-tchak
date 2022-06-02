@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import { Bars } from "svg-loaders-react";
-import { getCategories, getSubCategories } from "../utils";
 import {
   Row,
   Column,
@@ -10,7 +9,8 @@ import {
   Select,
   Option,
   SelectableRow,
-} from "../../ui-kit";
+} from "../../../ui-kit";
+import { getCategories, getSubCategories } from "../../utils";
 
 export const AvailableSoundsList = ({
   loading,
@@ -67,7 +67,8 @@ export const AvailableSoundsList = ({
             name="category"
             width="60px"
             value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value)}>
+            onChange={(e) => setFilterCategory(e.target.value)}
+          >
             {soundCategories.map((cat, i) => {
               return (
                 <Option key={i} value={cat}>
@@ -83,7 +84,8 @@ export const AvailableSoundsList = ({
             name="sub-category"
             width="60px"
             value={filterSubCategory}
-            onChange={(e) => setFilterSubCategory(e.target.value)}>
+            onChange={(e) => setFilterSubCategory(e.target.value)}
+          >
             {getSubCategories(filterCategory).map((subCat, i) => {
               return (
                 <Option key={i} value={subCat}>
@@ -106,7 +108,8 @@ export const AvailableSoundsList = ({
             selected={selectedSound && selectedSound.url === el.url}
             noHoverHighlight
             onClick={() => selectSound(el)}
-            key={el._id}>
+            key={el._id}
+          >
             <Column>
               <FontAwesomeIcon
                 icon={faVolumeUp}

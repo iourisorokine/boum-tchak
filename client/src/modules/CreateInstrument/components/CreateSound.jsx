@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { getCategories, getSubCategories } from "../utils";
-import { Row, Column, Input, Button, Select, Option } from "../../ui-kit";
+import { Row, Column, Input, Button, Select, Option } from "../../../ui-kit";
+import { getCategories, getSubCategories } from "../../utils";
 
 export const CreateSound = ({ setView, fetchData }) => {
   const [soundName, setSoundName] = useState("");
@@ -81,7 +81,8 @@ export const CreateSound = ({ setView, fetchData }) => {
         <Column flex={2}>
           <Select
             name="category"
-            onChange={(e) => setSoundCategory(e.target.value)}>
+            onChange={(e) => setSoundCategory(e.target.value)}
+          >
             {soundCategories.map((cat, i) => {
               return (
                 <Option key={i} value={cat}>
@@ -97,7 +98,8 @@ export const CreateSound = ({ setView, fetchData }) => {
         <Column flex={2}>
           <Select
             name="sub-category"
-            onChange={(e) => setSoundSubCategory(e.target.value)}>
+            onChange={(e) => setSoundSubCategory(e.target.value)}
+          >
             {getSubCategories(soundCategory).map((subCat, i) => {
               return (
                 <Option key={i} value={subCat}>
