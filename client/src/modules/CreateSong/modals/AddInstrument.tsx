@@ -34,7 +34,10 @@ export const AddInstrument: FC<AddIntrumentProps> = ({ addInstrument }) => {
 
   const { toggleIsAddInstrumentVisible } = useContext(globalContext);
 
-  const fetchInstrumentsData = async (searchCat: string | null, shouldCreateBtns?: boolean) => {
+  const fetchInstrumentsData = async (
+    searchCat: string | null,
+    shouldCreateBtns?: boolean
+  ) => {
     const searchParams = searchCat && {
       params: { category: searchCat },
     };
@@ -45,7 +48,7 @@ export const AddInstrument: FC<AddIntrumentProps> = ({ addInstrument }) => {
         const allCategories = data.map((instrument: any) => {
           return instrument.category;
         });
-        const newUniqueCategories = [...new Set(allCategories)];
+        const newUniqueCategories = [...(new Set(allCategories) as any)];
         setUniqueCategories(newUniqueCategories as any);
       }
     }
@@ -74,7 +77,8 @@ export const AddInstrument: FC<AddIntrumentProps> = ({ addInstrument }) => {
         style={style}
         bgColor={index % 2 === 0 ? "#eee" : "#fff"}
         padding="4px 0 4px 0"
-        onClick={() => handleClick(instrument)}>
+        onClick={() => handleClick(instrument)}
+      >
         <Column flex={2}>
           <Text>{instrument.name}</Text>
         </Column>
@@ -101,7 +105,8 @@ export const AddInstrument: FC<AddIntrumentProps> = ({ addInstrument }) => {
                 <CategoryBtn
                   key={cat}
                   selected={searchCategory === cat}
-                  onClick={() => selectCategory(cat)}>
+                  onClick={() => selectCategory(cat)}
+                >
                   {cat}
                 </CategoryBtn>
               );
@@ -120,7 +125,8 @@ export const AddInstrument: FC<AddIntrumentProps> = ({ addInstrument }) => {
             height={260}
             width={380}
             itemCount={newInstruments.length}
-            itemSize={30}>
+            itemSize={30}
+          >
             {ItemRow}
           </FixedSizeList>
         </Column>
