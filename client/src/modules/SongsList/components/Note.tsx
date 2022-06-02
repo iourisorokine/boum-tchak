@@ -8,14 +8,15 @@ export interface NoteProps {
   isAnimated: boolean;
 }
 
-export const Note: FC<NoteProps> = ({ status, colors, highlighted, isAnimated }) => {
+export const Note: FC<NoteProps> = ({
+  status,
+  colors,
+  highlighted,
+  isAnimated,
+}) => {
   const color = colors[status];
 
   return (
-    <StyledNote
-      color={color}
-      highlighted={highlighted}
-      animated={isAnimated}
-    />
+    <StyledNote color={color} highlighted={highlighted} animated={isAnimated} />
   );
 };

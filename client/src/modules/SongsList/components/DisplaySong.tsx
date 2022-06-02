@@ -10,7 +10,7 @@ import {
   SmallTitle,
 } from "../../../ui-kit";
 import { playBeat } from "../../utils";
-import { MusicLine } from '../../../types';
+import { MusicLine } from "../../../types";
 import { DisplayLine } from ".";
 
 const iconsStyle = {
@@ -63,7 +63,11 @@ export const DisplaySong: FC<DisplaySongProps> = ({
     return () => stopPlaying();
   }, []);
 
-  const playMusic = (musicLines: MusicLine[], partition: number[][], tempo: number) => {
+  const playMusic = (
+    musicLines: MusicLine[],
+    partition: number[][],
+    tempo: number
+  ) => {
     setIsPlaying(true);
     setCurrentPage(1);
     let counter = 0;

@@ -12,9 +12,9 @@ export const preparePartition = (instruments, length) => {
 };
 
 export const prepareInstruments = (instruments) => {
-  if(!instruments.length) return;
+  if (!instruments.length) return;
   const preparedInstruments = instruments.map((instrument) => {
-    if(instrument.category==="Tone Synth") {
+    if (instrument.category === "Tone Synth") {
       return prepareToneJsInstrument(instrument);
     }
     return prepareSamplesInstrument(instrument);
@@ -23,17 +23,17 @@ export const prepareInstruments = (instruments) => {
 };
 
 export const prepareOneInstrument = (instrument) => {
-  if(instrument.category==="Tone Synth") {
+  if (instrument.category === "Tone Synth") {
     return prepareToneJsInstrument(instrument);
   }
   return prepareSamplesInstrument(instrument);
-}
+};
 
 export const prepareToneJsInstrument = (instrument) => {
   const { colors, pitches } = instrument;
   const sounds = [];
 
-  for(let i=0; i<pitches.length;i++){
+  for (let i = 0; i < pitches.length; i++) {
     sounds.push({});
   }
   return {
@@ -44,22 +44,22 @@ export const prepareToneJsInstrument = (instrument) => {
     sounds,
     pitches,
   };
-}
+};
 
 export const prepareSamplesInstrument = (instrument) => {
   const lineSounds = [];
   const linePitches = [];
   instrument.sounds.forEach((el) => {
-    if(!el) {
+    if (!el) {
       lineSounds.push({ name: "default", url: "" });
-      linePitches.push('');
+      linePitches.push("");
     }
     if (el.url) {
       lineSounds.push(new Audio(el.url));
-      linePitches.push(el.pitch || '');
+      linePitches.push(el.pitch || "");
     } else {
       lineSounds.push(null);
-      linePitches.push('');
+      linePitches.push("");
     }
   });
   return {

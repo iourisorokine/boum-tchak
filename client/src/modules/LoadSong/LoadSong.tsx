@@ -10,7 +10,7 @@ import {
   Column,
 } from "../../ui-kit";
 import { Link } from "react-router-dom";
-import { User, Song } from '../../types';
+import { User, Song } from "../../types";
 
 export interface LoadSongProps {
   user: User;
@@ -59,7 +59,8 @@ export const LoadSong: FC<LoadSongProps> = ({ user }) => {
             selected={selectedSong === el._id}
             onClick={() => {
               setSelectedSong(el._id);
-            }}>
+            }}
+          >
             {el.title}
           </SelectableText>
         );

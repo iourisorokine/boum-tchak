@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { HeaderLayout, HeaderTitle, MenuButton, Wrapper } from "../../ui-kit";
-import { User } from '../../types';
+import { User } from "../../types";
 
 const linkStyle = {
   textDecoration: "none",
@@ -26,7 +26,8 @@ export const Header: FC<HeaderProps> = ({ user }) => {
           <HeaderTitle>Boum-Tchak!</HeaderTitle>
         </Link>
         <div
-          style={{ display: "flex", paddingRight: 20, alignItems: "center" }}>
+          style={{ display: "flex", paddingRight: 20, alignItems: "center" }}
+        >
           <Link style={linkStyle} to="/listen">
             <MenuButton>Listen</MenuButton>
           </Link>

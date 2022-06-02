@@ -4,12 +4,12 @@ import { Line } from "../../../ui-kit";
 import { Note } from ".";
 
 export interface DisplayLineProps {
-  notes: number[],
-  noteColors: string[],
-  highlightedNote: number,
-  animatedNotes: number[],
-  lengthOfPage: number,
-  currentPage: number,
+  notes: number[];
+  noteColors: string[];
+  highlightedNote: number;
+  animatedNotes: number[];
+  lengthOfPage: number;
+  currentPage: number;
 }
 
 export const DisplayLine: FC<DisplayLineProps> = ({

@@ -6,7 +6,7 @@ import { DisplaySong } from "./components";
 import { prepareInstruments } from "../utils/instruments";
 import { AppIntro } from "./components/AppIntro";
 import { BlankSpace, MenuButton } from "../../ui-kit";
-import { Song } from '../../types';
+import { Song } from "../../types";
 
 export const SongsList = ({ isAppIntroDisplayed = false }) => {
   const [songs, setSongs] = useState<Song[]>([]);

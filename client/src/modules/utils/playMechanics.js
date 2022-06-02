@@ -1,4 +1,5 @@
 import * as Tone from "tone";
+
 const polySynth = new Tone.PolySynth().toDestination();
 /* Plays one beat of the music, 
 each note of the beat being the note on each line corresponding 

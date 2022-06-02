@@ -11,10 +11,12 @@ router.post("/signup", (req, res) => {
   if (!password || password.length < 8) {
     return res
       .status(400)
-      .json({ message: "Your password must be 8 char. min." });
+      .json({ message: "Your password must be at least 8 characters long" });
   }
-  if (!username) {
-    return res.status(400).json({ message: "Your username cannot be empty" });
+  if (!username || username.length < 5) {
+    return res
+      .status(400)
+      .json({ message: "Your username must be at least 5 characters long" });
   }
 
   User.findOne({ username: username })

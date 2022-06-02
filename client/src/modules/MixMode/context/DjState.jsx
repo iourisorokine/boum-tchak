@@ -92,7 +92,8 @@ export const DjState = (props) => {
         setBeatCounter,
         setPartition,
         setInstruments,
-      }}>
+      }}
+    >
       {props.children}
     </DjContext.Provider>
   );

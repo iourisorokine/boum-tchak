@@ -20,7 +20,7 @@ export const LikeButton: FC = () => {
 
   return (
     <FontAwesomeIcon
-    // @ts-ignore:next-line
+      // @ts-ignore:next-line
       icon={faMusic}
       color="black"
       style={style}
