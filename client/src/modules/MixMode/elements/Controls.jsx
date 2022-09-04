@@ -22,14 +22,16 @@ export const Controls = ({ onPlayBtnPress, onStopBtnPress }) => {
         <MenuButton
           variant="big"
           onClick={onStopBtnPress}
-          backgroundColor="#f00">
+          backgroundColor="#f00"
+        >
           <FontAwesomeIcon icon={faStop} color="white" style={iconStyle} />
         </MenuButton>
       ) : (
         <MenuButton
           variant="big"
           onClick={onPlayBtnPress}
-          backgroundColor="#0f0">
+          backgroundColor="#0f0"
+        >
           <FontAwesomeIcon icon={faPlay} color="white" style={iconStyle} />
         </MenuButton>
       )}
@@ -39,7 +41,8 @@ export const Controls = ({ onPlayBtnPress, onStopBtnPress }) => {
           alignItems: "center",
           justifyContent: "center",
           padding: "0 18px",
-        }}>
+        }}
+      >
         <AverageEditBtn onClick={onMinusTempoPress}>-</AverageEditBtn>
         <Caption>tempo: {tempo}</Caption>
         <AverageEditBtn onClick={onPlusTempoPress}>+</AverageEditBtn>

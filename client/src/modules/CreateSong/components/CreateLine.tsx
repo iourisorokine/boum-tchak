@@ -3,7 +3,23 @@ import { globalContext } from "../context/GlobalContext";
 import { Note } from "./Note";
 import { Line, LineLabel, DeleteButton } from "../../../ui-kit";
 
-export const CreateLine = ({
+export interface CreateLineProps {
+  linePosition: number;
+  notes: any[];
+  noteColors: string[];
+  toggleActiveNote: any;
+  sounds: any[];
+  pitches: string[];
+  highlightedNote: number;
+  label: string;
+  currentPage: number;
+  lengthOfPage: number;
+  animatedNotes?: number[];
+  hasDeleteButton?: boolean;
+  smallNotes?: boolean;
+}
+
+export const CreateLine: React.FC<CreateLineProps> = ({
   linePosition,
   notes,
   noteColors,
@@ -12,9 +28,9 @@ export const CreateLine = ({
   pitches,
   highlightedNote,
   label,
-  animatedNotes,
   currentPage,
   lengthOfPage,
+  animatedNotes = [],
   hasDeleteButton = true,
   smallNotes = false,
 }) => {

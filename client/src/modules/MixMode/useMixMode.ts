@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { djContext } from "./context/DjContext";
 import axios from "axios";
-import { Bars } from "svg-loaders-react";
-import { MixMode as Component } from "./Component";
 import { preparePartition, prepareInstruments, playBeat } from "../utils";
 
-let counter;
+import { Sound, Loop } from "../../types";
 
-export const MixMode = () => {
+let counter: number;
+
+export const useMixMode = () => {
   const [loading, setLoading] = useState(false);
   const {
     setPartition,
@@ -23,7 +23,7 @@ export const MixMode = () => {
     setLoopActive,
   } = useContext(djContext);
 
-  let musicPlaying = useRef(null);
+  let musicPlaying = useRef<null | NodeJS.Timer>(null);
 
   useEffect(() => {
     prepareLoop("loop1", ["E-Kicks 1", "E-Hi-Hats 1", "E-Cymbals"]);
@@ -36,7 +36,7 @@ export const MixMode = () => {
     ]);
   }, []);
 
-  const toggleActiveNote = (col, row, sounds, pitches, loop) => {
+  const toggleActiveNote = (col: number, row: number, sounds: Sound[], pitches: string[], loop: Loop) => {
     const updatedPartition = [...loop.partition];
     const depth = sounds.length;
     const newIndex = (updatedPartition[row][col] + 1) % depth;
@@ -44,18 +44,18 @@ export const MixMode = () => {
     setPartition(updatedPartition, loop.name);
   };
 
-  const toggleLoopActive = (loop) => {
+  const toggleLoopActive = (loop: any) => {
     const updatedStatus = [...loop.status];
     const u = updatedStatus[0][0];
     updatedStatus[0][0] = u === 1 ? 0 : 1;
     setLoopActive(updatedStatus, loop.name);
   };
 
-  const prepareLoop = async (loopName, instruments) => {
+  const prepareLoop = async (loopName: string, instrumentNames: string[]) => {
     setLoading(true);
     const length = loopName === "loop3" || loopName === "loop4" ? 16 : 8;
     const { data } = await axios.get("/api/instrument", {
-      params: { names: instruments },
+      params: { names: instrumentNames },
     });
     const preparedInstruments = prepareInstruments(data);
     const newPartition = preparePartition(preparedInstruments, length);
@@ -91,25 +91,20 @@ export const MixMode = () => {
   };
   const onStopBtnPress = () => {
     setIsPlaying(false);
-    clearInterval(musicPlaying.current);
+    clearInterval(musicPlaying.current as any);
   };
 
-  if (loading) {
-    return <Bars width={100} height={50} fill="#000" stroke="#000" />;
-  }
-
-  return (
-    <Component
-      loop1={loop1}
-      loop2={loop2}
-      loop3={loop3}
-      loop4={loop4}
-      onPlayBtnPress={onPlayBtnPress}
-      onStopBtnPress={onStopBtnPress}
-      toggleLoopActive={toggleLoopActive}
-      setLoopActive={setLoopActive}
-      toggleActiveNote={toggleActiveNote}
-      highlightedNote={highlightedNote}
-    />
-  );
+  return {
+    loading,
+    loop1,
+    loop2,
+    loop3,
+    loop4,
+    onPlayBtnPress,
+    onStopBtnPress,
+    toggleLoopActive,
+    setLoopActive,
+    toggleActiveNote,
+    highlightedNote,
+  };
 };

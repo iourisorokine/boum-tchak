@@ -159,7 +159,8 @@ export const randomLoops = {
   },
 };
 
-export const getRandomLoop = (loopName, loopLength) => {
+export const getRandomLoop = (loopName: keyof typeof randomLoops, loopLength: number) => {
+  // @ts-ignore:next-line
   const loops = randomLoops[loopName][loopLength];
   const index = Math.floor(Math.random() * loops.length);
   return loops[index];

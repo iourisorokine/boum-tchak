@@ -11,7 +11,6 @@ export const applyMotif = (sequence: number[], depth: number, length: number ) =
   const note = Math.ceil(Math.random() * depth);
   for (let i = 0; i < length; i++) {
     const currentNote = (i + offset) % motif === 0 ? note : 0;
-    console.log(sequence[i])
     sequence[i] = !!sequence[i]? sequence[i]: currentNote ;
   }
   return sequence;
@@ -22,7 +21,6 @@ export const getRandomSequence = (depth: number, length: number, density: number
   const numberOfMotifs = Math.ceil(Math.random()*(density));
   for( let i = 0; i < numberOfMotifs; i++){
     sequence = applyMotif(sequence, depth, length)
-    console.log('###### sequence', i, sequence)
   }
 
   return sequence;

@@ -1,12 +1,27 @@
 import React, { useContext } from "react";
 import { CreateLine } from "../../CreateSong/components/CreateLine";
 import { Caption, Section, AverageEditBtn, SmallTitle } from "../../../ui-kit";
-import { getRandomLoop } from "../utils/randomLoops";
+// import { getRandomLoop } from "../utils/randomLoops";
 import { getRandomSequence } from "../utils/loopsGenerator";
 import { Switch } from "@material-ui/core";
 import { djContext } from "../context/DjContext";
+import { Sound, Loop as LoopType, Instrument } from "../../../types";
+import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 
-export const Loop = ({
+export interface LoopProps {
+  data: any;
+  toggleActiveNote: (
+    col: number,
+    row: number,
+    sounds: Sound[],
+    pitches: string[],
+    loop: LoopType
+  ) => void;
+  highlightedNote: number;
+  toggleLoopActive: (loop: LoopType) => void;
+}
+
+export const Loop: React.FC<LoopProps> = ({
   data,
   toggleActiveNote,
   highlightedNote,
@@ -14,7 +29,7 @@ export const Loop = ({
 }) => {
   const { setPartition } = useContext(djContext);
 
-  const resetPartition = (loop) => {
+  const resetPartition = (loop: LoopType) => {
     const updatedPartition = [...loop.partition];
     updatedPartition.forEach((line) => {
       line.forEach((note, index) => {
@@ -24,18 +39,18 @@ export const Loop = ({
     setPartition(updatedPartition, loop.name);
   };
 
-  const setRandomLoop = (loop) => {
-    const randomLoop = getRandomLoop(loop.name, loop.partition[0].length);
-    const updatedPartition = [...loop.partition];
-    updatedPartition.forEach((line, lineIndex) => {
-      line.forEach((note, noteIndex) => {
-        line[noteIndex] = randomLoop[lineIndex][noteIndex];
-      });
-    });
-    setPartition(updatedPartition, loop.name);
-  };
+  //  const setRandomLoop = (loop: LoopType) => {
+  //    const randomLoop = getRandomLoop(loop.name, loop.partition[0].length);
+  //    const updatedPartition = [...loop.partition];
+  //   updatedPartition.forEach((line, lineIndex) => {
+  //     line.forEach((note, noteIndex) => {
+  //       line[noteIndex] = randomLoop[lineIndex][noteIndex];
+  //     });
+  //   });
+  //   setPartition(updatedPartition, loop.name);
+  // };
 
-  const setRandomLoop2 = (loop) => {
+  const setRandomLoop2 = (loop: LoopType) => {
     const updatedPartition = [...loop.partition];
     const length = loop.partition[0].length;
     updatedPartition.forEach((line, lineIndex) => {
@@ -51,7 +66,12 @@ export const Loop = ({
   const onToggleActivePress = () => {
     toggleLoopActive(data);
   };
-  const toggleActiveNoteForLoop = (col, row, sounds, pitches) => {
+  const toggleActiveNoteForLoop = (
+    col: number,
+    row: number,
+    sounds: Sound[],
+    pitches: string[]
+  ) => {
     return toggleActiveNote(col, row, sounds, pitches, data);
   };
   const onResetClick = () => {
@@ -67,7 +87,7 @@ export const Loop = ({
           <SmallTitle b style={{ margin: "-4px 0 8px -10px" }}>
             {data.name}
           </SmallTitle>
-          {data.instruments.map((instrument, i) => {
+          {data.instruments.map((instrument: any, i: number) => {
             return (
               <CreateLine
                 key={i}
@@ -81,7 +101,6 @@ export const Loop = ({
                 highlightedNote={highlightedNote % data?.partition[i]?.length}
                 currentPage={1}
                 lengthOfPage={32}
-                hasDeleteButton={false}
               />
             );
           })}

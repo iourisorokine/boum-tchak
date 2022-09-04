@@ -48,3 +48,10 @@ export interface Sound {
   pitch?: string;
   url: string;
 }
+
+export interface Loop {
+  instruments: Instrument[]
+  partition: number[][]
+  name: string,
+  status: number[]
+}

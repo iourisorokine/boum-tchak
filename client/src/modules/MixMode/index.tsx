@@ -1,19 +1,28 @@
 import React from "react";
 import { Loop } from "./elements/Loop";
-import { Section, Heading2, Row, Column, AppIntroLayout } from "../../ui-kit";
+// @ts-ignore:next-line
+import { Bars } from "svg-loaders-react";
+import { Heading2, Row, Column, AppIntroLayout } from "../../ui-kit";
 import { Controls } from "./elements/Controls";
+import { useMixMode } from "./useMixMode";
 
-export const MixMode = ({
-  loop1,
-  loop2,
-  loop3,
-  loop4,
-  onPlayBtnPress,
-  onStopBtnPress,
-  toggleLoopActive,
-  toggleActiveNote,
-  highlightedNote,
-}) => {
+export const MixMode: React.FC = () => {
+  const {
+    loading,
+    loop1,
+    loop2,
+    loop3,
+    loop4,
+    onPlayBtnPress,
+    onStopBtnPress,
+    toggleLoopActive,
+    toggleActiveNote,
+    highlightedNote,
+  } = useMixMode();
+
+  if (loading) {
+    return <Bars width={100} height={50} fill="#000" stroke="#000" />;
+  }
   return (
     <div>
       <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}>
